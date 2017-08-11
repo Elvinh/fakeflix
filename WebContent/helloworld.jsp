@@ -15,7 +15,7 @@
 	</style>
 </head>
 	<body>
-		<h3>hello git</h3><br>
+		<h3>hello elton</h3><br>
 		<%
 		    Class.forName("com.mysql.jdbc.Driver").newInstance();
 		    Connection connection =
