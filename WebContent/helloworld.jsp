@@ -5,7 +5,7 @@
  javax.servlet.*"
 %>
 
-<h3>hello world</h3><br>
+<h3>hello git</h3><br>
 <%
     Class.forName("com.mysql.jdbc.Driver").newInstance();
     Connection connection =
