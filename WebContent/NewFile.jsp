@@ -20,7 +20,7 @@ p {
 <h1 align="center"> FakeFlix</h1>
 <body>
 	<p>hey</p>
-	<img src="C:\Users\Joanne\desktop\fakeflix\WebContent\Larvitar.png" HEIGHT="120" WIDTH="120" BORDER="0">
+	<img src="<%= request.getContextPath() %>/images/Larvitar.png" HEIGHT="120" WIDTH="120" BORDER="0"/>
 	
 </body>
 <%
