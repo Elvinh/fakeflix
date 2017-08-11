@@ -28,7 +28,7 @@ table.center {
 		<%
 		    Class.forName("com.mysql.jdbc.Driver").newInstance();
 		    Connection connection =
-		      DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb", "root", "lilwizzard1");
+		      DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb", "root", "e951l632v");
 		    Statement select = connection.createStatement();
 		    ResultSet result = select.executeQuery("Select *  from stars ");
 		    out.println("The results of the query");
