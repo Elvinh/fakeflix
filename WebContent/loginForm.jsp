@@ -62,7 +62,7 @@ container
 </head>
 <body>
 
-<form action  = "/loginpage.php">
+<form method = "POST" action = "validateLogin.jsp">
 	<div class = "container">
 	<label>Email</label>
 	<input type = "text" placeholder = "Enter Email" name = "email" required>
@@ -71,33 +71,5 @@ container
 	<button type = "Login"> Login </button>
 	</div>
 </form>
-
-<% 
-public void login(HttpServletResponse response)
-{
-	try
-	{
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		Class.forName("com.mysql.jdbc.Driver").newInstance();
-		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb", "root", "lilwizzard1");
-		Statement select = connection.createStatement();
-	    ResultSet result = select.executeQuery("Select *  from customers where customers.email = '"+ email + "' and customers.password = '" + password + "'");
-	    
-	    if(result.absolute(1))
-	    {
-	    	response.sendRedirect("main.jsp");
-	    }
-	    else
-	    {
-	    	System.out.println("Invalid username/password");
-	    }
-	}
-	catch(Exception e)
-	{
-		System.out.println("Invalid username/passwor");
-	}
-}
-%>
 </body>
 </html>
