@@ -22,7 +22,7 @@
     	background-repeat: no-repeat;
     	padding: 12px 20px 12px 40px;
 	}
-	form {
+	.search {
 		padding-top: 150px;
 	}
 	/* Dropdown Button */
@@ -35,12 +35,11 @@
 	    cursor: pointer;
 
 	}
-	
 	/* The container <div> - needed to position the dropdown content */
 	.dropdown {
 	    position: relative;
 	    display: inline-block;
-	    float: right;
+	    float: center;
 	}
 	
 	/* Dropdown Content (Hidden by Default) */
@@ -54,16 +53,20 @@
 	}
 	
 	/* Links inside the dropdown */
-	.dropdown-content a {
+	.dropdown-content button {
+	    border:none; 
 	    color: black;
+	   	background-color: #f9f9f9;
 	    padding: 12px 16px;
-	    text-decoration: none;
-	    display: block;
+	    width: 160px;
+	   	cursor: pointer;
+	    
 	}
 	
-	/* Change color of dropdown links on hover */
-	.dropdown-content a:hover {background-color: #f1f1f1}
 	
+	/* Change color of dropdown links on hover */
+	
+	.dropdown-content button:hover {background-color: #f1f1f1}
 	/* Show the dropdown menu on hover */
 	.dropdown:hover .dropdown-content {
 	    display: block;
@@ -76,16 +79,20 @@
 </style>
 </head>
 <body>
+	
 	<h1>FakeFlix</h1>
 	<div class="dropdown">
 		<button class="dropbtn">Browse</button>
 		<div class="dropdown-content">
-			<a href=""<%= request.getContextPath() %>/index.jsp">Test</a>
-			<a href="">By Stars</a>
-			<a href="">By Title</a>
+			<form method="post" action="<%= request.getContextPath() %>/searchresult" >
+	    		<button class="link" name="stars" value="stars">By Stars</button>
+				<button class="link" name="bar" value="movies">hi</button>
+			</form>
+
 		</div>
 	</div>
-	<form>
+	
+	<form class="search" method="post" action="">
 		<input type="text" name="search" placeholder="Search for movie titles...">
 	</form>
 <body>
