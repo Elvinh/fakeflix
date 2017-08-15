@@ -787,7 +787,7 @@ information in the standard deployment descriptor.
 Tools are not allowed to add the non-standard information into the
 standard deployment descriptor.
 -->
-<web-app>
+<web-app xmlns:web="http://xmlns.jcp.org/xml/ns/javaee">
   <display-name>Test Tomcat Connection to MySQL DB</display-name>
   <description>
       Test Tomcat Connection to MySQL DB
@@ -799,5 +799,13 @@ standard deployment descriptor.
   <servlet-mapping>
     <servlet-name>SearchResult</servlet-name>
     <url-pattern>/searchresult</url-pattern>
+  </servlet-mapping>
+    <servlet>
+    <servlet-name>MoviesByStar</servlet-name>
+    <servlet-class>MoviesByStar</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MoviesByStar</servlet-name>
+    <url-pattern>/getMovie</url-pattern>
   </servlet-mapping>
 </web-app>

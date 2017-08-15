@@ -26,9 +26,12 @@ public class SearchResult extends HttpServlet {
 		String user = "root";
 		String password = "e951l632v";
 		
-		String browseType = request.getParameter("stars");
-		
-		String sqlQuery = "SELECT first_name, last_name  FROM stars";
+		String browseType = request.getParameter("browseBy");
+		String sqlQuery = null;
+		if(browseType.equals("title"))
+			sqlQuery = "SELECT title  FROM movies";
+		else if(browseType.equals("genre"))
+			sqlQuery = "SELECT name  FROM genres";
 		
 		try {
 			Class.forName(driver);
@@ -38,15 +41,15 @@ public class SearchResult extends HttpServlet {
 			st = connection.createStatement();
 			ResultSet rs = st.executeQuery(sqlQuery);
 			while(rs.next()) {
-				list.add(rs.getString(1) + " " + rs.getString(2));
+				list.add(rs.getString(1));
 			}
 		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		System.out.println("hu");
 		request.setAttribute("browseResult", list);
+		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/searchresult.jsp");
 		dispatcher.forward(request, response);
 		
