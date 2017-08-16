@@ -800,7 +800,6 @@ standard deployment descriptor.
     <servlet-name>BrowseResultServlet</servlet-name>
     <url-pattern>/browseResult</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>GetMovieServlet</servlet-name>
     <servlet-class>GetMovieServlet</servlet-class>
@@ -809,7 +808,6 @@ standard deployment descriptor.
     <servlet-name>GetMovieServlet</servlet-name>
     <url-pattern>/getMovie</url-pattern>
   </servlet-mapping>
-   
   <servlet>
     <servlet-name>GetStarServlet</servlet-name>
     <servlet-class>GetStarServlet</servlet-class>
@@ -817,5 +815,23 @@ standard deployment descriptor.
   <servlet-mapping>
     <servlet-name>GetStarServlet</servlet-name>
     <url-pattern>/getStar</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/loginForm</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ValidateLoginServlet</servlet-name>
+    <servlet-class>ValidateLoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ValidateLoginServlet</servlet-name>
+    <url-pattern>/loginForm</url-pattern>
   </servlet-mapping>
 </web-app>

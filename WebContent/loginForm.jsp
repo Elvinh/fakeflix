@@ -62,7 +62,7 @@ container
 </head>
 <body>
 
-<form method = "POST" action = "validateLogin.jsp">
+<form method = "POST" action = "<%= request.getContextPath() %>/userInfo">
 	<div class = "container">
 	<label>Email</label>
 	<input type = "text" placeholder = "Enter Email" name = "email" required>

@@ -76,11 +76,21 @@
 	.dropdown:hover .dropbtn {
 	    background-color: #3e8e41;
 	}
+	
+	.login
+	{
+		
+	}
 </style>
 </head>
 <body>
 	
 	<h1>FakeFlix</h1>
+	<div class = "login">
+		<form method = "get" action = "<%= request.getContextPath() %>/loginForm.jsp">
+			<button class = "link" name = "Login" value = "Login"> Login here</button>
+		</form>
+	</div>
 	<div class="dropdown">
 		<button class="dropbtn">Browse</button>
 		<div class="dropdown-content">
