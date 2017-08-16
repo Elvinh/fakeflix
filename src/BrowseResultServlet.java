@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+@WebServlet("/browse/*")
+
 public class BrowseResultServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -24,10 +26,10 @@ public class BrowseResultServlet extends HttpServlet {
 		List list = new ArrayList();
 		
 		String url = "jdbc:mysql://localhost:3306/";
-		String db = "movie_db";
+		String db = "moviedb";
 		String driver = "com.mysql.jdbc.Driver";
 		String user = "root";
-		String password = "lilwizzard1";
+		String password = "e951l632v";
 		
 		String browseType = request.getParameter("browseBy");
 		String sqlQuery = null;
@@ -56,7 +58,7 @@ public class BrowseResultServlet extends HttpServlet {
 		
 		request.setAttribute("browseResult", list);
 		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/browseResult.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/browseResultView.jsp");
 		dispatcher.forward(request, response);
 	}
 	
