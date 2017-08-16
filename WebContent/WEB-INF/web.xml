@@ -832,6 +832,6 @@ standard deployment descriptor.
   </servlet>
   <servlet-mapping>
     <servlet-name>ValidateLoginServlet</servlet-name>
-    <url-pattern>/loginForm</url-pattern>
+    <url-pattern>/userInfo</url-pattern>
   </servlet-mapping>
 </web-app>
