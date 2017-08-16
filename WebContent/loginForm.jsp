@@ -61,15 +61,14 @@ container
 <title>Insert title here</title>
 </head>
 <body>
-
-<form method = "POST" action = "<%= request.getContextPath() %>/userInfo">
-	<div class = "container">
-	<label>Email</label>
-	<input type = "text" placeholder = "Enter Email" name = "email" required>
-	<label>Password</label>>
-	<input type = "password" placeholder = "Enter password" name = "password" required>
-	<button type = "Login"> Login </button>
-	</div>
-</form>
+	<form method = "post" action = "<%= request.getContextPath() %>/user">
+		<div class = "container">
+			<label>Email</label>
+			<input type = "text" placeholder = "Enter Email" name = "email" required>
+			<label>Password</label>>
+			<input type = "password" placeholder = "Enter password" name = "password" required>
+			<button type = "Login"> Login </button>
+		</div>
+	</form>
 </body>
 </html>
