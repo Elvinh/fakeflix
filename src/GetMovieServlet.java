@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class MoviesByStar
  */
-@WebServlet("/GetMovieServlet")
+@WebServlet("/getMovie/*")
 public class GetMovieServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -43,10 +43,10 @@ public class GetMovieServlet extends HttpServlet {
 		List stars = new ArrayList();
 		
 		String url = "jdbc:mysql://localhost:3306/";
-		String db = "movie_db";
+		String db = "moviedb";
 		String driver = "com.mysql.jdbc.Driver";
 		String user = "root";
-		String password = "lilwizzard1";
+		String password = "e951l632v";
 		
 		String selectedType = request.getParameter("selected");
 		String type = null;
@@ -102,7 +102,7 @@ public class GetMovieServlet extends HttpServlet {
 		request.setAttribute("requestedMovie", list);
 		request.setAttribute("type", type);
 		request.setAttribute("stars", stars);
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/getMovie.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/getMovieView.jsp");
 		dispatcher.forward(request, response);
 		
 	}
