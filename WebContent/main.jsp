@@ -87,7 +87,7 @@
 	
 	<h1>FakeFlix</h1>
 	<div class = "login">
-		<form method = "get" action = "<%= request.getContextPath() %>/loginForm.jsp">
+		<form method = "get" action = "<%= request.getContextPath() %>/login">
 			<button class = "link" name = "Login" value = "Login"> Login here</button>
 		</form>
 	</div>
