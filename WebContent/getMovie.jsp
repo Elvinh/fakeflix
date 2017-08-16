@@ -12,13 +12,22 @@
 		<%
 			List movies = new ArrayList();
 			movies = (ArrayList)request.getAttribute("requestedMovie");
+			List stars = new ArrayList();
+			stars = (ArrayList)request.getAttribute("stars");
+			
 			String type = (String)request.getAttribute("type");
 			for(int i = 0; i < movies.size(); i++) { 
 				if(type.equals("title")) {
 					List movieTitle = (List) movies.get(i); %>
 					<tr><td><%=movieTitle.get(0)%></td></tr>
+					<img src="<%=movieTitle.get(3)%>" HEIGHT="120" WIDTH="120" BORDER="0"/>
+					<%  for(int j = 0; j < stars.size(); j++) { %>
+						<tr><td><a href="getStar?selected=<%=stars.get(j)%>"><%=stars.get(j)%><a/></td></tr>
+					<%  }%>
 				<%} else { %>
-					<tr><td><%=movies.get(i)%></td></tr>
+					<tr><td>
+					<a href="getMovie?selected=<%=movies.get(i)%>"><%=movies.get(i)%><a/>
+					</td></tr>
 				<%} %>
 			<%} %>
 	</table>

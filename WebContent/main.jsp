@@ -84,7 +84,7 @@
 	<div class="dropdown">
 		<button class="dropbtn">Browse</button>
 		<div class="dropdown-content">
-			<form method="post" action="<%= request.getContextPath() %>/searchresult" >
+			<form method="get" action="<%= request.getContextPath() %>/browseResult" >
 	    		<button class="link" name="browseBy" value="title">By Title</button>
 				<button class="link" name="browseBy" value="genre">By Genre</button>
 			</form>

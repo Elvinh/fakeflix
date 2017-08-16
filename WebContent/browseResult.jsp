@@ -15,13 +15,14 @@
 </head>
 
 <body>
-	<form action="<%= request.getContextPath() %>/getMovie" method="post">
+	<form action="<%= request.getContextPath() %>/getMovie" method="get">
 	<table>
 		<%
 			List browseCategory = new ArrayList();
 			browseCategory = (ArrayList)request.getAttribute("browseResult");	
-			for(int i = 0; i < browseCategory.size(); i++) { %>
-				<tr><td><input type=submit name="selected" value="<%= browseCategory.get(i) %>"></td></tr>
+			for(int i = 0; i < browseCategory.size(); i++) { 
+				List item = (List) browseCategory.get(i);%>
+				<tr><td><button name="selected" value="<%= item.get(0) %>"><%= item.get(0) %></button></td></tr>
 			<% } %>
 	</table>
 	</form>

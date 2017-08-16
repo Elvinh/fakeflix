@@ -20,14 +20,14 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class MoviesByStar
  */
-@WebServlet("/MoviesByStar")
-public class MoviesByStar extends HttpServlet {
+@WebServlet("/GetMovieServlet")
+public class GetMovieServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MoviesByStar() {
+    public GetMovieServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,19 +37,11 @@ public class MoviesByStar extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 		response.setContentType("text/html");
 		HttpSession session = request.getSession(true);
 		List list = new ArrayList();
-
+		List stars = new ArrayList();
+		
 		String url = "jdbc:mysql://localhost:3306/";
 		String db = "moviedb";
 		String driver = "com.mysql.jdbc.Driver";
@@ -71,9 +63,7 @@ public class MoviesByStar extends HttpServlet {
 			st = connection.createStatement();
 			ResultSet rs = st.executeQuery(sqlQuery);
 			
-			if(rs.absolute(1))
-			{
-				System.out.println("works");
+			if(rs.absolute(1)) {
 				rs = st.executeQuery(sqlQuery);
 				while(rs.next()) {
 					List movie = new ArrayList();
@@ -85,15 +75,24 @@ public class MoviesByStar extends HttpServlet {
 					list.add(movie);
 				}
 				type = "title";
+				sqlQuery = "SELECT first_name, last_name FROM stars WHERE stars.id in (SELECT star_id FROM stars_in_movies WHERE stars_in_movies.movie_id in (SELECT id FROM movies WHERE movies.title = '" + selectedType + "'))";
+				rs = st.executeQuery(sqlQuery);
+				while(rs.next()) {
+					String starName = rs.getString(1) + " " + rs.getString(2);
+					stars.add(starName);
+				}
+				rs.close();
 			}
 			else {
 				sqlQuery = "SELECT title FROM movies WHERE movies.id in (SELECT movie_id FROM genres_in_movies WHERE genres_in_movies.genre_id in (SELECT id FROM genres WHERE genres.name = '" + selectedType + "'))";
-				rs = st.executeQuery(sqlQuery);
-				while (rs.next())
+				ResultSet rs2 = st.executeQuery(sqlQuery);
+
+				while (rs2.next())
 		        {
-					list.add(rs.getString(1));
+					list.add(rs2.getString(1));
 		        }
 				type = "genre";
+				rs2.close();
 			}
 		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -102,9 +101,17 @@ public class MoviesByStar extends HttpServlet {
 		
 		request.setAttribute("requestedMovie", list);
 		request.setAttribute("type", type);
+		request.setAttribute("stars", stars);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/getMovie.jsp");
 		dispatcher.forward(request, response);
 		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 	}
 
 }

@@ -787,25 +787,35 @@ information in the standard deployment descriptor.
 Tools are not allowed to add the non-standard information into the
 standard deployment descriptor.
 -->
-<web-app xmlns:web="http://xmlns.jcp.org/xml/ns/javaee">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
   <display-name>Test Tomcat Connection to MySQL DB</display-name>
   <description>
       Test Tomcat Connection to MySQL DB
     </description>
   <servlet>
-    <servlet-name>SearchResult</servlet-name>
-    <servlet-class>SearchResult</servlet-class>
+    <servlet-name>BrowseResultServlet</servlet-name>
+    <servlet-class>BrowseResultServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>SearchResult</servlet-name>
-    <url-pattern>/searchresult</url-pattern>
+    <servlet-name>BrowseResultServlet</servlet-name>
+    <url-pattern>/browseResult</url-pattern>
   </servlet-mapping>
-    <servlet>
-    <servlet-name>MoviesByStar</servlet-name>
-    <servlet-class>MoviesByStar</servlet-class>
+  
+  <servlet>
+    <servlet-name>GetMovieServlet</servlet-name>
+    <servlet-class>GetMovieServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>MoviesByStar</servlet-name>
+    <servlet-name>GetMovieServlet</servlet-name>
     <url-pattern>/getMovie</url-pattern>
+  </servlet-mapping>
+   
+  <servlet>
+    <servlet-name>GetStarServlet</servlet-name>
+    <servlet-class>GetStarServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetStarServlet</servlet-name>
+    <url-pattern>/getStar</url-pattern>
   </servlet-mapping>
 </web-app>

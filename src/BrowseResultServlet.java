@@ -13,9 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class SearchResult extends HttpServlet {
-       
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+public class BrowseResultServlet extends HttpServlet {
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		response.setContentType("text/html");
 		HttpSession session = request.getSession(true);
 		List list = new ArrayList();
@@ -29,9 +32,9 @@ public class SearchResult extends HttpServlet {
 		String browseType = request.getParameter("browseBy");
 		String sqlQuery = null;
 		if(browseType.equals("title"))
-			sqlQuery = "SELECT title  FROM movies";
+			sqlQuery = "SELECT title, id  FROM movies";
 		else if(browseType.equals("genre"))
-			sqlQuery = "SELECT name  FROM genres";
+			sqlQuery = "SELECT name, id  FROM genres";
 		
 		try {
 			Class.forName(driver);
@@ -41,7 +44,10 @@ public class SearchResult extends HttpServlet {
 			st = connection.createStatement();
 			ResultSet rs = st.executeQuery(sqlQuery);
 			while(rs.next()) {
-				list.add(rs.getString(1));
+				List movies = new ArrayList();
+				movies.add(rs.getString(1));
+				movies.add(rs.getString(2));
+				list.add(movies);
 			}
 		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -50,9 +56,13 @@ public class SearchResult extends HttpServlet {
 		
 		request.setAttribute("browseResult", list);
 		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/searchresult.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/browseResult.jsp");
 		dispatcher.forward(request, response);
-		
+	}
+	
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 	}
 
 }
