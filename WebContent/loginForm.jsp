@@ -14,8 +14,7 @@ javax.servlet.http.HttpServletRequest,
 <html>
 <head>
 <style type="text/css">
-form
-{
+.login {
 	border: 3px solid #f1f1f1;
 }
 
@@ -30,7 +29,7 @@ input[type=text], input[type = password]
 	font: Tahoma;
 }
 
-button
+.loginBtn
 {
 	background-color: #4caf50;
 	color: white;
@@ -43,12 +42,12 @@ button
 	
 }
 
-button:hover
+.loginBtn:hover
 {
 	opacity: 0.8;
 }
 
-container
+.container
 {
 	padding: 16px;
 	font: Tahoma;
@@ -61,13 +60,15 @@ container
 <title>Insert title here</title>
 </head>
 <body>
-	<form method = "post" action = "<%= request.getContextPath() %>/user">
+	<jsp:include page="_header.jsp"></jsp:include>
+	
+	<form class="login" method = "post" action = "<%= request.getContextPath() %>/user">
 		<div class = "container">
 			<label>Email</label>
 			<input type = "text" placeholder = "Enter Email" name = "email" required>
-			<label>Password</label>>
+			<label>Password</label>
 			<input type = "password" placeholder = "Enter password" name = "password" required>
-			<button type = "Login"> Login </button>
+			<button class="loginBtn" type = "Login"> Login </button>
 		</div>
 	</form>
 </body>

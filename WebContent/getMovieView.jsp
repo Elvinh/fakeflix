@@ -8,6 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<jsp:include page="_header.jsp"></jsp:include>
+
 	<table>
 		<%
 			List movies = new ArrayList();
@@ -19,8 +21,10 @@
 			for(int i = 0; i < movies.size(); i++) { 
 				if(type.equals("title")) {
 					List movieTitle = (List) movies.get(i); %>
-					<tr><td><a href = "getMovie?selected=<%=movieTitle.get(0)%>"><%= movieTitle.get(0) %></a></td></tr>
-					<img src="<%=movieTitle.get(3)%>" HEIGHT="120" WIDTH="120" BORDER="0"/>
+					<tr><td><a href = "getMovie?selected=<%=movieTitle.get(0)%>">
+						<%=movieTitle.get(0)%>
+					</a></td></tr>
+					
 					<tr><td><%= movieTitle.get(1)%></td></tr>
 					<tr><td><%= movieTitle.get(2)%></td></tr>
 					<tr><td><%= movieTitle.get(4)%></td></tr>

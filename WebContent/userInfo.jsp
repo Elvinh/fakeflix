@@ -8,6 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<jsp:include page="_header.jsp"></jsp:include>
+
 		<p>Hello</p>
 	<%  String name = "";
 		name = (String) session.getAttribute("loginedU");

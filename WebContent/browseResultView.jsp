@@ -15,6 +15,8 @@
 </head>
 
 <body>
+	<jsp:include page="_header.jsp"></jsp:include>
+
 	<a href="browse?browseBy=title&orderBy=title&page=1">Title</a>
 	<a href="browse?browseBy=title&orderBy=year">Year</a>
 	<a href="browse?browseBy=title&orderBy=title&page=1">1</a>	
@@ -28,7 +30,7 @@
 			browseCategory = (ArrayList)request.getAttribute("browseResult");	
 			for(int i = 0; i < browseCategory.size(); i++) { 
 				List item = (List) browseCategory.get(i);%>
-				<tr><td><button name="selected" value="<%= item.get(0) %>"><%= item.get(0) %></button></td></tr>
+				<tr><td><button name="selected" value="<%= item.get(0) %>"><img src="<%=item.get(1)%>" HEIGHT="120" WIDTH="120" BORDER="0"/></button></td></tr>
 			<% } %>
 	</table>
 	</form>

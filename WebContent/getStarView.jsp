@@ -8,6 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<jsp:include page="_header.jsp"></jsp:include>
+
 	<table>
 		<%
 			List star = new ArrayList();

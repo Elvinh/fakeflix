@@ -43,7 +43,7 @@ public class GetStarServlet extends HttpServlet {
 		List moviesByStar = new ArrayList();
 		
 		String url = "jdbc:mysql://localhost:3306/";
-		String db = "movie_db";
+		String db = "moviedb";
 		String driver = "com.mysql.jdbc.Driver";
 		String user = "root";
 		String password = "admin";

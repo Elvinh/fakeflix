@@ -39,14 +39,14 @@ public class BrowseResultServlet extends HttpServlet {
 		if(page == null) {
 			page = "1";
 		}
-		int lower = (Integer.parseInt(page) - 1)  * 100;
+		int lower = (Integer.parseInt(page) - 1)  * 25;
 		System.out.println(lower);
-		int higher = Integer.parseInt(page) * 100;
+		int higher = Integer.parseInt(page) * 25;
 		String range = String.valueOf(lower) + ", "  + String.valueOf(higher);
 		
 		String sqlQuery = null;
 		if(browseType.equals("title")) {
-			sqlQuery = "SELECT title, id  FROM movies ORDER BY " + orderBy + " LIMIT " + range;
+			sqlQuery = "SELECT title, banner_url  FROM movies ORDER BY " + orderBy + " LIMIT " + range;
 		}
 		else if(browseType.equals("genre"))
 			sqlQuery = "SELECT name, id  FROM genres";
