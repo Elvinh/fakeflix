@@ -35,13 +35,14 @@ public class ValidateLoginServlet extends HttpServlet {
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb", "root", "e951l632v");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/movie_db", "root", "lilwizzard1");
 			Statement select = connection.createStatement();
 		    ResultSet result = select.executeQuery("Select *  from customers where customers.email = '"+ email + "' and customers.password = '" + password + "'");
+	    	HttpSession session = null;
 
 		    if(result.absolute(1))
 		    {
-		    	//HttpSession session = request.getSession();
+		    	session = request.getSession();
 		    
 			    ResultSet rs = select.executeQuery("Select first_name, last_name from customers where customers.email ='"+ email + "' and customers.password = '" + password + "'");
 			    while(rs.next())
@@ -50,7 +51,10 @@ public class ValidateLoginServlet extends HttpServlet {
 			    	nameList.add(rs.getString(2));
 
 			    }
-			    //session.setAttribute("loginedU", rs.getString(1) + " " + rs.getString(2));
+			  
+			    
+			    session.setAttribute("loginedU", (String) nameList.get(0) + " " + nameList.get(1));
+			    
 		    	request.setAttribute("email", email);
 			    request.setAttribute("nameList", nameList);
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/userInfo.jsp");
