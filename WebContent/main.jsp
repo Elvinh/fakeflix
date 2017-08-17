@@ -121,8 +121,8 @@
 		</div>
 	</div>
 	
-	<form class="search" method="post" action="">
-		<input type="text" name="search" placeholder="Search for movie titles...">
+	<form class="search" method="get" action="<%= request.getContextPath() %>/getMovie">
+		<input type="text" name="selected" placeholder="Search for movie titles...">
 	</form>
 <body>
 </html>

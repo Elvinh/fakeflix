@@ -52,8 +52,8 @@ public class GetMovieServlet extends HttpServlet {
 		String type = null;
 		String sqlQuery = null;
 		
-		
-		sqlQuery = "SELECT title, year, director, banner_url, trailer_url FROM movies WHERE movies.title = \"" + selectedType + "\"";
+		selectedType = "%" + selectedType + "%";
+		sqlQuery = "SELECT title, year, director, banner_url, trailer_url FROM movies WHERE movies.title LIKE \"" + selectedType + "\"";
 		
 		try {
 			Class.forName(driver);
@@ -75,7 +75,7 @@ public class GetMovieServlet extends HttpServlet {
 					list.add(movie);
 				}
 				type = "title";
-				sqlQuery = "SELECT first_name, last_name, id FROM stars WHERE stars.id in (SELECT star_id FROM stars_in_movies WHERE stars_in_movies.movie_id in (SELECT id FROM movies WHERE movies.title = \"" + selectedType + "\"))";
+				sqlQuery = "SELECT first_name, last_name, id FROM stars WHERE stars.id in (SELECT star_id FROM stars_in_movies WHERE stars_in_movies.movie_id in (SELECT id FROM movies WHERE movies.title LIKE \"" + selectedType + "\"))";
 				rs = st.executeQuery(sqlQuery);
 				while(rs.next()) {
 					List star = new ArrayList();

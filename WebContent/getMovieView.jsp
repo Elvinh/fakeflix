@@ -19,8 +19,11 @@
 			for(int i = 0; i < movies.size(); i++) { 
 				if(type.equals("title")) {
 					List movieTitle = (List) movies.get(i); %>
-					<tr><td><%=movieTitle.get(0)%></td></tr>
+					<tr><td><a href = "getMovie?selected=<%=movieTitle.get(0)%>"><%= movieTitle.get(0) %></a></td></tr>
 					<img src="<%=movieTitle.get(3)%>" HEIGHT="120" WIDTH="120" BORDER="0"/>
+					<tr><td><%= movieTitle.get(1)%></td></tr>
+					<tr><td><%= movieTitle.get(2)%></td></tr>
+					<tr><td><%= movieTitle.get(4)%></td></tr>
 					<%  for(int j = 0; j < stars.size(); j++) { 
 						ArrayList star = (ArrayList)stars.get(j); %>
 						<tr><td><a href="getStar?selected=<%=star.get(2)%>"><%=star.get(0) + " " + star.get(1)%><a/></td></tr>
