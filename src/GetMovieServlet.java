@@ -53,7 +53,7 @@ public class GetMovieServlet extends HttpServlet {
 		String sqlQuery = null;
 		
 		
-		sqlQuery = "SELECT title, year, director, banner_url, trailer_url FROM movies WHERE movies.title = '" + selectedType + "'";
+		sqlQuery = "SELECT title, year, director, banner_url, trailer_url FROM movies WHERE movies.title = \"" + selectedType + "\"";
 		
 		try {
 			Class.forName(driver);
@@ -75,16 +75,19 @@ public class GetMovieServlet extends HttpServlet {
 					list.add(movie);
 				}
 				type = "title";
-				sqlQuery = "SELECT first_name, last_name FROM stars WHERE stars.id in (SELECT star_id FROM stars_in_movies WHERE stars_in_movies.movie_id in (SELECT id FROM movies WHERE movies.title = '" + selectedType + "'))";
+				sqlQuery = "SELECT first_name, last_name, id FROM stars WHERE stars.id in (SELECT star_id FROM stars_in_movies WHERE stars_in_movies.movie_id in (SELECT id FROM movies WHERE movies.title = \"" + selectedType + "\"))";
 				rs = st.executeQuery(sqlQuery);
 				while(rs.next()) {
-					String starName = rs.getString(1) + " " + rs.getString(2);
-					stars.add(starName);
+					List star = new ArrayList();
+					star.add(rs.getString(1));
+					star.add(rs.getString(2));
+					star.add(rs.getString(3));
+					stars.add(star);
 				}
 				rs.close();
 			}
 			else {
-				sqlQuery = "SELECT title FROM movies WHERE movies.id in (SELECT movie_id FROM genres_in_movies WHERE genres_in_movies.genre_id in (SELECT id FROM genres WHERE genres.name = '" + selectedType + "'))";
+				sqlQuery = "SELECT title FROM movies WHERE movies.id in (SELECT movie_id FROM genres_in_movies WHERE genres_in_movies.genre_id in (SELECT id FROM genres WHERE genres.name = \"" + selectedType + "\"))";
 				ResultSet rs2 = st.executeQuery(sqlQuery);
 
 				while (rs2.next())

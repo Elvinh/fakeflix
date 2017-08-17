@@ -21,8 +21,9 @@
 					List movieTitle = (List) movies.get(i); %>
 					<tr><td><%=movieTitle.get(0)%></td></tr>
 					<img src="<%=movieTitle.get(3)%>" HEIGHT="120" WIDTH="120" BORDER="0"/>
-					<%  for(int j = 0; j < stars.size(); j++) { %>
-						<tr><td><a href="getStar?selected=<%=stars.get(j)%>"><%=stars.get(j)%><a/></td></tr>
+					<%  for(int j = 0; j < stars.size(); j++) { 
+						ArrayList star = (ArrayList)stars.get(j); %>
+						<tr><td><a href="getStar?selected=<%=star.get(2)%>"><%=star.get(0) + " " + star.get(1)%><a/></td></tr>
 					<%  }%>
 				<%} else { %>
 					<tr><td>

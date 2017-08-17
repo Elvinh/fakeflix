@@ -12,10 +12,16 @@
 		<%
 			List star = new ArrayList();
 			star = (ArrayList)request.getAttribute("requestedStar");
+			
+			List movies = new ArrayList();
+			movies = (ArrayList)request.getAttribute("moviesByStar");
 		%>
 			<img src="<%=star.get(4)%>" HEIGHT="120" WIDTH="120" BORDER="0"/>
 			<%for(int i = 0; i < star.size()-1; i++) { %>
 					<tr><td><%=star.get(i)%></td></tr>
+			<%} %>
+			<%for(int i = 0; i < movies.size(); i++) { %>
+					<tr><td><a href="getMovie?selected=<%=movies.get(i)%>"><%=movies.get(i)%><a/></td></tr>
 			<%} %>
 	</table>
 </body>
