@@ -59,7 +59,7 @@ input[type=text], input[type = password]
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
-<body>
+<body bgcolor="#282828">
 	<jsp:include page="_header.jsp"></jsp:include>
 	
 	<form class="login" method = "post" action = "<%= request.getContextPath() %>/user">

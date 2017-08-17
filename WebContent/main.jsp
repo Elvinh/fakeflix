@@ -4,10 +4,12 @@
 <html>
 
 <head>
+<style>
+</style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Main</title>
 </head>
-<body>
+<body bgcolor="#282828">
 	<jsp:include page="_header.jsp"></jsp:include>
 	<%  
 	if(session.getAttribute("loginedU") == null)

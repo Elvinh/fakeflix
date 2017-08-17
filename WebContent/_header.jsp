@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <style>
 .page-head {
-    background-color: #9933cc;
+    background-color: #131313;
     display: flex;
     align-items: center;
 }
@@ -13,12 +13,12 @@
 
 .page-head h1 a {
 	text-decoration: none;
-	color: white;
+	color: #d01717;
 }
 
 /* Dropdown Button */
 .dropbtn {
-    background-color: #4CAF50;
+    background-color: #d01717;
     color: white;
     padding: 16px;
     font-size: 16px;
@@ -65,7 +65,7 @@
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
-    background-color: #3e8e41;
+    background-color: #921010;
 }
 
 .searchBar {
@@ -102,7 +102,7 @@
 </style>
 
 <header class="page-head">
-	<h1><a href="home">FakeFlix</a></h1>
+	<h1><a href="home">FAKEFLIX</a></h1>
 	<div class="dropdown">
 		<button class="dropbtn">Browse</button>
 		<div class="dropdown-content">
