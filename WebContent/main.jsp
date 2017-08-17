@@ -86,6 +86,7 @@
 <body>
 	
 	<h1>FakeFlix</h1>
+	<h3>Hello <%= (String) session.getAttribute("loginedU") %></h3>
 	<div class = "login">
 		<form method = "get" action = "<%= request.getContextPath() %>/login">
 			<button class = "link" name = "Login" value = "Login"> Login here</button>
