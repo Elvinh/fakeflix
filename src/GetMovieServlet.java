@@ -43,10 +43,10 @@ public class GetMovieServlet extends HttpServlet {
 		List stars = new ArrayList();
 		
 		String url = "jdbc:mysql://localhost:3306/";
-		String db = "movie_db";
+		String db = "moviedb";
 		String driver = "com.mysql.jdbc.Driver";
 		String user = "root";
-		String password = "lilwizzard1";
+		String password = "admin";
 		
 		String selectedType = request.getParameter("selected");
 		String type = null;

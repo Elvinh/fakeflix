@@ -26,10 +26,10 @@ public class BrowseResultServlet extends HttpServlet {
 		List list = new ArrayList();
 		
 		String url = "jdbc:mysql://localhost:3306/";
-		String db = "movie_db";
+		String db = "moviedb";
 		String driver = "com.mysql.jdbc.Driver";
 		String user = "root";
-		String password = "lilwizzard1";
+		String password = "admin";
 		
 		String browseType = request.getParameter("browseBy");
 		String orderBy = request.getParameter("orderBy");

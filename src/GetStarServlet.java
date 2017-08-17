@@ -46,7 +46,7 @@ public class GetStarServlet extends HttpServlet {
 		String db = "movie_db";
 		String driver = "com.mysql.jdbc.Driver";
 		String user = "root";
-		String password = "lilwizzard1";
+		String password = "admin";
 		
 		String star = request.getParameter("selected");
 		//String firstName = star.split(" ")[0];

@@ -35,7 +35,7 @@ public class ValidateLoginServlet extends HttpServlet {
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/movie_db", "root", "lilwizzard1");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb", "root", "admin");
 			Statement select = connection.createStatement();
 		    ResultSet result = select.executeQuery("Select *  from customers where customers.email = '"+ email + "' and customers.password = '" + password + "'");
 	    	HttpSession session = null;
