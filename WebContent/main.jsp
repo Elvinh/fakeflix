@@ -86,12 +86,31 @@
 <body>
 	
 	<h1>FakeFlix</h1>
-	<h3>Hello <%= (String) session.getAttribute("loginedU") %></h3>
+	<%  
+	if(session.getAttribute("loginedU") == null)
+		{%>
+			<h3> Hello </h3>
+		<%}
+		else
+		{
+			%><h3>Hello <%= (String) session.getAttribute("loginedU")%></h3>
+		<%}%>
+
 	<div class = "login">
 		<form method = "get" action = "<%= request.getContextPath() %>/login">
 			<button class = "link" name = "Login" value = "Login"> Login here</button>
 		</form>
 	</div>
+	
+	<div class = "logout">
+		<form method = "get" action = "<%= request.getContextPath() %>/logout">
+			<button class = "link" name = "Logout" value = "Logout"> Logout</button>
+		</form>
+		
+		
+	</div>
+	
+	
 	<div class="dropdown">
 		<button class="dropbtn">Browse</button>
 		<div class="dropdown-content">
