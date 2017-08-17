@@ -15,6 +15,12 @@
 </head>
 
 <body>
+	<a href="browse?browseBy=title&orderBy=title&page=1">Title</a>
+	<a href="browse?browseBy=title&orderBy=year">Year</a>
+	<a href="browse?browseBy=title&orderBy=title&page=1">1</a>	
+	<a href="browse?browseBy=title&orderBy=title&page=2">2</a>
+	<a href="browse?browseBy=title&orderBy=title&page=3">3</a>
+	<a href="browse?browseBy=title&orderBy=title&page=4">4</a>
 	<form action="<%= request.getContextPath() %>/getMovie" method="get">
 	<table>
 		<%

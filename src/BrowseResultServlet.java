@@ -32,9 +32,22 @@ public class BrowseResultServlet extends HttpServlet {
 		String password = "e951l632v";
 		
 		String browseType = request.getParameter("browseBy");
+		String orderBy = request.getParameter("orderBy");
+		String page = request.getParameter("page");
+		
+
+		if(page == null) {
+			page = "1";
+		}
+		int lower = (Integer.parseInt(page) - 1)  * 100;
+		System.out.println(lower);
+		int higher = Integer.parseInt(page) * 100;
+		String range = String.valueOf(lower) + ", "  + String.valueOf(higher);
+		
 		String sqlQuery = null;
-		if(browseType.equals("title"))
-			sqlQuery = "SELECT title, id  FROM movies";
+		if(browseType.equals("title")) {
+			sqlQuery = "SELECT title, id  FROM movies ORDER BY " + orderBy + " LIMIT " + range;
+		}
 		else if(browseType.equals("genre"))
 			sqlQuery = "SELECT name, id  FROM genres";
 		
