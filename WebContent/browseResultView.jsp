@@ -11,10 +11,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 <style>
+	.movieGrid {
+		display: grid;
+		grid-template-columns: auto auto auto auto auto;
+  		grid-gap: 10px;
+  		
+	}
+	.box {
+	  border-radius: 5px;
+	  padding: 20px;
+	}
+	
 </style>
 </head>
 
-<body>
+<body bgcolor="#282828">
 	<jsp:include page="_header.jsp"></jsp:include>
 
 	<a href="browse?browseBy=title&orderBy=title&page=1">Title</a>
@@ -23,16 +34,19 @@
 	<a href="browse?browseBy=title&orderBy=title&page=2">2</a>
 	<a href="browse?browseBy=title&orderBy=title&page=3">3</a>
 	<a href="browse?browseBy=title&orderBy=title&page=4">4</a>
-	<form action="<%= request.getContextPath() %>/getMovie" method="get">
-	<table>
+
+	<div class="movieGrid">
 		<%
-			List browseCategory = new ArrayList();
-			browseCategory = (ArrayList)request.getAttribute("browseResult");	
-			for(int i = 0; i < browseCategory.size(); i++) { 
-				List item = (List) browseCategory.get(i);%>
-				<tr><td><button name="selected" value="<%= item.get(0) %>"><img src="<%=item.get(1)%>" HEIGHT="120" WIDTH="120" BORDER="0"/></button></td></tr>
-			<% } %>
-	</table>
-	</form>
+		List browseCategory = new ArrayList();
+		browseCategory = (ArrayList)request.getAttribute("browseResult");	
+		for(int i = 0; i < browseCategory.size(); i++) { 
+			List item = (List) browseCategory.get(i);%>
+	
+					<div class="box <%=i%>">
+						<a href="getMovie?selected=<%= item.get(0) %>"><img src="<%=item.get(1)%>" HEIGHT="300" WIDTH="200"/></a>
+					</div>
+	
+		<% } %>
+	</div>
 </body>
 </html>
