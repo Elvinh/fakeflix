@@ -8,11 +8,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%  List name = new ArrayList();
-		name = (ArrayList) request.getAttribute("nameList");
-		String fName = (String)name.get(0);
-		String lName = (String)name.get(1);%>
+		<p>Hello</p>
+	<%  String name = "";
+		name = (String) session.getAttribute("loginedU");
+		//String fName = (String)name.get(0);
+		//String lName = (String)name.get(1);%>
 		
-		<p>Welcome <%= fName + " " + lName %></p>
+		<p>Welcome <%= name %></p>
+		
+		
 </body>
 </html>
