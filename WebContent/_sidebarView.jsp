@@ -49,7 +49,7 @@
 		<% for(int i = 0; i < list.size(); i++)
 		{%>
 			<div class = "buttonContainer">
-				<a href = "browse?browseBy=genreName&genreName=<%=(String)list.get(i)%>">
+				<a href = "browse?browseBy=genreName&genreName=<%=(String)list.get(i)%>&orderBy=title">
 				<%=(String) list.get(i)%>
 				</a>
 			</div>

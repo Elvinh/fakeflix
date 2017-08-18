@@ -35,8 +35,6 @@ public class BrowseResultServlet extends HttpServlet {
 		String orderBy = request.getParameter("orderBy");
 		String page = request.getParameter("page");
 		String gName = request.getParameter("genreName");
-						
-		
 
 		if(page == null) {
 			page = "1";
@@ -57,8 +55,7 @@ public class BrowseResultServlet extends HttpServlet {
 			sqlQuery = "SELECT name, id  FROM genres";
 		else if(browseType.equals("genreName"))
 		{
-			System.out.println(gName);
-			sqlQuery = "SELECT title, banner_url FROM movies WHERE movies.id in (SELECT movie_id FROM genres_in_movies WHERE genres_in_movies.genre_id in (SELECT id FROM genres WHERE genres.name = \"" + gName + "\"))";
+			sqlQuery = "SELECT title, banner_url FROM movies WHERE movies.id in (SELECT movie_id FROM genres_in_movies WHERE genres_in_movies.genre_id in (SELECT id FROM genres WHERE genres.name = \"" + gName + "\")) ORDER BY " + orderBy;
 		}
 		
 		try {
