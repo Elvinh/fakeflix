@@ -38,7 +38,6 @@
 
 <body bgcolor="#282828">
 	<jsp:include page="_header.jsp"></jsp:include>
-	
 	<p>Sort By: </p>
 	
 	<form action="<%= request.getContextPath() %>/browse" method="get">
