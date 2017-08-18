@@ -11,6 +11,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 <style>
+	body {
+		margin: 15px 15px;
+	}
+	p {
+		display: inline-block;
+	}
+	form {
+		display: inline-block;
+		
+	}
+	
 	.movieGrid {
 		display: grid;
 		grid-template-columns: auto auto auto auto auto;
@@ -27,9 +38,18 @@
 
 <body bgcolor="#282828">
 	<jsp:include page="_header.jsp"></jsp:include>
+	<p>Sort By: </p>
+	
+	<form action="<%= request.getContextPath() %>/browse" method="get">
+		<select name="orderBy">
+	  		<option>Select</option>
+	  		<option value="title">Title</option>
+	  		<option value="opel">Opel</option>
+	  		<option value="audi">Audi</option>
+		</select>
+		<input type="submit" value="Send"></td>
+	</form>
 
-	<a href="browse?browseBy=title&orderBy=title&page=1">Title</a>
-	<a href="browse?browseBy=title&orderBy=year">Year</a>
 	<a href="browse?browseBy=title&orderBy=title&page=1">1</a>	
 	<a href="browse?browseBy=title&orderBy=title&page=2">2</a>
 	<a href="browse?browseBy=title&orderBy=title&page=3">3</a>

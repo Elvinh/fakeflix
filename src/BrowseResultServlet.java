@@ -39,6 +39,9 @@ public class BrowseResultServlet extends HttpServlet {
 		if(page == null) {
 			page = "1";
 		}
+		if(browseType == null) {
+			browseType = "title";
+		}
 		int lower = (Integer.parseInt(page) - 1)  * 25;
 		System.out.println(lower);
 		int higher = Integer.parseInt(page) * 25;
