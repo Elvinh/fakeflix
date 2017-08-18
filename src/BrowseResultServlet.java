@@ -34,6 +34,8 @@ public class BrowseResultServlet extends HttpServlet {
 		String browseType = request.getParameter("browseBy");
 		String orderBy = request.getParameter("orderBy");
 		String page = request.getParameter("page");
+		String gName = request.getParameter("genreName");
+						
 		
 
 		if(page == null) {
@@ -42,8 +44,8 @@ public class BrowseResultServlet extends HttpServlet {
 		if(browseType == null) {
 			browseType = "title";
 		}
+		
 		int lower = (Integer.parseInt(page) - 1)  * 25;
-		System.out.println(lower);
 		int higher = Integer.parseInt(page) * 25;
 		String range = String.valueOf(lower) + ", "  + String.valueOf(higher);
 		
@@ -53,6 +55,11 @@ public class BrowseResultServlet extends HttpServlet {
 		}
 		else if(browseType.equals("genre"))
 			sqlQuery = "SELECT name, id  FROM genres";
+		else if(browseType.equals("genreName"))
+		{
+			System.out.println(gName);
+			sqlQuery = "SELECT title, banner_url FROM movies WHERE movies.id in (SELECT movie_id FROM genres_in_movies WHERE genres_in_movies.genre_id in (SELECT id FROM genres WHERE genres.name = \"" + gName + "\"))";
+		}
 		
 		try {
 			Class.forName(driver);

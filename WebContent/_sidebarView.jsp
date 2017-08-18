@@ -21,7 +21,7 @@
 		color: #d01717;
 		
 	}
-	.container
+	.buttonContainer
 	{
 		font-family: 'Cinzel', serif;
 		font-size: 85%;
@@ -44,11 +44,14 @@
 	<h3>Genre List</h3>
 		<%List list = new ArrayList(); 
 		list = (ArrayList)request.getAttribute("genresList");%>
-		<% 
-		for(int i = 0; i < list.size(); i++)
+		
+		
+		<% for(int i = 0; i < list.size(); i++)
 		{%>
-			<div class = "container">
-				<li><a href ><%= (String)list.get(i)%></a></li>
+			<div class = "buttonContainer">
+				<a href = "browse?browseBy=genreName&genreName=<%=(String)list.get(i)%>">
+				<%=(String) list.get(i)%>
+				</a>
 			</div>
 		<%}
 			
