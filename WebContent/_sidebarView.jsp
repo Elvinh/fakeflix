@@ -6,7 +6,11 @@
 
 <style>
 
-
+	body
+	{
+		background-color:black;
+	}
+	
 	.sidebar
 	{
 	
@@ -14,7 +18,7 @@
 	h3
 	{
 		font-family: 'Cinzel', serif;
-		font-color: white;
+		color: #d01717;
 		
 	}
 	.container
@@ -48,7 +52,6 @@
 			</div>
 		<%}
 			
-		
 		%>
 	</div>
 	</ul>
