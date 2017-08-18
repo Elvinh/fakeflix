@@ -14,9 +14,12 @@ javax.servlet.http.HttpServletRequest,
 <html>
 <head>
 <style type="text/css">
+	body { margin: 0; padding: 0; }
 .login {
 	border: 3px solid #f1f1f1;
+
 }
+
 
 input[type=text], input[type = password]
 {

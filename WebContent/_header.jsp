@@ -2,9 +2,11 @@
     pageEncoding="ISO-8859-1"%>
 <style>
 .page-head {
-    background-color: #131313;
+    background-color: #161616;
     display: flex;
     align-items: center;
+    margin: 0px;
+padding:0;
 }
 .page-head h1 {
 	flex-shrink: 0;
@@ -71,31 +73,64 @@
 .searchBar {
 	margin: 0px 15px;
 	flex-grow: 1;
-	min-width: 18rem;
+	min-width: 9rem;
+	border-style: solid;
+
+	border-radius:15px; 
+	-moz-border-radius:15px; 
+	-webkit-border-radius:15px; 
 	
 }
 .searchBar 	input {
 	box-sizing: border-box;
-   	border: 2px solid #ccc;
-  	border-radius: 4px;
-   	font-size: 16px;
-   	background-color: white;
+   	font-size: 13px;
+   	border: none;
+	border-radius:15px; 
+	-moz-border-radius:15px; 
+	-webkit-border-radius:15px; 
+   	background-color: #282828;
    	background-position: 10px 10px; 
    	background-repeat: no-repeat;
    	width: 100%;
-   	padding: .4rem;
+   	padding: .6rem;
    	
 
 }
 .login {
   flex-shrink: 0;
-  margin: 0px 15px 0px 15px;
+
+ }
+.login a {
+    display: block;
+    color: #d01717;
+    text-align: center;
+    padding: 25px 25px;
+    text-decoration: none;
+}
+
+.login a:hover {
+    background-color: #d01717;
+    color: white;
 }
 
 .logout {
   flex-shrink: 0;
-  margin: 0px 15px 0px 15px;
+
+ }
+.logout a {
+    display: block;
+    color: #d01717;
+    text-align: center;
+    padding: 25px 25px;
+    text-decoration: none;
 }
+
+.logout a:hover {
+    background-color: #d01717;
+    color: white;
+}
+
+
 
 
 
@@ -117,13 +152,13 @@
 			<input type="text" name="selected" placeholder="Search for movie titles...">
 		</form>
 	
-		<form method = "get" action = "<%= request.getContextPath() %>/login">
-			<button class = "login" name = "Login" value = "Login"> Login</button>
-		</form>
-
-		<form method = "get" action = "<%= request.getContextPath() %>/logout">
-			<button class = "logout" name = "Logout" value = "Logout"> Logout</button>
-		</form>
+		<div class="login">
+				<a href="login">LOGIN</a>
+		</div>
+		
+		<div class="logout">
+				<a href="logout">LOGOUT</a>
+		</div>
 	
 </header>
 

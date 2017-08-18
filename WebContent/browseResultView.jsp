@@ -11,9 +11,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 <style>
-	body {
-		margin: 15px 15px;
-	}
+	body { margin: 0; padding: 0; }
 	p {
 		display: inline-block;
 	}
