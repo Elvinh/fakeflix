@@ -13,7 +13,8 @@
 }
 .page-head h1 {
 	flex-shrink: 0;
-	margin: 15px
+	margin: 15px;
+	font-family: 'Cinzel', serif;
 }
 
 .page-head h1 a {
@@ -97,6 +98,7 @@
 
 }
 .login {
+font-family: 'Cinzel', serif;
   flex-shrink: 0;
 	border-bottom: solid #d01717 3px;
 
@@ -107,6 +109,7 @@
     text-align: center;
     padding: 25px 25px;
     text-decoration: none;
+    
 }
 
 .login a:hover {
@@ -116,6 +119,7 @@
 
 .logout {
   flex-shrink: 0;
+  font-family: 'Cinzel', serif;
 
  }
 .logout a {
@@ -136,32 +140,32 @@
 
 
 </style>
+<head>
+	<link href="https://fonts.googleapis.com/css?family=Amatic+SC|Cinzel" rel="stylesheet">
+</head>
 
 <header class="page-head">
-	<h1><a href="home">FAKEFLIX</a></h1>
-	<div class="dropdown">
-		<button class="dropbtn">Browse</button>
-		<div class="dropdown-content">
-			<form method="get" action="<%= request.getContextPath() %>/browse" >
-	    		<button class="link" name="browseBy" value="title">By Title</button>
-				<button class="link" name="browseBy" value="genre">By Genre</button>
-			</form>
-		</div>
-	</div>
-	
-		<form class="searchBar" method="get" action="<%= request.getContextPath() %>/getMovie">
-			<input type="text" name="selected" placeholder="Search for movie titles...">
-		</form>
-	
-		<div class="login">
-				<a href="login">LOGIN</a>
+		<h1><a href="home">FAKEFLIX</a></h1>
+		<div class="dropdown">
+			<button class="dropbtn">Browse</button>
+			<div class="dropdown-content">
+				<form method="get" action="<%= request.getContextPath() %>/browse" >
+		    		<button class="link" name="browseBy" value="title">By Title</button>
+					<button class="link" name="browseBy" value="genre">By Genre</button>
+				</form>
+			</div>
 		</div>
 		
-		<div class="logout">
-				<a href="logout">LOGOUT</a>
-		</div>
-	
+			<form class="searchBar" method="get" action="<%= request.getContextPath() %>/getMovie">
+				<input type="text" name="selected" placeholder="Search for movie titles...">
+			</form>
+		
+			<div class="login">
+					<a href="login">LOGIN</a>
+			</div>
+			
+			<div class="logout">
+					<a href="logout">LOGOUT</a>
+			</div>
 </header>
-
-
 
