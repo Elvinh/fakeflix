@@ -6,14 +6,16 @@
 <head>
 <style>
 	body { margin: 0; padding: 0; }
+	.movieInfo { 		padding-top: 75px;
+		padding-left: 40px; }
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body bgcolor="#282828" margin: 0}>
 	<jsp:include page="_header.jsp"></jsp:include>
-
-	<table>
+	<div class="movieInfo">
+		<table>
 		<%
 			List movies = new ArrayList();
 			movies = (ArrayList)request.getAttribute("requestedMovie");
@@ -25,7 +27,7 @@
 				if(type.equals("title")) {
 					List movieTitle = (List) movies.get(i); %>
 					<tr><td><a href = "getMovie?selected=<%=movieTitle.get(0)%>">
-						<%=movieTitle.get(0)%>
+						<img src="<%=movieTitle.get(3)%>" HEIGHT="300" WIDTH="200"/>
 					</a></td></tr>
 					
 					<tr><td><%= movieTitle.get(1)%></td></tr>
@@ -41,6 +43,8 @@
 					</td></tr>
 				<%} %>
 			<%} %>
-	</table>
+		</table>
+	</div>
+
 </body>
 </html>

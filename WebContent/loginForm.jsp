@@ -15,19 +15,17 @@ javax.servlet.http.HttpServletRequest,
 <head>
 <style type="text/css">
 	body { margin: 0; padding: 0; }
-.login {
-	border: 3px solid #f1f1f1;
 
+.loginBox {
+		padding-top: 75px;
+		padding-left: 40px;
 }
-
-
 input[type=text], input[type = password]
 {
 	width: 100%;
 	padding: 12px, 20px;
 	margin: 8px;
 	display: inline-block;
-	border: 1px solid #ccc;
 	box-sizing: border-box;
 	font: Tahoma;
 }
@@ -41,7 +39,7 @@ input[type=text], input[type = password]
 	border: none;
 	cursor: pointer;
 	width:100%;
-		font: Tahoma;
+	font: Tahoma;
 	
 }
 
@@ -55,6 +53,8 @@ input[type=text], input[type = password]
 	padding: 16px;
 	font: Tahoma;
 	
+	border: 2px solid #f1f1f1;
+	
 }
 
 
@@ -65,14 +65,17 @@ input[type=text], input[type = password]
 <body bgcolor="#282828">
 	<jsp:include page="_header.jsp"></jsp:include>
 	
-	<form class="login" method = "post" action = "<%= request.getContextPath() %>/user">
+	<div class="loginBox">
+		<form method = "post" action = "<%= request.getContextPath() %>/user">
 		<div class = "container">
 			<label>Email</label>
-			<input type = "text" placeholder = "Enter Email" name = "email" required>
+				<input type = "text" placeholder = "Enter Email" name = "email" required>
 			<label>Password</label>
-			<input type = "password" placeholder = "Enter password" name = "password" required>
+				<input type = "password" placeholder = "Enter password" name = "password" required>
 			<button class="loginBtn" type = "Login"> Login </button>
 		</div>
-	</form>
+		</form>
+	</div>
+
 </body>
 </html>

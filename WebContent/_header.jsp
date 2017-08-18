@@ -2,11 +2,14 @@
     pageEncoding="ISO-8859-1"%>
 <style>
 .page-head {
-    background-color: #161616;
+	background-color: rgb(54, 25, 25);
+    background-color: rgba(17, 17, 17, 0.8);
     display: flex;
     align-items: center;
-    margin: 0px;
-padding:0;
+    width: 100%;
+	position: fixed;
+	
+	
 }
 .page-head h1 {
 	flex-shrink: 0;
@@ -27,6 +30,7 @@ padding:0;
     border: none;
     cursor: pointer;
     flex-shrink: 0;
+    outline: none;
 
 }
 /* The container <div> - needed to position the dropdown content */
@@ -53,7 +57,7 @@ padding:0;
     padding: 15px;
     width: 160px;
    	cursor: pointer;
-    
+    outline: none;
 }
 
 
@@ -73,13 +77,7 @@ padding:0;
 .searchBar {
 	margin: 0px 15px;
 	flex-grow: 1;
-	min-width: 9rem;
-	border-style: solid;
-
-	border-radius:15px; 
-	-moz-border-radius:15px; 
-	-webkit-border-radius:15px; 
-	
+	min-width: 9rem; 
 }
 .searchBar 	input {
 	box-sizing: border-box;
@@ -89,15 +87,18 @@ padding:0;
 	-moz-border-radius:15px; 
 	-webkit-border-radius:15px; 
    	background-color: #282828;
+   	background-image: url("./images/search.png");
    	background-position: 10px 10px; 
    	background-repeat: no-repeat;
    	width: 100%;
-   	padding: .6rem;
-   	
+    padding: 12px 20px 12px 40px;
+   	outline: none;
+   	color: #b5b5b5;
 
 }
 .login {
   flex-shrink: 0;
+	border-bottom: solid #d01717 3px;
 
  }
 .login a {

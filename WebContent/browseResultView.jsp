@@ -14,6 +14,8 @@
 	body { margin: 0; padding: 0; }
 	p {
 		display: inline-block;
+		margin-top: 100px;
+		padding-left: 40px;
 	}
 	form {
 		display: inline-block;

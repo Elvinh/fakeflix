@@ -5,15 +5,19 @@
 
 <head>
 <style>
-	body { margin: 0; padding: 0; } 
+	body { margin: 0; padding: 0; }
+	.welcome {
+		padding-top: 75px;
+		padding-left: 40px;
+	}
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Main</title>
 </head>
 <body bgcolor="#282828">
 	<jsp:include page="_header.jsp"></jsp:include>
-	<%  
-	if(session.getAttribute("loginedU") == null)
+	<div class="welcome">
+		<%if(session.getAttribute("loginedU") == null)
 		{%>
 			<h3> Hello </h3>
 		<%}
@@ -21,5 +25,8 @@
 		{
 			%><h3>Hello <%= (String) session.getAttribute("loginedU")%></h3>
 	<%}%>
+	</div>
+
+
 <body>
 </html>
