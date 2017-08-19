@@ -57,6 +57,16 @@ public class BrowseResultServlet extends HttpServlet {
 		{
 			sqlQuery = "SELECT title, banner_url FROM movies WHERE movies.id in (SELECT movie_id FROM genres_in_movies WHERE genres_in_movies.genre_id in (SELECT id FROM genres WHERE genres.name = \"" + gName + "\")) ORDER BY " + orderBy;
 		}
+		else if(browseType.equals("advSearch"))
+		{
+			String title = request.getParameter("advTitle");
+			String year = request.getParameter("advYear");
+			String director = request.getParameter("advDirector");
+			String aGenre = request.getParameter("advGenre");
+			String star = request.getParameter("advStar");
+			
+			
+		}
 		
 		try {
 			Class.forName(driver);
