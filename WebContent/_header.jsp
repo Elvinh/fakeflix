@@ -9,6 +9,8 @@
     width: 100%;
 	position: fixed;
 	z-index: 2;
+	top: 0;
+	left: 0;
 	
 }
 .page-head h1 {
@@ -144,6 +146,7 @@ font-family: 'Cinzel', serif;
 	<link href="https://fonts.googleapis.com/css?family=Amatic+SC|Cinzel" rel="stylesheet">
 </head>
 
+<body>
 <header class="page-head">
 		<h1><a href="home">FAKEFLIX</a></h1>
 		<div class="dropdown">
@@ -168,4 +171,4 @@ font-family: 'Cinzel', serif;
 					<a href="logout">LOGOUT</a>
 			</div>
 </header>
-
+</body>

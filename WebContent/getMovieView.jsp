@@ -5,7 +5,6 @@
 <html>
 <head>
 <style>
-	body { margin: 0; padding: 0; }
 	.movieInfo { 		padding-top: 75px;
 		padding-left: 40px; }
 </style>

@@ -5,10 +5,7 @@
 
 <head>
 <style>
-	body { 
-		margin: 0; 
-		padding: 0; 
-		}
+
 	.trending { 		
 		background-color: #2c2d30;
 		width: 100%;

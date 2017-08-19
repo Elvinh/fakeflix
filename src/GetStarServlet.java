@@ -52,7 +52,7 @@ public class GetStarServlet extends HttpServlet {
 		//String firstName = star.split(" ")[0];
 		//String lastName = star.split(" ")[1];
 		String sqlQuery = "SELECT * FROM moviedb.stars WHERE stars.id = " + star;
-		String sqlQuery2 = "SELECT title FROM movies WHERE movies.id IN (SELECT movie_id FROM stars_in_movies WHERE stars_in_movies.star_id = " + star + ")";
+		String sqlQuery2 = "SELECT title, banner_url FROM movies WHERE movies.id IN (SELECT movie_id FROM stars_in_movies WHERE stars_in_movies.star_id = " + star + ")";
 		try {
 			Class.forName(driver);
 			Connection connection;
@@ -70,8 +70,10 @@ public class GetStarServlet extends HttpServlet {
 			}
 			rs = st.executeQuery(sqlQuery2);
 			while(rs.next()) {
-				
-				moviesByStar.add(rs.getString(1));
+				List movieAttributes = new ArrayList();
+				movieAttributes.add(rs.getString(1));
+				movieAttributes.add(rs.getString(2));
+				moviesByStar.add(movieAttributes);
 			}
 		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
