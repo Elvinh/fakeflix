@@ -8,7 +8,7 @@
     align-items: center;
     width: 100%;
 	position: fixed;
-	
+	z-index: 2;
 	
 }
 .page-head h1 {

@@ -37,41 +37,43 @@
 </style>
 </head>
 
-<body id = "browsedContent" bgcolor="#282828">
+<body bgcolor="#282828">
 	<jsp:include page="_header.jsp"></jsp:include>
 	<c:import url="sidebar" />
 	
-	<span onclick="openNav()">open</span>	
+	<div id="browsedContent">
+		<span onclick="openNav()">open</span>	
+			
+		<p>Sort By: </p>
 		
-	<p>Sort By: </p>
+		<form action="<%= request.getContextPath() %>/browse" method="get">
+			<select name="orderBy">
+		  		<option>Select</option>
+		  		<option value="title">Title</option>
+		  		<option value="opel">Opel</option>
+		  		<option value="audi">Audi</option>
+			</select>
+			<input type="submit" value="Send"></td>
+		</form>
 	
-	<form action="<%= request.getContextPath() %>/browse" method="get">
-		<select name="orderBy">
-	  		<option>Select</option>
-	  		<option value="title">Title</option>
-	  		<option value="opel">Opel</option>
-	  		<option value="audi">Audi</option>
-		</select>
-		<input type="submit" value="Send"></td>
-	</form>
-
-	<a href="browse?browseBy=title&orderBy=title&page=1">1</a>	
-	<a href="browse?browseBy=title&orderBy=title&page=2">2</a>
-	<a href="browse?browseBy=title&orderBy=title&page=3">3</a>
-	<a href="browse?browseBy=title&orderBy=title&page=4">4</a>
-
-	<div class="movieGrid">
-		<%
-		List browseCategory = new ArrayList();
-		browseCategory = (ArrayList)request.getAttribute("browseResult");	
-		for(int i = 0; i < browseCategory.size(); i++) { 
-			List item = (List) browseCategory.get(i);%>
+		<a href="browse?browseBy=title&orderBy=title&page=1">1</a>	
+		<a href="browse?browseBy=title&orderBy=title&page=2">2</a>
+		<a href="browse?browseBy=title&orderBy=title&page=3">3</a>
+		<a href="browse?browseBy=title&orderBy=title&page=4">4</a>
 	
-					<div class="box <%=i%>">
-						<a href="getMovie?selected=<%= item.get(0) %>"><img src="<%=item.get(1)%>" HEIGHT="300" WIDTH="200"/></a>
-					</div>
-	
-		<% } %>
+		<div class="movieGrid">
+			<%
+			List browseCategory = new ArrayList();
+			browseCategory = (ArrayList)request.getAttribute("browseResult");	
+			for(int i = 0; i < browseCategory.size(); i++) { 
+				List item = (List) browseCategory.get(i);%>
+		
+						<div class="box <%=i%>">
+							<a href="getMovie?selected=<%= item.get(0) %>"><img src="<%=item.get(1)%>" HEIGHT="300" WIDTH="200"/></a>
+						</div>
+		
+			<% } %>
+		</div>
 	</div>
 </body>
 </html>
