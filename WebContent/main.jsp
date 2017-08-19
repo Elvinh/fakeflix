@@ -22,7 +22,7 @@
 	<c:import url="sidebar" />
 
 	<div class="welcome">
-		<a href="sidebar"> Sidebar</a>
+		<a href="sidebar">Sidebar</a>
 		<%if(session.getAttribute("loginedU") == null)
 		{%>
 			<h3> Hello </h3>

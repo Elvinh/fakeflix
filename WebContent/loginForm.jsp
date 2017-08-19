@@ -27,6 +27,7 @@ javax.servlet.http.HttpServletRequest,
 	right: 0;
 	height: 100px;
 	padding-bottom: 200px;
+	
 }
 input[type=text], input[type = password]
 {
@@ -36,11 +37,12 @@ input[type=text], input[type = password]
 	display: inline-block;
 	box-sizing: border-box;
 	font: Tahoma;
+	color: white;
 }
 
 .loginBtn
 {
-	background-color: #4caf50;
+	background-color: #d01717;
 	color: white;
 	padding: 14px 20px;
 	margin: 8px 0;
@@ -61,8 +63,16 @@ input[type=text], input[type = password]
 	padding: 16px;
 	font: Tahoma;
 	
-	border: 2px solid #f1f1f1;
+	border-style: solid;
+	border-color: #d01717;
 	
+}
+
+label
+{
+	color: white;
+	font-family: 'Open Sans Condensed', sans-serif;
+	margin-right: 10px;
 }
 
 
@@ -72,7 +82,7 @@ input[type=text], input[type = password]
 </head>
 <body bgcolor="#282828">
 	<jsp:include page="_header.jsp"></jsp:include>
-	
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
 	<div class="loginBox">
 		<form method = "post" action = "<%= request.getContextPath() %>/user">
 		<div class = "container">
