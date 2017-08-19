@@ -28,12 +28,15 @@
 	
 	.sidebar a
 	{
-		padding: 5px 5px 5px 16px;
+		padding: 5px;
 		text-decoration: none;
 		font-size: 15px;
 		color: #818181;
 		display: block;
 		transtion: 0.3s;
+	}
+	.categories {
+		padding: 5px;
 	}
 	
 	.sidebar a:hover, .offcanvas a:focus
@@ -51,6 +54,7 @@
 	}
 	h3
 	{
+		padding-left: 8px;
 		font-family: 'Cinzel', serif;
 		color: #d01717;
 		
@@ -76,7 +80,7 @@
 <div class = "sidebar" id = "sideNav" style = "width:25%; left;0">
 	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 	<h3>Genre List</h3>
-	<ul>
+	<ul class="categories">
 		<%List list = new ArrayList(); 
 		list = (ArrayList)request.getAttribute("genresList");%>
 		<% for(int i = 0; i < list.size(); i++)
