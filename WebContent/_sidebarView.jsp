@@ -15,14 +15,19 @@
 		display: none;
 		position:fixed;
 		left: 0;
-		background-color: rgba(40, 40, 40, 0.7);
+		background-color: rgba(17, 17, 17, 0.9);
 		height: 100%;
 		width: 0;
 		z-index: 1;
-		top: 0;
+		top: 90px;
 		overflow-x: hidden;
+<<<<<<< HEAD
 		padding-top: 25px;
+=======
+		padding-top: 30px;
+>>>>>>> cbe4ae2ff598e83b52c18dce1d1897b23f2a8d4c
 		transition: 0.5s;
+		float: bottom;
 	}
 	
 	.sidebar a
