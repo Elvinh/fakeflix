@@ -46,25 +46,14 @@
 </style>
 </head>
 
-<<<<<<< HEAD
-
-<body id = "browsedContent" bgcolor="#282828">
-
-	<jsp:include page="_header.jsp"></jsp:include>
-	<c:import url="sidebar" />
-	<link href="https://fonts.googleapis.com/css?family=Amatic+SC|Cinzel" rel="stylesheet">
-
-	<div class = "openButton">
-		<span onclick="openNav()"><button>Open Genre List</button></span>
-	</div>
-	<p>Sort By: </p>
-=======
 <body bgcolor="#282828">
 	<jsp:include page="_header.jsp"></jsp:include>
 	<c:import url="sidebar" />
-	
+		<link href="https://fonts.googleapis.com/css?family=Amatic+SC|Cinzel" rel="stylesheet">
 	<div id="browsedContent">
-		<span onclick="openNav()">open</span>	
+		<div class = "openButton">
+			<span onclick="openNav()"><button>Open Genre List</button></span>
+		</div>
 			
 		<p>Sort By: </p>
 		
@@ -77,7 +66,6 @@
 			</select>
 			<input type="submit" value="Send"></td>
 		</form>
->>>>>>> cbe4ae2ff598e83b52c18dce1d1897b23f2a8d4c
 	
 		<a href="browse?browseBy=title&orderBy=title&page=1">1</a>	
 		<a href="browse?browseBy=title&orderBy=title&page=2">2</a>
