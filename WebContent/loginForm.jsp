@@ -21,7 +21,7 @@ javax.servlet.http.HttpServletRequest,
 		width: 50%;
 		padding-top: 75px;
 		padding-left: 40px;
-		margin-top:
+		margin: 150px, 150px, 150px, 150px;
 }
 input[type=text], input[type = password]
 {
