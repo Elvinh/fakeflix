@@ -14,7 +14,8 @@
 </head>
 <body bgcolor="#282828">
 	<jsp:include page="_header.jsp"></jsp:include>
-	<jsp:include page="_sidebarView.jsp"/>
+	<c:import url="sidebar" />
+
 	<div class="starInfo">
 		<table>
 			<%

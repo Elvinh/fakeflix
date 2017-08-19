@@ -12,7 +12,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 <style>
-	body { margin: 0; padding: 0; }
+	body { 
+		margin: 0; 
+		padding: 0; 
+	}
 	p {
 		display: inline-block;
 		margin-top: 100px;
@@ -20,13 +23,12 @@
 	}
 	form {
 		display: inline-block;
-		
 	}
 	
 	.movieGrid {
 		display: grid;
 		grid-template-columns: auto auto auto auto auto;
-  		grid-gap: 10px;
+  		grid-gap: 15px;
   		
 	}
 	.box {
@@ -40,16 +42,16 @@
 		display:inline-block;
 		margin-left: 20px;
     	text-align: center;
-    	
-  
 	}
+	
 </style>
 </head>
 
 <body bgcolor="#282828">
 	<jsp:include page="_header.jsp"></jsp:include>
 	<c:import url="sidebar" />
-		<link href="https://fonts.googleapis.com/css?family=Amatic+SC|Cinzel" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Amatic+SC|Cinzel" rel="stylesheet">
+	
 	<div id="browsedContent">
 		<div class = "openButton">
 			<span onclick="openNav()"><button>Open Genre List</button></span>

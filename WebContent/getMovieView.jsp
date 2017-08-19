@@ -14,7 +14,7 @@
 </head>
 <body bgcolor="#282828" margin: 0}>
 	<jsp:include page="_header.jsp"></jsp:include>
-	<jsp:include page="_sidebarView.jsp"/>
+	<c:import url="sidebar" />
 	<div class="movieInfo">
 		<table>
 		<%
