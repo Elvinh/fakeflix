@@ -7,7 +7,7 @@
 	.browsedContent	
 	{
 		transition: margin-left .5s;
-		padding: 20px;
+		padding: 16px;
 	}
 
 	.sidebar
@@ -21,7 +21,7 @@
 		z-index: 1;
 		top: 0;
 		overflow-x: hidden;
-		padding-top: 60px;
+		padding-top: 25px;
 		transition: 0.5s;
 	}
 	
@@ -29,7 +29,8 @@
 	{
 		padding: 5px 5px 5px 16px;
 		text-decoration: none;
-		font-size: 25px;
+		font-size: 15px;
+		color: #818181;
 		display: block;
 		transtion: 0.3s;
 	}
@@ -43,8 +44,8 @@
 	{
 		position: absolute;
 		top: 0;
-		right: 25px;
-		font-size:36px;
+		right: 20px;
+		font-size:30px;
 		margin-left: 50px;
 	}
 	h3
@@ -56,7 +57,7 @@
 	.buttonContainer
 	{
 		font-family: 'Cinzel', serif;
-		font-size: 50%;
+		font-size: 20px;
 		font-color: white;
 		list-style-type: none;
 	}

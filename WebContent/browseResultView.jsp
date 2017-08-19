@@ -34,15 +34,28 @@
 	  padding: 20px;
 	}
 	
+	.openButton
+	{
+		font-family: 'Cinzel', serif;
+		display:inline-block;
+		margin-left: 20px;
+    	text-align: center;
+    	
+  
+	}
 </style>
 </head>
 
+
 <body id = "browsedContent" bgcolor="#282828">
+
 	<jsp:include page="_header.jsp"></jsp:include>
 	<c:import url="sidebar" />
-	
-	<span onclick="openNav()">open</span>	
-		
+	<link href="https://fonts.googleapis.com/css?family=Amatic+SC|Cinzel" rel="stylesheet">
+
+	<div class = "openButton">
+		<span onclick="openNav()"><button>Open Genre List</button></span>
+	</div>
 	<p>Sort By: </p>
 	
 	<form action="<%= request.getContextPath() %>/browse" method="get">
