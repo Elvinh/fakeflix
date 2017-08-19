@@ -32,7 +32,6 @@
 <body bgcolor="#282828">
 	<jsp:include page="_header.jsp"></jsp:include>
 	<c:import url="sidebar" />
-<<<<<<< HEAD
 	<c:import url="advSearch" />
 
 	<div class="welcome">
@@ -45,10 +44,9 @@
 		{
 			%><h3>Hello <%= (String) session.getAttribute("loginedU")%></h3>
 	<%}%>
-=======
+
 	<div class="trending">
-	
->>>>>>> f0e81425a03653b5976404d2fb1f75e54565f43a
+
 	</div>
 
 

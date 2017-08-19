@@ -20,12 +20,12 @@ javax.servlet.http.HttpServletRequest,
 {
 	position: absolute;
 	margin: auto;
-	width: 40%;
+	width: 500px;
 	top:0;
 	left:0;
 	bottom:0;
 	right: 0;
-	height: 40%;
+	height: 100px;
 	padding-bottom: 200px;
 	
 	
@@ -82,7 +82,6 @@ label
 
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
 </head>
 <body bgcolor="#282828">
 	<jsp:include page="_header.jsp"></jsp:include>

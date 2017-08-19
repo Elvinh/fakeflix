@@ -12,18 +12,18 @@
 	<jsp:include page="_header.jsp"></jsp:include>
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
 	<div class="AdvSearch">
-		<form method = "post" action = "<%= request.getContextPath()%>/browse">
+		<form method = "post" action = "<%= request.getContextPath() %>/browse">
 			<label>Movie Title</label>
-				<input type = "mTitle" placeholder = "Enter in a movie title" name = "browseBy" value = "advTitle">
+				<input type = "mTitle" placeholder = "Enter in a movie title" name = "advTitle" required>
 			<label>Year</label>
-				<input type = "year" placeholder = "Enter in a genre" name = "browseBy" value = "advYear">
+				<input type = "year" placeholder = "Enter in a genre" name = "advYear" required>
 			<label>Director</label>
-				<input type = "director" placeholder = "Enter in a director" name = "browseBy" value = "advDirector">
+				<input type = "director" placeholder = "Enter in a director" name = "advName" required>
 			<label>Genre</label>
-				<input type = "genre" placeholder = "Enter in a genre" name = "browseBy" value = "advGenre">
+				<input type = "genre" placeholder = "Enter in a genre" name = "advGenre" required>
 			<label>Star</label>
-				<input type = "star" placeholder = "Enter in a star name" name = "browseBy" value = "advStar">
-			<button class="SearchBtn" type = "Search"> Search </button>
+				<input type = "star" placeholder = "Enter in a star name" name = "advStar" required>
+			<button class="SearchBtn" name = "browseBy" value = "advSearch"> Search </button>
 		</form>
 	</div>
 </body>
