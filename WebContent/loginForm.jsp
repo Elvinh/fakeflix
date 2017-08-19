@@ -20,12 +20,12 @@ javax.servlet.http.HttpServletRequest,
 {
 	position: absolute;
 	margin: auto;
-	width: 500px;
+	width: 40%;
 	top:0;
 	left:0;
 	bottom:0;
 	right: 0;
-	height: 100px;
+	height: 40%;
 	padding-bottom: 200px;
 	
 	
