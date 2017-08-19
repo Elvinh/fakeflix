@@ -1,19 +1,51 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.*"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
 
 <style>
 
-	body
+	.browsedContent	
 	{
-		background-color:black;
+		transition: margin-left .5s;
+		padding: 20px;
 	}
-	
+
 	.sidebar
 	{
+		display: none;
+		position:fixed;
+		left: 0;
+		background-color: rgba(40, 40, 40, 0.7);
+		height: 100%;
+		width: 0;
+		z-index: 1;
+		top: 0;
+		overflow-x: hidden;
+		padding-top: 60px;
+		transition: 0.5s;
+	}
 	
+	.sidebar a
+	{
+		padding: 5px 5px 5px 16px;
+		text-decoration: none;
+		font-size: 25px;
+		display: block;
+		transtion: 0.3s;
+	}
+	
+	.sidebar a:hover, .offcanvas a:focus
+	{
+		color: #f1f1f1;
+	}
+	
+	.sidebar .closebtn
+	{
+		position: absolute;
+		top: 0;
+		right: 25px;
+		font-size:36px;
+		margin-left: 50px;
 	}
 	h3
 	{
@@ -21,10 +53,10 @@
 		color: #d01717;
 		
 	}
-	.container
+	.buttonContainer
 	{
 		font-family: 'Cinzel', serif;
-		font-size: 85%;
+		font-size: 50%;
 		font-color: white;
 		list-style-type: none;
 	}
@@ -38,22 +70,37 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
 </head>
-<body>
+
 	<ul>
-	<div class = "sidebar" style = "width:25%; left;0">
+	<div class = "sidebar" id = "sideNav" style = "width:25%; left;0">
+	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 	<h3>Genre List</h3>
 		<%List list = new ArrayList(); 
 		list = (ArrayList)request.getAttribute("genresList");%>
-		<% 
-		for(int i = 0; i < list.size(); i++)
+		<% for(int i = 0; i < list.size(); i++)
 		{%>
-			<div class = "container">
-				<li><a href ><%= (String)list.get(i)%></a></li>
+			<div class = "buttonContainer">
+				<a href = "browse?browseBy=genreName&genreName=<%=(String)list.get(i)%>&orderBy=title">
+				<%=(String) list.get(i)%>
+				</a>
 			</div>
-		<%}
-			
-		%>
+		<%}%>
+		
+		
 	</div>
 	</ul>
-</body>
-</html>
+	
+	<script>
+function openNav() {
+	document.getElementById("sideNav").style.display = "block";
+    document.getElementById("sideNav").style.width = "250px";
+    document.getElementById("browsedContent").style.marginLeft = "250px";
+}
+
+function closeNav() {
+	document.getElementById("sideNav").style.display = "none";
+    document.getElementById("sideNav").style.width = "0";
+    document.getElementById("browsedContent").style.marginLeft = "0";
+
+}
+</script>

@@ -37,10 +37,12 @@
 </style>
 </head>
 
-<body bgcolor="#282828">
+<body id = "browsedContent" bgcolor="#282828">
 	<jsp:include page="_header.jsp"></jsp:include>
 	<c:import url="sidebar" />
 	
+	<span onclick="openNav()">open</span>	
+		
 	<p>Sort By: </p>
 	
 	<form action="<%= request.getContextPath() %>/browse" method="get">
