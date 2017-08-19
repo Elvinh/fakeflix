@@ -28,6 +28,7 @@ javax.servlet.http.HttpServletRequest,
 	height: 100px;
 	padding-bottom: 200px;
 	
+	
 }
 input[type=text], input[type = password]
 {
@@ -38,6 +39,7 @@ input[type=text], input[type = password]
 	box-sizing: border-box;
 	font: Tahoma;
 	color: white;
+	margin: 8px 0;
 }
 
 .loginBtn
@@ -65,6 +67,8 @@ input[type=text], input[type = password]
 	
 	border-style: solid;
 	border-color: #d01717;
+	box-shadow: 3px 6px 114px -17px rgba(0,0,0,1);
+	background-color: #2c2d30;
 	
 }
 
