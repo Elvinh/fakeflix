@@ -20,7 +20,7 @@
 <body bgcolor="#282828">
 	<jsp:include page="_header.jsp"></jsp:include>
 	<c:import url="sidebar" />
-	
+
 	<div class="welcome">
 		<a href="sidebar"> Sidebar</a>
 		<%if(session.getAttribute("loginedU") == null)

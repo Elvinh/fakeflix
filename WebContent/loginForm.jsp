@@ -16,9 +16,12 @@ javax.servlet.http.HttpServletRequest,
 <style type="text/css">
 	body { margin: 0; padding: 0; }
 
-.loginBox {
+.loginBox 
+{
+		width: 50%;
 		padding-top: 75px;
 		padding-left: 40px;
+		margin-top:
 }
 input[type=text], input[type = password]
 {
