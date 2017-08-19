@@ -18,10 +18,15 @@ javax.servlet.http.HttpServletRequest,
 
 .loginBox 
 {
-		width: 50%;
-		padding-top: 75px;
-		padding-left: 40px;
-		margin: 150px, 150px, 150px, 150px;
+	position: absolute;
+	margin: auto;
+	width: 500px;
+	top:0;
+	left:0;
+	bottom:0;
+	right: 0;
+	height: 100px;
+	padding-bottom: 200px;
 }
 input[type=text], input[type = password]
 {
