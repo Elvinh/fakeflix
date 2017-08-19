@@ -38,10 +38,21 @@
 	{
 		font-family: 'Cinzel', serif;
 		display:inline-block;
-		margin-left: 20px;
+	}
+	.myB
+	{
+	margin-left: 20px;
     	text-align: center;
-    	
-  
+    	position: relative;
+    	float: center;
+	    background-color: #d01717;
+	    color: white;
+	    padding: 16px;
+	    font-size: 16px;
+	    border: none;
+	    cursor: pointer;
+	    flex-shrink: 0;
+	    outline: none;
 	}
 </style>
 </head>
@@ -52,7 +63,7 @@
 		<link href="https://fonts.googleapis.com/css?family=Amatic+SC|Cinzel" rel="stylesheet">
 	<div id="browsedContent">
 		<div class = "openButton">
-			<span onclick="openNav()"><button>Open Genre List</button></span>
+			<span onclick="openNav()"><button class = "myB">>> Categories</button></span>
 		</div>
 			
 		<p>Sort By: </p>
