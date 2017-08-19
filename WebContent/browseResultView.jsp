@@ -16,7 +16,7 @@
 		margin: 0; 
 		padding: 0; 
 	}
-	p {
+	.sort {
 		display: inline-block;
 		margin-top: 100px;
 		padding-left: 40px;
@@ -27,13 +27,34 @@
 	
 	.movieGrid {
 		display: grid;
-		grid-template-columns: auto auto auto auto auto;
+		grid-template-columns: auto auto auto auto auto auto;
   		grid-gap: 15px;
   		
 	}
-	.box {
-	  border-radius: 5px;
+	.movieBanner {
 	  padding: 20px;
+	  position: relative;
+	  width: 225px;
+	  height: 350px;
+	}
+	.movieBanner a img{
+		width:100%;
+		height:100%;
+		box-shadow: 11px 13px 66px 1px rgba(8,8,8,1);
+	}
+	.movieBanner .movieTitle{
+		position: absolute;
+		width: 225px;
+		background: rgba(208, 23, 23, 1);
+		top: 270px;
+  		left: 20px;
+  		vertical-align:middle;
+  		font-size: 20px;
+  		text-align: center;
+  		color: white;
+		box-shadow: -1px 5px 91px 9px rgba(8,8,8,1);
+
+
 	}
 	
 	.openButton
@@ -69,7 +90,7 @@
 			<span onclick="openNav()"><button class = "myB">>> Categories</button></span>
 		</div>
 			
-		<p>Sort By: </p>
+		<p class="sort">Sort By: </p>
 		
 		<form action="<%= request.getContextPath() %>/browse" method="get">
 			<select name="orderBy">
@@ -93,8 +114,12 @@
 			for(int i = 0; i < browseCategory.size(); i++) { 
 				List item = (List) browseCategory.get(i);%>
 		
-						<div class="box <%=i%>">
-							<a href="getMovie?selected=<%= item.get(0) %>"><img src="<%=item.get(1)%>" HEIGHT="300" WIDTH="200"/></a>
+						<div class="movieBanner <%=i%>">
+							<a href="getMovie?selected=<%= item.get(0) %>"><img src="<%=item.get(1)%>" /></a>
+							<div class="movieTitle">
+								<%= item.get(0) %>
+							</div>
+
 						</div>
 		
 			<% } %>

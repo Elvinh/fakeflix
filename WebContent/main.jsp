@@ -9,6 +9,18 @@
 		margin: 0; 
 		padding: 0; 
 		}
+	.trending { 		
+		background-color: #2c2d30;
+		width: 100%;
+		height: 30%;
+		position: absolute;
+		top: 150px;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		box-shadow: 3px 6px 114px -17px rgba(0,0,0,1);
+		overflow: hidden;
+	}
 	.welcome {
 		padding-top: 75px;
 		padding-left: 40px;
@@ -20,6 +32,7 @@
 <body bgcolor="#282828">
 	<jsp:include page="_header.jsp"></jsp:include>
 	<c:import url="sidebar" />
+<<<<<<< HEAD
 	<c:import url="advSearch" />
 
 	<div class="welcome">
@@ -32,7 +45,12 @@
 		{
 			%><h3>Hello <%= (String) session.getAttribute("loginedU")%></h3>
 	<%}%>
+=======
+	<div class="trending">
+	
+>>>>>>> f0e81425a03653b5976404d2fb1f75e54565f43a
 	</div>
+
 
 
 <body>
