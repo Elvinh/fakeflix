@@ -19,13 +19,9 @@
 		height: 100%;
 		width: 0;
 		z-index: 1;
-		top: 90px;
+		top: 74px;
 		overflow-x: hidden;
-<<<<<<< HEAD
 		padding-top: 25px;
-=======
-		padding-top: 30px;
->>>>>>> cbe4ae2ff598e83b52c18dce1d1897b23f2a8d4c
 		transition: 0.5s;
 		float: bottom;
 	}
@@ -77,36 +73,35 @@
 <title></title>
 </head>
 
-	<ul>
-	<div class = "sidebar" id = "sideNav" style = "width:25%; left;0">
+<div class = "sidebar" id = "sideNav" style = "width:25%; left;0">
 	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 	<h3>Genre List</h3>
+	<ul>
 		<%List list = new ArrayList(); 
 		list = (ArrayList)request.getAttribute("genresList");%>
 		<% for(int i = 0; i < list.size(); i++)
 		{%>
 			<div class = "buttonContainer">
 				<a href = "browse?browseBy=genreName&genreName=<%=(String)list.get(i)%>&orderBy=title">
-				<%=(String) list.get(i)%>
+					<%=(String) list.get(i)%>
 				</a>
 			</div>
 		<%}%>
-		
-		
-	</div>
 	</ul>
+</div>
+
+
+<script>
+	function openNav() {
+		document.getElementById("sideNav").style.display = "block";
+	    document.getElementById("sideNav").style.width = "250px";
+	    document.getElementById("browsedContent").style.marginLeft = "250px";
+	}
 	
-	<script>
-function openNav() {
-	document.getElementById("sideNav").style.display = "block";
-    document.getElementById("sideNav").style.width = "250px";
-    document.getElementById("browsedContent").style.marginLeft = "250px";
-}
-
-function closeNav() {
-	document.getElementById("sideNav").style.display = "none";
-    document.getElementById("sideNav").style.width = "0";
-    document.getElementById("browsedContent").style.marginLeft = "0";
-
-}
+	function closeNav() {
+		document.getElementById("sideNav").style.display = "none";
+	    document.getElementById("sideNav").style.width = "0";
+	    document.getElementById("browsedContent").style.marginLeft = "0";
+	
+	}
 </script>
