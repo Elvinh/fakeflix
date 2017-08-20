@@ -110,7 +110,17 @@ public class BrowseResultServlet extends HttpServlet {
 			System.out.println(lstar);
 
 			
-			sqlQuery = "SELECT title, banner_url FROM movies WHERE movies.id in (SELECT movie_id FROM genres_in_movies WHERE genres_in_movies.genre_id in (SELECT id FROM genres WHERE genres.name LIKE '%" + aGenre + "%')) AND movies.id in (select movie_id from stars_in_movies where stars_in_movies.star_id in (select stars.id from stars where stars.first_name LIKE '%" + fstar + "%' AND '%" + lstar+ "%')) AND movies.title = '%" + title + "%' AND movies.year = '%" + year + "%' AND movies.director = '%" + director + "%' ORDER BY "  + orderBy;
+			sqlQuery = "SELECT title, banner_url FROM movies "
+					+ "WHERE movies.id in "
+					+ "(SELECT movie_id FROM genres_in_movies WHERE genres_in_movies.genre_id in "
+					+ "(SELECT id FROM genres WHERE genres.name LIKE '%" + aGenre + "%'))"
+					+ " AND movies.id in "
+					+ "(select movie_id from stars_in_movies where stars_in_movies.star_id in "
+					+ "(select stars.id from stars where stars.first_name LIKE '%" + fstar + "%' AND stars.last_name LIKE '%" + lstar+ "%')) "
+							+ "AND movies.title LIKE '%" + title + "%' "
+									+ "AND movies.year LIKE '%" + year + "%' "
+											+ "AND movies.director LIKE '%" + director + "%' "
+													+ "ORDER BY "  + orderBy;
 			
 			// select * from movies where movies.id in (select movie_id from stars_in_movies where stars_in_movies.star_id in (select stars.id from stars where stars.first_name = 'Kristin'))
 			// movies.id in (select movie_id from stars_in_movies where stars_in_movies.star_id in (select stars.id from stars where stars.first_name LIKE '%' + fstar + '%' and '%' + lstar+ '%'))
@@ -134,9 +144,7 @@ public class BrowseResultServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		List stuff = new ArrayList();
-		stuff = (List) list.get(0);
-		System.out.println(stuff.get(0));
+
 		request.setAttribute("browseResult", list);
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/browseResultView.jsp");
