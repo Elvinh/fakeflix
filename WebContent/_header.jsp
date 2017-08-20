@@ -139,7 +139,26 @@ font-family: 'Cinzel', serif;
 
 
 
+.advSearch
+{
+	font-family: 'Cinzel', serif;
+  	flex-shrink: 0;
+}
 
+.advSearch a
+{
+	display: block;
+    color: #d01717;
+    text-align: center;
+    padding: 25px 25px;
+    text-decoration: none;
+}
+
+.advSearch a:hover
+{
+ 	background-color: #d01717;
+    color: white;
+}
 
 </style>
 <head>
@@ -162,7 +181,11 @@ font-family: 'Cinzel', serif;
 			<form class="searchBar" method="get" action="<%= request.getContextPath() %>/getMovie">
 				<input type="text" name="selected" placeholder="Search for movie titles...">
 			</form>
-		
+			
+			
+			<div class = "advSearch">
+				<a href = "advSearch">Advanced Search</a>
+			</div>
 			<div class="login">
 					<a href="login">LOGIN</a>
 			</div>

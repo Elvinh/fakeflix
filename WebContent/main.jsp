@@ -22,17 +22,21 @@
 		padding-top: 75px;
 		padding-left: 40px;
 	}
+	
+	h3
+	{
+		color: white;
+		font-family: 'Open Sans Condensed', sans-serif;
+		text-align: center;
+	}
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Main</title>
 </head>
 <body bgcolor="#282828">
 	<jsp:include page="_header.jsp"></jsp:include>
-	<c:import url="sidebar" />
 
 	<div class="welcome">
-		<a href="sidebar">Sidebar</a>
-		<a href = "advSearch">Advanced Search</a>
 		<%if(session.getAttribute("loginedU") == null)
 		{%>
 			<h3> Hello </h3>
