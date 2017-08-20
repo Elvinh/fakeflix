@@ -118,8 +118,6 @@ public class BrowseResultServlet extends HttpServlet {
 		}
 		
 		try {
-			
-			
 			Class.forName(driver);
 			Connection connection;
 			connection = DriverManager.getConnection(url+db, user, password);

@@ -64,7 +64,6 @@ input[type=text], input[type = password]
 {
 	padding: 16px;
 	font: Tahoma;
-	
 	border-style: solid;
 	border-color: #d01717;
 	box-shadow: 3px 6px 114px -17px rgba(0,0,0,1);

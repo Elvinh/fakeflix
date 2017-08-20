@@ -8,14 +8,53 @@
 <style>
 	.AdvSearch
 	{
-		margin-top: 500px;
+		margin: auto;
+		position: absolute;
 		display: inline-block;
+		padding: 16px;
+		border-style: solid;
+		border-color: #d01717;
+		box-shadow: 3px 6px 114px -17px rgba(0,0,0,1);
+		background-color: #2c2d30;
+		width: 500px;
+		top:0;
+		left:0;
+		bottom:0;
+		right: 0;
+		height: 100px;
+		margin-bottom: 400px;
 	
 	}
 	label
 	{
 		color: white;
 		font-family: 'Open Sans Condensed', sans-serif;
+	}
+	input[type=text]
+	{
+		width: 100%;
+		padding: 12px, 20px;
+		margin: 8px;
+		display: inline-block;
+		box-sizing: border-box;
+		font: Tahoma;
+		color: white;
+		margin: 8px 0;
+	}
+	.SearchBtn
+	{
+		background-color: #d01717;
+		color: white;
+		padding: 14px 20px;
+		margin: 8px 0;
+		border: none;
+		cursor: pointer;
+		width:100%;
+		font: Tahoma;
+	}
+	.SearchBtn:hover
+	{
+		opacity: 0.8;
 	}
 </style>
 <head>
