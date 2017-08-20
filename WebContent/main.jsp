@@ -29,8 +29,21 @@
 <body bgcolor="#282828">
 	<jsp:include page="_header.jsp"></jsp:include>
 	<c:import url="sidebar" />
+
+	<div class="welcome">
+		<a href="sidebar">Sidebar</a>
+		<a href = "advSearch">Advanced Search</a>
+		<%if(session.getAttribute("loginedU") == null)
+		{%>
+			<h3> Hello </h3>
+		<%}
+		else
+		{
+			%><h3>Hello <%= (String) session.getAttribute("loginedU")%></h3>
+	<%}%>
+
 	<div class="trending">
-	
+
 	</div>
 
 

@@ -169,6 +169,8 @@ font-family: 'Cinzel', serif;
 			
 			<div class="logout">
 					<a href="logout">LOGOUT</a>
-			</div>
+		</div>
+		
+		
 </header>
 </body>

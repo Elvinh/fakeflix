@@ -48,6 +48,8 @@ public class BrowseResultServlet extends HttpServlet {
 		String range = String.valueOf(lower) + ", "  + String.valueOf(higher);
 		
 		String sqlQuery = null;
+		System.out.println(browseType);
+
 		if(browseType.equals("title")) {
 			sqlQuery = "SELECT title, banner_url  FROM movies ORDER BY " + orderBy + " LIMIT " + range;
 		}
@@ -57,8 +59,67 @@ public class BrowseResultServlet extends HttpServlet {
 		{
 			sqlQuery = "SELECT title, banner_url FROM movies WHERE movies.id in (SELECT movie_id FROM genres_in_movies WHERE genres_in_movies.genre_id in (SELECT id FROM genres WHERE genres.name = \"" + gName + "\")) ORDER BY " + orderBy;
 		}
+		else if(browseType.equals("advSearch"))
+		{
+			
+			String title = "";
+			String year = "";
+			String director = "";
+			String aGenre = "";
+			String fstar = "";
+			String lstar = "";
+			
+			title = request.getParameter("advTitle");
+			year = request.getParameter("advYear");
+			director = request.getParameter("advDirector");
+			aGenre = request.getParameter("advGenre");
+			fstar = request.getParameter("advStarF");
+			lstar = request.getParameter("advStarL");
+			
+			System.out.println("Here");
+			if(title.equals(null))
+			{
+				title = "";
+			}
+			if(year.equals(null))
+			{
+				year = "";
+			}
+			if(director.equals(null))
+			{
+				director = "";
+			}
+			if(aGenre.equals(null))
+			{
+				aGenre = "";
+			}
+			if(fstar.equals(null))
+			{
+				fstar = "";
+			}
+			if(lstar.equals(null))
+			{
+				lstar = "";
+			}
+			
+			System.out.println(title);
+			System.out.println(year);
+			System.out.println(director);
+			System.out.println(aGenre);
+			System.out.println(fstar);
+			System.out.println(lstar);
+
+			
+			sqlQuery = "SELECT title, banner_url FROM movies WHERE movies.id in (SELECT movie_id FROM genres_in_movies WHERE genres_in_movies.genre_id in (SELECT id FROM genres WHERE genres.name LIKE '%" + aGenre + "%')) AND movies.id in (select movie_id from stars_in_movies where stars_in_movies.star_id in (select stars.id from stars where stars.first_name LIKE '%" + fstar + "%' AND '%" + lstar+ "%')) AND movies.title = '%" + title + "%' AND movies.year = '%" + year + "%' AND movies.director = '%" + director + "%' ORDER BY "  + orderBy;
+			
+			// select * from movies where movies.id in (select movie_id from stars_in_movies where stars_in_movies.star_id in (select stars.id from stars where stars.first_name = 'Kristin'))
+			// movies.id in (select movie_id from stars_in_movies where stars_in_movies.star_id in (select stars.id from stars where stars.first_name LIKE '%' + fstar + '%' and '%' + lstar+ '%'))
+			// select * from movies where movie.title like "%" + title + "%" and movies.year like "%%"
+		}
 		
 		try {
+			
+			
 			Class.forName(driver);
 			Connection connection;
 			connection = DriverManager.getConnection(url+db, user, password);
@@ -75,7 +136,9 @@ public class BrowseResultServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		List stuff = new ArrayList();
+		stuff = (List) list.get(0);
+		System.out.println(stuff.get(0));
 		request.setAttribute("browseResult", list);
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/browseResultView.jsp");
