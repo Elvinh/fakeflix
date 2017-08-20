@@ -77,27 +77,27 @@ public class BrowseResultServlet extends HttpServlet {
 			lstar = request.getParameter("advStarL");
 			
 			System.out.println("Here");
-			if(title.equals(null))
+			if(title == null)
 			{
 				title = "";
 			}
-			if(year.equals(null))
+			if(year == null)
 			{
 				year = "";
 			}
-			if(director.equals(null))
+			if(director == null)
 			{
 				director = "";
 			}
-			if(aGenre.equals(null))
+			if(aGenre == null)
 			{
 				aGenre = "";
 			}
-			if(fstar.equals(null))
+			if(fstar == null)
 			{
 				fstar = "";
 			}
-			if(lstar.equals(null))
+			if(lstar == null)
 			{
 				lstar = "";
 			}

@@ -4,22 +4,17 @@
 
 <style>
 
-	.browsedContent	
-	{
-		transition: margin-left .5s;
-		padding: 16px;
-	}
+
 
 	.sidebar
 	{
-		display: none;
 		position:fixed;
 		left: 0;
+		top: 74px;
 		background-color: rgba(17, 17, 17, 0.9);
 		height: 100%;
 		width: 0;
 		z-index: 1;
-		top: 74px;
 		overflow-x: hidden;
 		padding-top: 25px;
 		transition: 0.5s;
@@ -67,7 +62,10 @@
 		list-style-type: none;
 	}
 	
-	
+	#content {
+		transition: margin-left .5s;
+		padding: 16px;
+	}
 	
 </style>
 
@@ -77,7 +75,7 @@
 <title></title>
 </head>
 
-<div class = "sidebar" id = "sideNav" style = "width:25%; left;0">
+<div class = "sidebar" id = "sideNav">
 	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 	<h3>Genre List</h3>
 	<ul class="categories">
@@ -97,15 +95,13 @@
 
 <script>
 	function openNav() {
-		document.getElementById("sideNav").style.display = "block";
 	    document.getElementById("sideNav").style.width = "250px";
-	    document.getElementById("browsedContent").style.marginLeft = "250px";
+	    document.getElementById("content").style.marginLeft = "250px";
 	}
 	
 	function closeNav() {
-		document.getElementById("sideNav").style.display = "none";
 	    document.getElementById("sideNav").style.width = "0";
-	    document.getElementById("browsedContent").style.marginLeft = "0";
+	    document.getElementById("content").style.marginLeft = "0";
 	
 	}
 </script>

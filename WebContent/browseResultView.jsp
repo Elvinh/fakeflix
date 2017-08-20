@@ -12,6 +12,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 <style>
+
 	.sort {
 		display: inline-block;
 		margin-top: 100px;
@@ -81,7 +82,7 @@
 	<c:import url="sidebar" />
 	<link href="https://fonts.googleapis.com/css?family=Amatic+SC|Cinzel" rel="stylesheet">
 	
-	<div id="browsedContent">
+	<div id="content">
 		<div class = "openButton">
 			<span onclick="openNav()"><button class = "myB">>> Categories</button></span>
 		</div>
