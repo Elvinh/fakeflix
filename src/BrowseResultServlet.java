@@ -55,12 +55,8 @@ public class BrowseResultServlet extends HttpServlet {
 		int lower = (Integer.parseInt(page) - 1)  * 25;
 		int higher = Integer.parseInt(page) * 25;
 		String range = String.valueOf(lower) + ", "  + String.valueOf(higher);
-<<<<<<< HEAD
-		
-		String sqlQuery = null;
-=======
 
->>>>>>> 1a826e9205eaa9c142b95801313677653e4a25f9
+		//String sqlQuery = null;
 
 		if(browseType.equals("title")) {
 			sqlQuery = "SELECT title, banner_url  FROM movies ORDER BY " + orderBy + " LIMIT " + range;
@@ -88,11 +84,8 @@ public class BrowseResultServlet extends HttpServlet {
 			fstar = request.getParameter("advStarF");
 			lstar = request.getParameter("advStarL");
 			
-<<<<<<< HEAD
 			if(title.equals(null))
-=======
 			if(title == null)
->>>>>>> 1a826e9205eaa9c142b95801313677653e4a25f9
 			{
 				title = "";
 			}
@@ -129,9 +122,6 @@ public class BrowseResultServlet extends HttpServlet {
 											+ "AND movies.director LIKE '%" + director + "%' "
 													+ "ORDER BY "  + orderBy;
 			
-			// select * from movies where movies.id in (select movie_id from stars_in_movies where stars_in_movies.star_id in (select stars.id from stars where stars.first_name = 'Kristin'))
-			// movies.id in (select movie_id from stars_in_movies where stars_in_movies.star_id in (select stars.id from stars where stars.first_name LIKE '%' + fstar + '%' and '%' + lstar+ '%'))
-			// select * from movies where movie.title like "%" + title + "%" and movies.year like "%%"
 		}
 
 		try {
