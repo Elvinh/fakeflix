@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.dbutils.*;
+
 @WebServlet("/browse/*")
 
 public class BrowseResultServlet extends HttpServlet {
@@ -23,7 +25,10 @@ public class BrowseResultServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
 		HttpSession session = request.getSession(true);
-		List list = new ArrayList();
+		
+		Connection conn = null;
+		Statement st = null;
+		ResultSet rs = null;
 		
 		String url = "jdbc:mysql://localhost:3306/";
 		String db = "moviedb";
@@ -36,6 +41,10 @@ public class BrowseResultServlet extends HttpServlet {
 		String page = request.getParameter("page");
 		String gName = request.getParameter("genreName");
 
+		List list = new ArrayList();
+		
+		String sqlQuery = null;
+
 		if(page == null) {
 			page = "1";
 		}
@@ -46,9 +55,7 @@ public class BrowseResultServlet extends HttpServlet {
 		int lower = (Integer.parseInt(page) - 1)  * 25;
 		int higher = Integer.parseInt(page) * 25;
 		String range = String.valueOf(lower) + ", "  + String.valueOf(higher);
-		
-		String sqlQuery = null;
-		System.out.println(browseType);
+
 
 		if(browseType.equals("title")) {
 			sqlQuery = "SELECT title, banner_url  FROM movies ORDER BY " + orderBy + " LIMIT " + range;
@@ -126,14 +133,12 @@ public class BrowseResultServlet extends HttpServlet {
 			// movies.id in (select movie_id from stars_in_movies where stars_in_movies.star_id in (select stars.id from stars where stars.first_name LIKE '%' + fstar + '%' and '%' + lstar+ '%'))
 			// select * from movies where movie.title like "%" + title + "%" and movies.year like "%%"
 		}
-		
+
 		try {
 			Class.forName(driver);
-			Connection connection;
-			connection = DriverManager.getConnection(url+db, user, password);
-			Statement st;
-			st = connection.createStatement();
-			ResultSet rs = st.executeQuery(sqlQuery);
+			conn = DriverManager.getConnection(url+db, user, password);
+			st = conn.createStatement();
+			rs = st.executeQuery(sqlQuery);
 			while(rs.next()) {
 				List movies = new ArrayList();
 				movies.add(rs.getString(1));
@@ -143,6 +148,10 @@ public class BrowseResultServlet extends HttpServlet {
 		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			DbUtils.closeQuietly(rs);
+			DbUtils.closeQuietly(st);
+			DbUtils.closeQuietly(conn);
 		}
 
 		request.setAttribute("browseResult", list);

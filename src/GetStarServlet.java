@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.dbutils.DbUtils;
+
 /**
  * Servlet implementation class getStarServlet
  */
@@ -48,6 +50,10 @@ public class GetStarServlet extends HttpServlet {
 		String user = "root";
 		String password = "admin";
 		
+		Connection conn = null;
+		Statement st = null;
+		ResultSet rs = null;
+		
 		String star = request.getParameter("selected");
 		//String firstName = star.split(" ")[0];
 		//String lastName = star.split(" ")[1];
@@ -55,11 +61,9 @@ public class GetStarServlet extends HttpServlet {
 		String sqlQuery2 = "SELECT title, banner_url FROM movies WHERE movies.id IN (SELECT movie_id FROM stars_in_movies WHERE stars_in_movies.star_id = " + star + ")";
 		try {
 			Class.forName(driver);
-			Connection connection;
-			connection = DriverManager.getConnection(url+db, user, password);
-			Statement st;
-			st = connection.createStatement();
-			ResultSet rs = st.executeQuery(sqlQuery);
+			conn = DriverManager.getConnection(url+db, user, password);
+			st = conn.createStatement();
+			rs = st.executeQuery(sqlQuery);
 			while(rs.next()) {
 				
 				starAttributes.add(rs.getString(1));
@@ -78,6 +82,10 @@ public class GetStarServlet extends HttpServlet {
 		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}  finally {
+			DbUtils.closeQuietly(rs);
+			DbUtils.closeQuietly(st);
+			DbUtils.closeQuietly(conn);
 		}
 		
 		request.setAttribute("requestedStar", starAttributes);
