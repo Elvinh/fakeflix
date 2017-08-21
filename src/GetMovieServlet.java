@@ -83,8 +83,8 @@ public class GetMovieServlet extends HttpServlet {
 				rs = st.executeQuery(sqlQuery);
 				while(rs.next()) {
 					List star = new ArrayList();
-					star.add(rs.getString(1));
-					star.add(rs.getString(2));
+					String fullName = rs.getString(1) + " " + rs.getString(2);
+					star.add(fullName);
 					star.add(rs.getString(3));
 					stars.add(star);
 				}

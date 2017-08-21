@@ -65,10 +65,9 @@ public class GetStarServlet extends HttpServlet {
 			st = conn.createStatement();
 			rs = st.executeQuery(sqlQuery);
 			while(rs.next()) {
-				
+				String fullName = rs.getString(2) + " " + rs.getString(3);
 				starAttributes.add(rs.getString(1));
-				starAttributes.add(rs.getString(2));
-				starAttributes.add(rs.getString(3));
+				starAttributes.add(fullName);
 				starAttributes.add(rs.getString(4));
 				starAttributes.add(rs.getString(5));
 			}
