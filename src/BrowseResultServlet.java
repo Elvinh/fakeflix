@@ -83,7 +83,6 @@ public class BrowseResultServlet extends HttpServlet {
 			fstar = request.getParameter("advStarF");
 			lstar = request.getParameter("advStarL");
 			
-			System.out.println("Here");
 			if(title == null)
 			{
 				title = "";
