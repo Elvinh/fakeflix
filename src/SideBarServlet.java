@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.commons.dbutils.DbUtils;
 
 /**
  * Servlet implementation class SideBarServlet
@@ -36,19 +39,23 @@ public class SideBarServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	    List list = new ArrayList();
-
+		
+	    Connection conn = null;
+		Statement st = null;
+		ResultSet rs = null;
+		
 	    try
 	    {
-	    	Class.forName("com.mysql.jdbc.Driver").newInstance();
-	    	Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb", "root", "admin");
-			Statement select = connection.createStatement();
-		    ResultSet result = select.executeQuery("select name from genres"); 		
+	    	Class.forName("com.mysql.jdbc.Driver");
+	    	conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb", "root", "admin");
+			st = conn.createStatement();
+		    rs = st.executeQuery("select name from genres"); 		
 		    
-		    if(result.absolute(1))
+		    if(rs.absolute(1))
 		    {
-		    	while(result.next())
+		    	while(rs.next())
 		    	{
-		    		list.add(result.getString(1));
+		    		list.add(rs.getString(1));
 		    		/*
 		    		 * 	movies.add(rs.getString(1));
 				movies.add(rs.getString(2));
@@ -57,11 +64,16 @@ public class SideBarServlet extends HttpServlet {
 		    	}
 		    }
 	    }
-	    catch(Exception e)
-	    {
-	    	
-	    }
-	    	    request.setAttribute("genresList", list);
+	    catch(SQLException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DbUtils.closeQuietly(rs);
+			DbUtils.closeQuietly(st);
+			DbUtils.closeQuietly(conn);
+		}
+	    
+	    request.setAttribute("genresList", list);
 	    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/_sidebarView.jsp");
 		dispatcher.forward(request, response);
 	}

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.commons.dbutils.DbUtils;
 
 
 /**
@@ -29,26 +32,32 @@ public class ValidateLoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
+	    Connection conn = null;
+		Statement st = null;
+		ResultSet rs = null;
+		ResultSet rs2 = null;
+
 		List nameList = new ArrayList();
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		
 		try
 		{
-			String email = request.getParameter("email");
-			String password = request.getParameter("password");
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb", "root", "admin");
-			Statement select = connection.createStatement();
-		    ResultSet result = select.executeQuery("Select *  from customers where customers.email = '"+ email + "' and customers.password = '" + password + "'");
+	    	Class.forName("com.mysql.jdbc.Driver");
+	    	conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb", "root", "admin");
+			st = conn.createStatement();
+		    rs = st.executeQuery("Select *  from customers where customers.email = '"+ email + "' and customers.password = '" + password + "'");
 	    	HttpSession session = null;
 
-		    if(result.absolute(1))
+		    if(rs.absolute(1))
 		    {
 		    	session = request.getSession();
 		    
-			    ResultSet rs = select.executeQuery("Select first_name, last_name from customers where customers.email ='"+ email + "' and customers.password = '" + password + "'");
-			    while(rs.next())
+		    	rs2 = st.executeQuery("Select first_name, last_name from customers where customers.email ='"+ email + "' and customers.password = '" + password + "'");
+			    while(rs2.next())
 			    {
-			    	nameList.add(rs.getString(1));
-			    	nameList.add(rs.getString(2));
+			    	nameList.add(rs2.getString(1));
+			    	nameList.add(rs2.getString(2));
 
 			    }
 			  
@@ -71,9 +80,14 @@ public class ValidateLoginServlet extends HttpServlet {
 		    }
 		  
 		}
-		catch(Exception e)
-		{
-			
+		 catch (SQLException | ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+		} finally {
+			DbUtils.closeQuietly(rs);
+			DbUtils.closeQuietly(rs2);
+			DbUtils.closeQuietly(st);
+			DbUtils.closeQuietly(conn);
 		}
 
 	

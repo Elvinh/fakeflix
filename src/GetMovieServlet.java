@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.dbutils.DbUtils;
+
 /**
  * Servlet implementation class MoviesByStar
  */
@@ -48,6 +50,10 @@ public class GetMovieServlet extends HttpServlet {
 		String user = "root";
 		String password = "admin";
 		
+		Connection conn = null;
+		Statement st = null;
+		ResultSet rs = null;
+		
 		String selectedType = request.getParameter("selected");
 		String type = null;
 		String sqlQuery = null;
@@ -57,11 +63,9 @@ public class GetMovieServlet extends HttpServlet {
 		
 		try {
 			Class.forName(driver);
-			Connection connection;
-			connection = DriverManager.getConnection(url+db, user, password);
-			Statement st;
-			st = connection.createStatement();
-			ResultSet rs = st.executeQuery(sqlQuery);
+			conn = DriverManager.getConnection(url+db, user, password);
+			st = conn.createStatement();
+			rs = st.executeQuery(sqlQuery);
 			
 			if(rs.absolute(1)) {
 				rs = st.executeQuery(sqlQuery);
@@ -79,8 +83,8 @@ public class GetMovieServlet extends HttpServlet {
 				rs = st.executeQuery(sqlQuery);
 				while(rs.next()) {
 					List star = new ArrayList();
-					star.add(rs.getString(1));
-					star.add(rs.getString(2));
+					String fullName = rs.getString(1) + " " + rs.getString(2);
+					star.add(fullName);
 					star.add(rs.getString(3));
 					stars.add(star);
 				}
@@ -100,11 +104,16 @@ public class GetMovieServlet extends HttpServlet {
 		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			DbUtils.closeQuietly(rs);
+			DbUtils.closeQuietly(st);
+			DbUtils.closeQuietly(conn);
 		}
 		
 		request.setAttribute("requestedMovie", list);
 		request.setAttribute("type", type);
 		request.setAttribute("stars", stars);
+		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/getMovieView.jsp");
 		dispatcher.forward(request, response);
 		

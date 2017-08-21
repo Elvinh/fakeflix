@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+       <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+   
 <style>
 .page-head {
 	background-color: rgb(54, 25, 25);
@@ -171,14 +173,14 @@ font-family: 'Cinzel', serif;
 		<div class="dropdown">
 			<button class="dropbtn">Browse</button>
 			<div class="dropdown-content">
-				<form method="get" action="<%= request.getContextPath() %>/browse" >
+				<form method="get" action="${pageContext.request.contextPath}/browse" >
 		    		<button class="link" name="browseBy" value="title">By Title</button>
 					<button class="link" name="browseBy" value="genre">By Genre</button>
 				</form>
 			</div>
 		</div>
 		
-			<form class="searchBar" method="get" action="<%= request.getContextPath() %>/getMovie">
+			<form class="searchBar" method="get" action="${pageContext.request.contextPath}/getMovie">
 				<input type="text" name="selected" placeholder="Search for movie titles...">
 			</form>
 			
