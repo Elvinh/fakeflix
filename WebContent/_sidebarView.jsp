@@ -71,8 +71,8 @@
 
 <head>
 	<link href="https://fonts.googleapis.com/css?family=Amatic+SC|Cinzel" rel="stylesheet">
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title></title>
 </head>
 
 <div class = "sidebar" id = "sideNav">

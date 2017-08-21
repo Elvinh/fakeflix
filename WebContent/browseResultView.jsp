@@ -8,78 +8,78 @@
 
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-<style>
-
-	.sort {
-		display: inline-block;
-		margin-top: 100px;
-		padding-left: 40px;
-	}
-	form {
-		display: inline-block;
-	}
+	<link href="https://fonts.googleapis.com/css?family=Amatic+SC|Cinzel" rel="stylesheet">
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>Insert title here</title>
+	<style>
 	
-	.movieGrid {
-		display: grid;
-		grid-template-columns: auto auto auto auto auto auto;
-  		grid-gap: 15px;
-  		
-	}
-	.movieBanner {
-	  padding: 20px;
-	  position: relative;
-	  width: 225px;
-	  height: 350px;
-	}
-	.movieBanner a img{
-		width:100%;
-		height:100%;
-		box-shadow: 11px 13px 66px 1px rgba(8,8,8,1);
-	}
-	.movieBanner .movieTitle{
-		position: absolute;
-		width: 225px;
-		background: rgba(208, 23, 23, 1);
-		top: 270px;
-  		left: 20px;
-  		vertical-align:middle;
-  		font-size: 20px;
-  		text-align: center;
-  		color: white;
-		box-shadow: -1px 5px 91px 9px rgba(8,8,8,1);
-
-
-	}
+		.sort {
+			display: inline-block;
+			margin-top: 100px;
+			padding-left: 40px;
+		}
+		form {
+			display: inline-block;
+		}
+		
+		.movieGrid {
+			display: grid;
+			grid-template-columns: auto auto auto auto auto auto;
+	  		grid-gap: 15px;
+	  		
+		}
+		.movieBanner {
+		  padding: 20px;
+		  position: relative;
+		  width: 225px;
+		  height: 350px;
+		}
+		.movieBanner a img{
+			width:100%;
+			height:100%;
+			box-shadow: 11px 13px 66px 1px rgba(8,8,8,1);
+		}
+		.movieBanner .movieTitle{
+			position: absolute;
+			width: 225px;
+			background: rgba(208, 23, 23, 1);
+			top: 270px;
+	  		left: 20px;
+	  		vertical-align:middle;
+	  		font-size: 20px;
+	  		text-align: center;
+	  		color: white;
+			box-shadow: -1px 5px 91px 9px rgba(8,8,8,1);
 	
-	.openButton
-	{
-		font-family: 'Cinzel', serif;
-		display:inline-block;
-	}
-	.myB {
-		margin-left: 20px;
-    	text-align: center;
-    	position: relative;
-    	float: center;
-	    background-color: #d01717;
-	    color: white;
-	    padding: 16px;
-	    font-size: 16px;
-	    border: none;
-	    cursor: pointer;
-	    flex-shrink: 0;
-	    outline: none;
-	}
 	
-</style>
+		}
+		
+		.openButton
+		{
+			font-family: 'Cinzel', serif;
+			display:inline-block;
+		}
+		.myB {
+			margin-left: 20px;
+	    	text-align: center;
+	    	position: relative;
+	    	float: center;
+		    background-color: #d01717;
+		    color: white;
+		    padding: 16px;
+		    font-size: 16px;
+		    border: none;
+		    cursor: pointer;
+		    flex-shrink: 0;
+		    outline: none;
+		}
+		
+	</style>
 </head>
 
 <body bgcolor="#282828">
 	<jsp:include page="_header.jsp"></jsp:include>
 	<c:import url="sidebar" />
-	<link href="https://fonts.googleapis.com/css?family=Amatic+SC|Cinzel" rel="stylesheet">
 	
 	<div id="content">
 		<div class = "openButton">
@@ -95,7 +95,7 @@
 		  		<option value="opel">Opel</option>
 		  		<option value="audi">Audi</option>
 			</select>
-			<input type="submit" value="Send"></td>
+			<input type="submit" value="Send">
 		</form>
 	
 		<a href="browse?browseBy=title&orderBy=title&page=1">1</a>	
