@@ -45,8 +45,9 @@
 		{
 			%><h3>Hello <%= (String) session.getAttribute("loginedU")%></h3>
 	<%}%>
+	</div>
 
-	<div class="trending">
+	<div class="trendingMovies">
 
 	</div>
 

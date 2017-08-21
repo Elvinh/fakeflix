@@ -48,7 +48,6 @@ public class BrowseResultServlet extends HttpServlet {
 		String range = String.valueOf(lower) + ", "  + String.valueOf(higher);
 		
 		String sqlQuery = null;
-		System.out.println(browseType);
 
 		if(browseType.equals("title")) {
 			sqlQuery = "SELECT title, banner_url  FROM movies ORDER BY " + orderBy + " LIMIT " + range;
@@ -76,7 +75,6 @@ public class BrowseResultServlet extends HttpServlet {
 			fstar = request.getParameter("advStarF");
 			lstar = request.getParameter("advStarL");
 			
-			System.out.println("Here");
 			if(title.equals(null))
 			{
 				title = "";
@@ -101,15 +99,7 @@ public class BrowseResultServlet extends HttpServlet {
 			{
 				lstar = "";
 			}
-			
-			System.out.println(title);
-			System.out.println(year);
-			System.out.println(director);
-			System.out.println(aGenre);
-			System.out.println(fstar);
-			System.out.println(lstar);
 
-			
 			sqlQuery = "SELECT title, banner_url FROM movies "
 					+ "WHERE movies.id in "
 					+ "(SELECT movie_id FROM genres_in_movies WHERE genres_in_movies.genre_id in "
