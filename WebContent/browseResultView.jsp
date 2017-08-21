@@ -3,7 +3,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="java.util.*"%>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -89,7 +88,7 @@
 			
 		<p class="sort">Sort By: </p>
 		
-		<form action="<%= request.getContextPath() %>/browse" method="get">
+		<form action="/browse" method="get">
 			<select name="orderBy">
 		  		<option>Select</option>
 		  		<option value="title">Title</option>
@@ -105,21 +104,14 @@
 		<a href="browse?browseBy=title&orderBy=title&page=4">4</a>
 	
 		<div class="movieGrid">
-			<%
-			List browseCategory = new ArrayList();
-			browseCategory = (ArrayList)request.getAttribute("browseResult");	
-			for(int i = 0; i < browseCategory.size(); i++) { 
-				List item = (List) browseCategory.get(i);%>
-		
-						<div class="movieBanner <%=i%>">
-							<a href="getMovie?selected=<%= item.get(0) %>"><img src="<%=item.get(1)%>" /></a>
-							<div class="movieTitle">
-								<%= item.get(0) %>
-							</div>
-
-						</div>
-		
-			<% } %>
+			<c:forEach var="movie" items="${browseResult}">
+				<div class="movieBanner">
+					<a href="getMovie?selected=<c:out value="${movie[0]}"/>"><img src="<c:out value="${movie[1]}"/>" /></a>
+					<div class="movieTitle">
+						<c:out value="${movie[0]}"/>
+					</div>
+				</div>
+			</c:forEach>
 		</div>
 	</div>
 </body>

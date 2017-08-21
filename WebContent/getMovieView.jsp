@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@page import="java.util.*"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -48,41 +49,25 @@
 	<jsp:include page="_header.jsp"></jsp:include>
 
 	<div class="movieInfo">
-		<%
-		List movies = new ArrayList();
-		movies = (ArrayList)request.getAttribute("requestedMovie");
-		List stars = new ArrayList();
-		stars = (ArrayList)request.getAttribute("stars");
-		String type = (String)request.getAttribute("type");
-		%>
-		<%
-		for(int i = 0; i < movies.size(); i++) { 
-			if(type.equals("title")) {
-				List movieTitle = (List) movies.get(i); 
-		%>
-				<h1><%=movieTitle.get(0)%></h1>
-				<img src="<%=movieTitle.get(3)%>"/>
+		<c:forEach var="movieAttributes" items="${requestedMovie}" >
+				<h1><c:out value="${movieAttributes[0]}" /></h1>
+				<img src="<c:out value="${movieAttributes[3]}" />"/>
 				<div class="movieDesc">
-					<p>Released on: <%= movieTitle.get(1)%></p>
-					<form action="<%=movieTitle.get(4)%>">
+					<p>Released on: <c:out value="${movieAttributes[1]}"/></p>
+					<form action="<c:out value="${movieAttributes[4]}"/>">
     					<input type="submit" value="trailer" />
 					</form>
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas nec eleifend augue. Quisque luctus ultricies urna sit amet ultrices. Nullam iaculis tincidunt dui, quis ornare mi semper vel. Pellentesque malesuada felis vel consectetur pharetra. Etiam eleifend risus nec sem iaculis, non varius sapien aliquet. Nulla sit amet elit id dui sollicitudin finibus. Pellentesque id diam libero. Nulla mi leo, euismod non mi at, mollis ultricies ligula. In quis magna vel nisl cursus lobortis. Curabitur scelerisque ultrices magna eu varius. Duis vitae dolor purus. Cras nec metus accumsan, venenatis lorem ac, semper eros.
 					Curabitur quis dui est. Nulla facilisi. Maecenas venenatis libero lacus. Nullam sapien elit, scelerisque ac quam gravida, facilisis mattis ex.</p>
-					<a href="browse?browseBy=advSearch&advDirector=<%=movieTitle.get(2)%>" >Directed by: <%= movieTitle.get(2)%></a>
+					<a href="browse?browseBy=advSearch&advDirector=<c:out value="${movieAttributes[2]}"/>" >Directed by: <c:out value="${movieAttributes[2]}"/></a>
 	
 				</div>
-
-			<%} else { %>
-				<a href="getMovie?selected=<%=movies.get(i)%>"><%=movies.get(i)%></a>
-			<%}%>
-		<%}%>
+		</c:forEach>
 		<div class="starList">
 			<p>Staring: </p>
-			<% for(int j = 0; j < stars.size(); j++) { 
-				ArrayList star = (ArrayList)stars.get(j); %>
-				<a href="getStar?selected=<%=star.get(2)%>"><%=star.get(0) + " " + star.get(1)%></a>
-			<%}%>
+			<c:forEach var="star" items="${stars}">
+				<a href="getStar?selected=<c:out value="${star[2]}"/>"><c:out value="${star[0]}"/></a>
+			</c:forEach>
 		</div>
 		<div class="Buy">
 		</div>
