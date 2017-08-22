@@ -39,16 +39,15 @@
 <body bgcolor="#282828">
 	<jsp:include page="_header.jsp"></jsp:include>
 
-
 	<div class="welcome">
-	<%if(session.getAttribute("loginedU") == null)
-		{%>
-			<h3> Hello </h3>
-		<%}
-		else
-		{
-			%><h3>Hello <%= (String) session.getAttribute("loginedU")%></h3>
-	<%}%>
+		<c:choose>
+		  <c:when test= "${empty sessionScope.loginedU}">
+		  	<p>Hello. Please login.</p>
+		  </c:when>
+		  <c:otherwise>
+		  	<p>Welcome back, <c:out value = "${loginedU}"/></p>
+		  </c:otherwise>
+		</c:choose>
 	</div>
 
 	<div class="trendingMovies">
