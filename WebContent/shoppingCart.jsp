@@ -35,7 +35,6 @@
 			<td>
 				<c:forEach var = "movieList" items = "${addedMovies}">
 					<input type = "text" placeholder = "1" name = quantity" required>
-					<p>1</p>
 				</c:forEach>
 			</td>
 		</tr>

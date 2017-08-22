@@ -216,7 +216,7 @@ font-family: 'Cinzel', serif;
 			</div>
 			
 			<div class = "My Cart">
-				<a href = "myCart">MY CART</a>
+				<a href = "shoppingCart">MY CART</a>
 			</div>
 		
 		
