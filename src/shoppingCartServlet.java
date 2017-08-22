@@ -65,7 +65,7 @@ public class shoppingCartServlet extends HttpServlet {
 		}
 	    
 	    request.setAttribute("genresList", list);
-	    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/_sidebarView.jsp");
+	    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/shoppingCart.jsp");
 		dispatcher.forward(request, response);
 	}
 
