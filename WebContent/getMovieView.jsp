@@ -78,7 +78,9 @@
 			</c:forEach>
 		</div>
 		<div class="Buy">
-			<button class= "buyMovie" name = "addMovie" value = "myMovie">Add to my cart</button>
+			<form method="get" action="${pageContext.request.contextPath}/shoppingCart" >
+				<button class= "buyMovie" name = "addMovie" value = "${movieAttributes[0]}">Add to my cart</button>
+			</form>
 		</div>
 	</div>
 	

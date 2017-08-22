@@ -139,7 +139,26 @@ font-family: 'Cinzel', serif;
     color: white;
 }
 
+.myCart
+{
+	font-family: 'Cinzel', serif;
+  	flex-shrink: 0;
+}
 
+.myCart a
+{
+	display: block;
+    color: #d01717;
+    text-align: center;
+    padding: 25px 25px;
+    text-decoration: none;
+}
+
+.myCart a:hover
+{
+	background-color: #d01717;
+    color: white;
+}
 
 .advSearch
 {
@@ -193,8 +212,12 @@ font-family: 'Cinzel', serif;
 			</div>
 			
 			<div class="logout">
-					<a href="logout">LOGOUT</a>
-		</div>
+					<a href="logout">LOGOUT</a>	
+			</div>
+			
+			<div class = "My Cart">
+				<a href = "myCart">MY CART</a>
+			</div>
 		
 		
 </header>

@@ -43,16 +43,21 @@ public class shoppingCartServlet extends HttpServlet {
 		Connection conn = null;
 		Statement st = null;
 		ResultSet rs = null;
-		
+		String movieNameToAdd = request.getParameter("addMovie");
 	    try
 	    {
 	    	Class.forName("com.mysql.jdbc.Driver");
 	    	conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb", "root", "admin");
 			st = conn.createStatement();
-		    rs = st.executeQuery("select name from genres"); 
-		    
-		    String movieNameToAdd = request.getParameter("addMovie");
+		    rs = st.executeQuery("select name, price from movie where movies.name = '"+ movieNameToAdd + "'");
 		
+		    while(rs.next()) 
+		    {
+				List movies = new ArrayList();
+				movies.add(rs.getString(1));
+				movies.add(rs.getString(2));
+				list.add(movies);
+			}
 		   
 	    }
 	    catch(SQLException | ClassNotFoundException e) {
@@ -64,7 +69,7 @@ public class shoppingCartServlet extends HttpServlet {
 			DbUtils.closeQuietly(conn);
 		}
 	    
-	    request.setAttribute("genresList", list);
+	    request.setAttribute("addedMovies", list);
 	    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/shoppingCart.jsp");
 		dispatcher.forward(request, response);
 	}
