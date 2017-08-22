@@ -32,6 +32,7 @@
 		font-family: 'Open Sans Condensed', sans-serif;
 		text-align: center;
 	}
+	
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Main</title>

@@ -7,6 +7,41 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
+
+<style>
+	
+	table
+	{
+		position: absolute;
+		margin: auto;
+		width: 600px;
+		top:0;
+		left:0;
+		bottom:0;
+		right: 0;
+		height: 100px;
+		padding-bottom: 200px;
+	}
+	
+	th, td
+	{
+		text-align: left;
+		padding: 8px;
+		font-family: 'Open Sans Condensed', sans-serif;
+	}
+	
+	tr:nth-child(even)
+	{
+		background-color: blue;
+	}
+	
+	th
+	{
+		background-color: green;
+	}
+
+</style>
+
 <body bgcolor="#282828">
 <jsp:include page="_header.jsp"></jsp:include>
 	<link href="https://fonts.googleapis.com/css?family=Amatic+SC|Cinzel" rel="stylesheet">
@@ -15,9 +50,9 @@
 
 	<table>
 		<tr>
-			<td>Movie Title</td>
-			<td>Price</td>
-			<td>Quantity</td>
+			<th>Movie Title</th>
+			<th>Price</th>
+			<th>Quantity</th>
 		</tr>
 		<tr>
 			<td>
@@ -38,18 +73,6 @@
 				</c:forEach>
 			</td>
 		</tr>
-		
-	
-		
-		<c:forEach var="movie" items="${browseResult}">
-				<div class="movieBanner">
-					<a href="getMovie?selected=<c:out value="${movie[0]}"/>"><img src="<c:out value="${movie[1]}"/>" /></a>
-					<div class="movieTitle">
-						<c:out value="${movie[0]}"/>
-					</div>
-				</div>
-		</c:forEach>
-	
 	
 	</table>
 </body>
