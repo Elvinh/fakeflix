@@ -8,6 +8,18 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<h2>My shopping cart</h2>
+	
+	<table>
+		<td>Movie Title</td>
+		<td>Price</td>
+		<td>Quantity</td>
+		
+		<tr>
+		
+		</tr>
+	
+	
+	</table>
 </body>
 </html>

@@ -6,6 +6,13 @@
 <html>
 <head>
 <style>
+
+	.Buy
+	{
+		font-family: 'Cinzel', serif;
+	  	flex-shrink: 0;
+	}
+	
 	.movieInfo { 		
 		background-color: #2c2d30;
 		margin-top: 100px;
@@ -43,6 +50,8 @@
 	}
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
+
 <title>Insert title here</title>
 </head>
 <body bgcolor="#282828">
@@ -69,13 +78,9 @@
 			</c:forEach>
 		</div>
 		<div class="Buy">
+			<button class= "buyMovie" name = "addMovie" value = "myMovie">Add to my cart</button>
 		</div>
 	</div>
 	
-
-
-
-
-
 </body>
 </html>
