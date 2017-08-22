@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -76,23 +77,24 @@
 	
 	<div class="AdvSearch">
 	<h2>Advanced Movie Search</h2>
-	<div class = "container">
-		<form action="<%= request.getContextPath() %>/browse" method="get">
-			<label>Movie Title</label>
-				<input type = "text" placeholder = "Enter in a movie title" name = "advTitle">
-			<label>Year</label>
-				<input type = "text" placeholder = "Enter in a genre" name = "advYear">
-			<label>Director</label>
-				<input type = "text" placeholder = "Enter in a director" name = "advDirector">
-			<label>Genre</label>
-				<input type = "text" placeholder = "Enter in a genre" name = "advGenre">
-			<label>Star First Name</label>
-				<input type = "text" placeholder = "Enter in a star first name" name = "advStarF">
-			<label>Star Last Name</label>
-				<input type = "text" placeholder = "Enter in a star last name" name = "advStarL">
-			<button type="submit"class="SearchBtn" name = "browseBy" value = "advSearch"> Search </button>
-		</form>
-	</div>
+		<div class = "container">
+			<form action= "${pageContext.request.contextPath}/browse" method="get">
+	
+				<label>Movie Title</label>
+					<input type = "text" placeholder = "Enter in a movie title" name = "advTitle">
+				<label>Year</label>
+					<input type = "text" placeholder = "Enter in a genre" name = "advYear">
+				<label>Director</label>
+					<input type = "text" placeholder = "Enter in a director" name = "advDirector">
+				<label>Genre</label>
+					<input type = "text" placeholder = "Enter in a genre" name = "advGenre">
+				<label>Star First Name</label>
+					<input type = "text" placeholder = "Enter in a star first name" name = "advStarF">
+				<label>Star Last Name</label>
+					<input type = "text" placeholder = "Enter in a star last name" name = "advStarL">
+				<button type="submit"class="SearchBtn" name = "browseBy" value = "advSearch"> Search </button>
+			</form>
+		</div>
 	</div>
 </body>
 </html>

@@ -10,6 +10,7 @@ javax.servlet.http.HttpServlet,
 javax.servlet.http.HttpServletRequest, 
  javax.servlet.http.HttpServletResponse"
 %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -38,7 +39,6 @@ input[type=text], input[type = password]
 	display: inline-block;
 	box-sizing: border-box;
 	font: Tahoma;
-	color: white;
 	margin: 8px 0;
 }
 
@@ -86,7 +86,7 @@ label
 	<jsp:include page="_header.jsp"></jsp:include>
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
 	<div class="loginBox">
-		<form method = "post" action = "<%= request.getContextPath() %>/user">
+		<form method = "post" action = "${pageContext.request.contextPath}/user">
 		<div class = "container">
 			<label>Email</label>
 				<input type = "text" placeholder = "Enter Email" name = "email" required>

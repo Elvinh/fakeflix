@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <style>
 
@@ -79,19 +80,15 @@
 	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 	<h3>Genre List</h3>
 	<ul class="categories">
-		<%List list = new ArrayList(); 
-		list = (ArrayList)request.getAttribute("genresList");%>
-		<% for(int i = 0; i < list.size(); i++)
-		{%>
+		<c:forEach var="categories" items="${genresList}">
 			<div class = "buttonContainer">
-				<a href = "browse?browseBy=genreName&genreName=<%=(String)list.get(i)%>&orderBy=title">
-					<%=(String) list.get(i)%>
+				<a href = "browse?browseBy=genreName&genreName=<c:out value = "${categories}"/>&orderBy=title">
+					<c:out value = "${categories}"/>
 				</a>
 			</div>
-		<%}%>
+		</c:forEach>
 	</ul>
 </div>
-
 
 <script>
 	function openNav() {
