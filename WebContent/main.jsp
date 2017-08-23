@@ -7,7 +7,7 @@
 <head>
 <style>
 
-	.trending { 		
+	.trendingMovies { 		
 		background-color: #2c2d30;
 		width: 100%;
 		height: 30%;
