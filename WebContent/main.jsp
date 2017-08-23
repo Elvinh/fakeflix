@@ -48,6 +48,22 @@
 	.randomGenres p {
 		color: white;
 	}
+	.randomStars div { 		
+		background-color: #2c2d30;
+		width: 100%;
+		height: 310px;
+    	overflow-x: auto;
+    	overflow-y: hidden;
+		margin-bottom: 20px;
+		white-space: nowrap;
+		padding: 10px;
+	}
+	.randomStars a {
+		margin: 0 5px;		
+	}
+	.randomStars p {
+		color: white;
+	}
 	
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -88,6 +104,23 @@
 			</div>
 		</c:forEach>
 	</div>
+
+	<div class="randomStars">
+		<c:set var="i" value="0"/>
+		<c:forEach items="${moviesFromRandomStars}" var="moviesFromAStar">
+			<br>
+			<p>${starNames[i].fullName}</p>
+			<c:set var="i" value="${i + 1}" scope="page"/>
+			<div>
+					<c:forEach items="${moviesFromAStar}" var="movie">
+						<a href="getMovie?selected=<c:out value="${movie.title}"/>" >
+							<img src="<c:out value="${movie.banner_url}"/>"  WIDTH="200" HEIGHT="300" BORDER="0"/>
+						</a>
+					</c:forEach>
+			</div>
+		</c:forEach>
+	</div>
+	
 	
 
 

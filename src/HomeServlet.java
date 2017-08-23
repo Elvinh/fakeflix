@@ -49,59 +49,80 @@ public class HomeServlet extends HttpServlet {
 		ResultSet rs = null;
 		
 		List genres = new ArrayList();
-		List<List<Movies>> movies = new ArrayList<List<Movies>>();
-		List genreNames = new ArrayList();
-
-		// Get genres
-		String sqlQuery1 = "SELECT name FROM genres";
+		List stars = new ArrayList();
+		List<List<Movies>> genreMovies = new ArrayList<List<Movies>>();
+		List<List<Movies>> starMovies = new ArrayList<List<Movies>>();
 		
+		// Get x random genres
+		String sqlQuery = "SELECT name FROM genres ORDER by RAND() LIMIT 4";
+		String sqlQuery2 = "SELECT id, first_name, last_name FROM stars ORDER by RAND() LIMIT 2";
+				
 		try {
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url+db, user, password);
 			st = conn.createStatement();
-			rs = st.executeQuery(sqlQuery1);
+			rs = st.executeQuery(sqlQuery);
 			
 			while(rs.next()) {
 				genres.add(rs.getString(1));
+				
 			}
 			
-			// Generate 5 random indexes to choose random genres
-			final int [] randomGenres = new Random().ints(0,genres.size()).distinct().limit(5).toArray();
-			
-			System.out.println(randomGenres.length);
-
-			for(int i = 0;i < randomGenres.length;i++) {
+			for(int i = 0;i < genres.size();i++) {
 				List<Movies> moviesFromAGenre = new ArrayList<Movies>();
-
-				System.out.println(randomGenres[i]);
-				
-				// Choose 5 random genres to get movies from
-				String genreName = (String) genres.get(randomGenres[i]);
-				
-				genreNames.add(genreName);
-				System.out.println(genreName);
 				
 				// Get movies from a certain genre
-				String sqlQuery2 = "SELECT title, banner_url FROM movies WHERE movies.id in "
+				sqlQuery = "SELECT title, banner_url FROM movies WHERE movies.id in "
 						+ "(SELECT movie_id FROM genres_in_movies WHERE genres_in_movies.genre_id in "
-						+ "(SELECT id FROM genres WHERE genres.name = \"" + genreName + "\")) "
+						+ "(SELECT id FROM genres WHERE genres.name = \"" + genres.get(i) + "\")) "
 						+ "limit 10";
 				
-				rs = st.executeQuery(sqlQuery2);
+				rs = st.executeQuery(sqlQuery);
 				while(rs.next()) {
-					System.out.print(rs.getString(1));
-
 					Movies movie = new Movies();
 					
 					movie.setTitle(rs.getString(1));
 					movie.setBanner_url(rs.getString(2));
 					
 					moviesFromAGenre.add(movie);
-
-					System.out.println("");
 				}
-				movies.add(moviesFromAGenre);
+				genreMovies.add(moviesFromAGenre);
 			}
+			
+			
+			// Get movies from a certain star
+			rs = st.executeQuery(sqlQuery2);
+			
+			while(rs.next()) {
+				Stars star = new Stars();
+				star.setId(rs.getInt(1));
+				star.setFirst_name(rs.getString(2));
+				star.setLast_name(rs.getString(3));
+				stars.add(star);
+			}
+			
+			for(int i = 0;i < stars.size();i++) {
+				List<Movies> moviesFromAStar = new ArrayList<Movies>();
+				
+				// Get movies from a certain genre
+				sqlQuery = "SELECT title, banner_url FROM movies WHERE movies.id IN "
+						+ "(SELECT movie_id FROM stars_in_movies "
+						+ "WHERE stars_in_movies.star_id = " + ((Stars) stars.get(i)).getId() + ") "
+								+ "limit 10";
+						
+				rs = st.executeQuery(sqlQuery);
+				while(rs.next()) {
+					Movies movie = new Movies();
+					
+					movie.setTitle(rs.getString(1));
+					movie.setBanner_url(rs.getString(2));
+					
+					moviesFromAStar.add(movie);
+				}
+				starMovies.add(moviesFromAStar);
+			}
+			
+
 
 		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -112,17 +133,13 @@ public class HomeServlet extends HttpServlet {
 			DbUtils.closeQuietly(conn);
 		}
 		
-		System.out.println(movies.size());
-		for(int i=0;i<movies.size();i++) {
-			List<Movies> movie = movies.get(i);
-			System.out.println();
-			for(int j=0;j<movie.size();j++) {
-				System.out.print(movie.get(j).getTitle());
-			}
-		}
+		request.setAttribute("genreNames", genres);
+		request.setAttribute("moviesFromRandomGenres", genreMovies);
 		
-		request.setAttribute("genreNames", genreNames);
-		request.setAttribute("moviesFromRandomGenres", movies);
+		request.setAttribute("starNames", stars);
+		request.setAttribute("moviesFromRandomStars", starMovies);
+		
+		
 		
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/main.jsp");
 		dispatcher.forward(request, response);
