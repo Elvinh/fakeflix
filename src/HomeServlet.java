@@ -49,8 +49,9 @@ public class HomeServlet extends HttpServlet {
 		ResultSet rs = null;
 		
 		List genres = new ArrayList();
-		List movies = new ArrayList();
-		
+		List<List<Movies>> movies = new ArrayList<List<Movies>>();
+		List genreNames = new ArrayList();
+
 		// Get genres
 		String sqlQuery1 = "SELECT name FROM genres";
 		
@@ -65,22 +66,41 @@ public class HomeServlet extends HttpServlet {
 			}
 			
 			// Generate 5 random indexes to choose random genres
-			final int [] randomGenres = new Random().ints(0,genres.size()+1).distinct().limit(5).toArray();
+			final int [] randomGenres = new Random().ints(0,genres.size()).distinct().limit(5).toArray();
 			
+			System.out.println(randomGenres.length);
 
 			for(int i = 0;i < randomGenres.length;i++) {
+				List<Movies> moviesFromAGenre = new ArrayList<Movies>();
+
+				System.out.println(randomGenres[i]);
+				
 				// Choose 5 random genres to get movies from
 				String genreName = (String) genres.get(randomGenres[i]);
+				
+				genreNames.add(genreName);
+				System.out.println(genreName);
+				
 				// Get movies from a certain genre
-				String sqlQuery2 = "SELECT title FROM movies WHERE movies.id in "
+				String sqlQuery2 = "SELECT title, banner_url FROM movies WHERE movies.id in "
 						+ "(SELECT movie_id FROM genres_in_movies WHERE genres_in_movies.genre_id in "
-						+ "(SELECT id FROM genres WHERE genres.name = \"" + genreName + "\"))";
+						+ "(SELECT id FROM genres WHERE genres.name = \"" + genreName + "\")) "
+						+ "limit 10";
+				
 				rs = st.executeQuery(sqlQuery2);
 				while(rs.next()) {
-					List moviesFromGenre = new ArrayList();
-					moviesFromGenre.add(rs.getString(1));
-					movies.add(moviesFromGenre);
+					System.out.print(rs.getString(1));
+
+					Movies movie = new Movies();
+					
+					movie.setTitle(rs.getString(1));
+					movie.setBanner_url(rs.getString(2));
+					
+					moviesFromAGenre.add(movie);
+
+					System.out.println("");
 				}
+				movies.add(moviesFromAGenre);
 			}
 
 		} catch (SQLException | ClassNotFoundException e) {
@@ -92,6 +112,16 @@ public class HomeServlet extends HttpServlet {
 			DbUtils.closeQuietly(conn);
 		}
 		
+		System.out.println(movies.size());
+		for(int i=0;i<movies.size();i++) {
+			List<Movies> movie = movies.get(i);
+			System.out.println();
+			for(int j=0;j<movie.size();j++) {
+				System.out.print(movie.get(j).getTitle());
+			}
+		}
+		
+		request.setAttribute("genreNames", genreNames);
 		request.setAttribute("moviesFromRandomGenres", movies);
 		
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/main.jsp");

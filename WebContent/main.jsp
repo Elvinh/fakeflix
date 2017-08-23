@@ -32,6 +32,22 @@
 		font-family: 'Open Sans Condensed', sans-serif;
 		text-align: center;
 	}
+	.randomGenres div { 		
+		background-color: #2c2d30;
+		width: 100%;
+		height: 310px;
+    	overflow-x: auto;
+    	overflow-y: hidden;
+		margin-bottom: 20px;
+		white-space: nowrap;
+		padding: 10px;
+	}
+	.randomGenres a {
+		margin: 0 5px;		
+	}
+	.randomGenres p {
+		color: white;
+	}
 	
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -50,10 +66,30 @@
 		  </c:otherwise>
 		</c:choose>
 	</div>
+	
 
-	<div class="trendingMovies">
+
+	<div class="trending">
 
 	</div>
+	
+	<div class="randomGenres">
+		<c:set var="i" value="0"/>
+		<c:forEach items="${moviesFromRandomGenres}" var="moviesFromAGenre">
+			<br>
+			<p>${genreNames[i]}</p>
+			<c:set var="i" value="${i + 1}" scope="page"/>
+			<div>
+					<c:forEach items="${moviesFromAGenre}" var="movie">
+						<a href="getMovie?selected=<c:out value="${movie.title}"/>" >
+							<img src="<c:out value="${movie.banner_url}"/>"  WIDTH="200" HEIGHT="300" BORDER="0"/>
+						</a>
+					</c:forEach>
+			</div>
+		</c:forEach>
+	</div>
+	
+
 
 <body>
 </html>
