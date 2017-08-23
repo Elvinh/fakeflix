@@ -61,7 +61,8 @@ public class ValidateLoginServlet extends HttpServlet {
 
 			    }
 			  
-			    
+			    //For chocolate chip cookies
+			    session = request.getSession();
 			    session.setAttribute("loginedU", (String) nameList.get(0) + " " + nameList.get(1));
 			    
 		    	request.setAttribute("email", email);
