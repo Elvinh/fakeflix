@@ -77,8 +77,6 @@
 		<%
 		
 			String userName = "";
-			String email = request.getParameter("email");
-			String fName = request.getParameter("first_name");
 	
 			Cookie[] cookies = request.getCookies();
 			
@@ -100,7 +98,7 @@
 					
 				}
 				
-			%><h3> Hello <%= userName %>, login successful</h3>
+			%><h3> Hello <%= userName %></h3>
 
 		  <%}%>
 			

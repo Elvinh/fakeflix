@@ -72,8 +72,8 @@ public class ValidateLoginServlet extends HttpServlet {
 			    }
 			    Cookie myCookieF = new Cookie("first_name", (String) nameList.get(0));
 			    Cookie myCookieL = new Cookie("last_name", (String) nameList.get(1));
-		    	myCookieF.setMaxAge(-1);
-		    	myCookieL.setMaxAge(-1);
+		    	myCookieF.setMaxAge(60);
+		    	myCookieL.setMaxAge(60);
 		    	response.addCookie(myCookieF);
 		    	response.addCookie(myCookieL);
 			    
