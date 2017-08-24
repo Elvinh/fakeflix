@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
@@ -31,6 +31,8 @@
 		color: white;
 		font-family: 'Open Sans Condensed', sans-serif;
 		text-align: center;
+		margin: auto;
+		padding: 100px;
 	}
 	.randomGenres div { 		
 		background-color: #2c2d30;
@@ -71,16 +73,46 @@
 </head>
 <body bgcolor="#282828">
 	<jsp:include page="_header.jsp"></jsp:include>
+		
+		<%
+		
+			String userName = "";
+			String email = request.getParameter("email");
+			String fName = request.getParameter("first_name");
+	
+			Cookie[] cookies = request.getCookies();
+			
+			if(cookies != null)
+			{
+				for(int i = 0; i < cookies.length; i++)
+				{
+					if(cookies[i].getName().equals("first_name"))
+					{
+						userName = cookies[i].getValue();
+						
+					}
+					if(cookies[i].getName().equals("last_name"))
+					{
+						userName = userName + " " + cookies[i].getValue();
+						
+					}
+					
+					
+				}
+				
+			%><h3> Hello <%= userName %>, login successful</h3>
 
-	<div class="welcome">
-		<c:choose>
-		  <c:when test= "${empty sessionScope.loginedU}">
-		  	<p>Hello. Please login.</p>
-		  </c:when>
-		  <c:otherwise>
-		  	<p>Welcome back, <c:out value = "${loginedU}"/></p>
-		  </c:otherwise>
-		</c:choose>
+		  <%}%>
+			
+			<%
+			if(userName == null)
+			{
+				response.sendRedirect("main.jsp");
+			}
+		
+			%>
+		
+		
 	</div>
 	
 
