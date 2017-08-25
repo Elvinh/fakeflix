@@ -69,19 +69,29 @@
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas nec eleifend augue. Quisque luctus ultricies urna sit amet ultrices. Nullam iaculis tincidunt dui, quis ornare mi semper vel. Pellentesque malesuada felis vel consectetur pharetra. Etiam eleifend risus nec sem iaculis, non varius sapien aliquet. Nulla sit amet elit id dui sollicitudin finibus. Pellentesque id diam libero. Nulla mi leo, euismod non mi at, mollis ultricies ligula. In quis magna vel nisl cursus lobortis. Curabitur scelerisque ultrices magna eu varius. Duis vitae dolor purus. Cras nec metus accumsan, venenatis lorem ac, semper eros.
 					Curabitur quis dui est. Nulla facilisi. Maecenas venenatis libero lacus. Nullam sapien elit, scelerisque ac quam gravida, facilisis mattis ex.</p>
 					<a href="browse?browseBy=advSearch&advDirector=<c:out value="${movieAttributes[2]}"/>" >Directed by: <c:out value="${movieAttributes[2]}"/></a>
+					<div class="Buy">
+						<form method="get" action="${pageContext.request.contextPath}/shoppingCart" >
+							<button class= "buyMovie" name = "whatever" value = "${movieAttributes[0]}">Add to my cart</button>
+						</form>
+					</div>
 				</div>
 		</c:forEach>
+		
 		<div class="starList">
 			<p>Staring: </p>
 			<c:forEach var="star" items="${stars}">
 				<a href="getStar?selected=<c:out value="${star[1]}"/>"><c:out value="${star[0]}"/></a>
 			</c:forEach>
 		</div>
+<<<<<<< HEAD
 		<div class="Buy">
 			<form method="get" action="${pageContext.request.contextPath}/shoppingCart" >
 				<button class= "link" name = "addMovie" value = <c:out value = "${movieAttributes[0]}"/>>Add to my cart</button>
 			</form>
 		</div>
+=======
+
+>>>>>>> 4cb11a4262d516c85fb65083f1f61f65e377539c
 	</div>
 	
 </body>
