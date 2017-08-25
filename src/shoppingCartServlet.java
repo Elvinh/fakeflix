@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.dbutils.DbUtils;
 
@@ -40,16 +41,20 @@ public class shoppingCartServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		List list = new ArrayList();
+		//response.setContentType("text/html");
+		//HttpSession session = request.getSession(true);
 		Connection conn = null;
 		Statement st = null;
 		ResultSet rs = null;
 		String movieNameToAdd = request.getParameter("addMovie");
+		
+		System.out.println("MOVIE NAME: " + movieNameToAdd);
 	    try
 	    {
 	    	Class.forName("com.mysql.jdbc.Driver");
 	    	conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb", "root", "admin");
 			st = conn.createStatement();
-		    rs = st.executeQuery("select name, price from movie where movies.name = '"+ movieNameToAdd + "'");
+		    rs = st.executeQuery("select title, price from movies where movies.name = '"+ movieNameToAdd + "'");
 		
 		    while(rs.next()) 
 		    {

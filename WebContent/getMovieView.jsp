@@ -79,7 +79,7 @@
 		</div>
 		<div class="Buy">
 			<form method="get" action="${pageContext.request.contextPath}/shoppingCart" >
-				<button class= "buyMovie" name = "addMovie" value = "${movieAttributes[0]}">Add to my cart</button>
+				<button class= "link" name = "addMovie" value = <c:out value = "${movieAttributes[0]}"/>>Add to my cart</button>
 			</form>
 		</div>
 	</div>
