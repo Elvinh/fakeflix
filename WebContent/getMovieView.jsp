@@ -71,7 +71,7 @@
 					<a href="browse?browseBy=advSearch&advDirector=<c:out value="${movieAttributes[2]}"/>" >Directed by: <c:out value="${movieAttributes[2]}"/></a>
 					<div class="Buy">
 						<form method="get" action="${pageContext.request.contextPath}/shoppingCart" >
-							<button class= "buyMovie" name = "whatever" value = "${movieAttributes[0]}">Add to my cart</button>
+							<button class= "buyMovie" name = "addMovie" value = "${movieAttributes[0]}">Add to my cart</button>
 						</form>
 					</div>
 				</div>
@@ -83,13 +83,7 @@
 				<a href="getStar?selected=<c:out value="${star[1]}"/>"><c:out value="${star[0]}"/></a>
 			</c:forEach>
 		</div>
-<<<<<<< HEAD
-		<div class="Buy">
-			<form method="get" action="${pageContext.request.contextPath}/shoppingCart" >
-				<button class= "link" name = "addMovie" value = <c:out value = "${movieAttributes[0]}"/>>Add to my cart</button>
-			</form>
-		</div>
-=======
+
 
 >>>>>>> 4cb11a4262d516c85fb65083f1f61f65e377539c
 	</div>

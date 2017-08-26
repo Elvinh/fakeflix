@@ -41,24 +41,15 @@ public class shoppingCartServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		List list = new ArrayList();
-<<<<<<< HEAD
 		//response.setContentType("text/html");
 		//HttpSession session = request.getSession(true);
 		Connection conn = null;
 		Statement st = null;
 		ResultSet rs = null;
+
 		String movieNameToAdd = request.getParameter("addMovie");
-		
 		System.out.println("MOVIE NAME: " + movieNameToAdd);
-=======
-		
-		Connection conn = null;
-		Statement st = null;
-		ResultSet rs = null;
-		
-		String movieNameToAdd = request.getParameter("whatever");
-		System.out.println(movieNameToAdd);
->>>>>>> 4cb11a4262d516c85fb65083f1f61f65e377539c
+
 	    try
 	    {
 	    	Class.forName("com.mysql.jdbc.Driver");
