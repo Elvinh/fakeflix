@@ -34,12 +34,12 @@
 	
 	tr:nth-child(even)
 	{
-		background-color: blue;
+		background-color: white;
 	}
 	
 	th
 	{
-		background-color: green;
+		background-color: white;
 	}
 
 </style>
@@ -56,6 +56,37 @@
 			<th>Price</th>
 			<th>Quantity</th>
 		</tr>
+		
+		
+		<%
+		
+		Cookie[] cookies =  request.getCookies();
+		String name = "";
+		int quantity = 0;
+		
+		if(cookies != null)
+		{
+			for(int i = 1; i < cookies.length; i++)
+			{
+				name = cookies[i].getName();
+				quantity = Integer.parseInt(cookies[i].getValue());
+				%>
+				
+				<tr>
+					<td>
+						<p> <%= name %></p>
+					</td>
+					<td>
+						<p> <%= quantity %></p>
+					</td>
+					<td>
+						<p> 1</p>
+					</td>
+				</tr><% 
+			}
+		}
+		
+		%>
 		
 		<tr>
 			<td>

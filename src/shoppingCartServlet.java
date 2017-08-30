@@ -12,6 +12,7 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -49,13 +50,19 @@ public class shoppingCartServlet extends HttpServlet {
 
 		String movieNameToAdd = request.getParameter("addMovie");
 		System.out.println("MOVIE NAME: " + movieNameToAdd);
-
-	    try
+		
+		if(movieNameToAdd != null)
+		{
+			Cookie c1 = new Cookie(movieNameToAdd, "1");
+			c1.setMaxAge(60 * 3);
+			response.addCookie(c1);
+		}
+	    /*try
 	    {
 	    	Class.forName("com.mysql.jdbc.Driver");
 	    	conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb", "root", "admin");
 			st = conn.createStatement();
-		    rs = st.executeQuery("select title, price from movies where movies.name = '"+ movieNameToAdd + "'");
+		    rs = st.executeQuery("select title, price from movies where movies.title = '"+ movieNameToAdd + "'");
 		
 		    while(rs.next()) 
 		    {
@@ -74,10 +81,12 @@ public class shoppingCartServlet extends HttpServlet {
 			DbUtils.closeQuietly(st);
 			DbUtils.closeQuietly(conn);
 		}
+		*/
 	    
-	    request.setAttribute("addedMovies", list);
-	    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/shoppingCart.jsp");
-		dispatcher.forward(request, response);
+	    //request.setAttribute("addedMovies", list);
+		response.sendRedirect(request.getContextPath() + "/shoppingCart.jsp");
+	    //RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/shoppingCart.jsp");
+		//dispatcher.forward(request, response);
 	}
 
 	/**
