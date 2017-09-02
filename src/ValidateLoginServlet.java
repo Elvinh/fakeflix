@@ -70,12 +70,58 @@ public class ValidateLoginServlet extends HttpServlet {
 			    	nameList.add(rs2.getString(2));
 
 			    }
+			    Cookie currentUser = new Cookie("loginedUser", (String) "true");
 			    Cookie myCookieF = new Cookie("first_name", (String) nameList.get(0));
 			    Cookie myCookieL = new Cookie("last_name", (String) nameList.get(1));
 		    	myCookieF.setMaxAge(60 * 5);
 		    	myCookieL.setMaxAge(60 * 5);
-		    	response.addCookie(myCookieF);
-		    	response.addCookie(myCookieL);
+		    	currentUser.setMaxAge(60*5);
+		    	
+		    	Cookie[] cookies = request.getCookies();
+		    	
+		    	if(cookies == null)
+		    	{
+			    	response.addCookie(currentUser);
+			    	response.addCookie(myCookieF);
+			    	response.addCookie(myCookieL);
+		    	}
+		    	else
+		    	{
+		    		//There is some movie cookie that has been added.
+		    		//Need to shift every cookie over.
+		    		//***working on this part***
+		    		Cookie [] myCurrentCookies = request.getCookies();
+		    	
+		    		int orgCookieLength = myCurrentCookies.length;
+		    		
+		    		for(int i = 0; i < orgCookieLength; i++)
+		    		{
+		    			Cookie cookie = myCurrentCookies[i];
+		    			
+		    			cookie.setMaxAge(0);
+		    			response.addCookie(cookie);
+		    			
+		    		}
+		    		
+		    		myCookieF.setMaxAge(-1);
+			    	myCookieL.setMaxAge(-1);
+			    	currentUser.setMaxAge(-1);
+			    	
+		    		response.addCookie(currentUser);
+		    		response.addCookie(myCookieF);
+		    		response.addCookie(myCookieL);
+		    		
+		    		for(int i = orgCookieLength-1; i >= 0; --i)
+		    		{
+		    			System.out.println(myCurrentCookies.length);
+		    			System.out.println("I'M HERE");
+		    			System.out.println(myCurrentCookies[i].getName());
+		    			System.out.println(myCurrentCookies[i].getValue());
+
+		    			response.addCookie((myCurrentCookies[i]));
+		    		}
+		    	}
+		    	
 			    
 			    //For chocolate chip cookies
 			   // session = request.getSession();

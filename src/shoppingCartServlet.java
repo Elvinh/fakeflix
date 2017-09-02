@@ -54,7 +54,7 @@ public class shoppingCartServlet extends HttpServlet {
 		if(movieNameToAdd != null)
 		{
 			Cookie c1 = new Cookie(movieNameToAdd, "1");
-			c1.setMaxAge(60 * 3);
+			c1.setMaxAge(60*3);
 			response.addCookie(c1);
 		}
 	    /*try

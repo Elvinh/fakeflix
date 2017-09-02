@@ -56,13 +56,26 @@ public class LogoutServlet extends HttpServlet {
 			
 		}
 		
-		if(loginCookie1 != null && loginCookie2 != null)
+		Cookie [] myCurrentCookies = request.getCookies();
+    	
+		int orgCookieLength = myCurrentCookies.length;
+		
+		for(int i = 0; i < orgCookieLength; i++)
+		{
+			Cookie cookie = myCurrentCookies[i];
+			
+			cookie.setMaxAge(0);
+			response.addCookie(cookie);
+		}
+		
+		/*if(loginCookie1 != null && loginCookie2 != null)
 		{
 			loginCookie1.setMaxAge(0);
 			loginCookie2.setMaxAge(0);
 			response.addCookie(loginCookie1);
 			response.addCookie(loginCookie2);
 		}
+		*/
 		
 		response.sendRedirect("main.jsp");
 		
