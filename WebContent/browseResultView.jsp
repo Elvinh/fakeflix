@@ -88,11 +88,11 @@
 			
 		<p class="sort">Sort By: </p>
 		
-		<form action="/browse" method="get">
+		<form action="${pageContext.request.contextPath}/browse" method="get">
 			<select name="orderBy">
 		  		<option>Select</option>
 		  		<option value="title">Title</option>
-		  		<option value="opel">Opel</option>
+		  		<option value="year">Year</option>
 		  		<option value="audi">Audi</option>
 			</select>
 			<input type="submit" value="Send">
