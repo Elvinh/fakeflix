@@ -68,6 +68,93 @@ public class shoppingCartServlet extends HttpServlet {
 	    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/addedToCart.jsp");
 		dispatcher.forward(request, response);
 	}
+	/*
+	 * <%
+		
+		Cookie[] cookies =  request.getCookies();
+		String name = "";
+		int quantity = 0;
+		int counter = 0;
+		String tempName = "";
+		String tempValue = "";
+	
+		// 1. SC works so far with user logging in and adding movies to cart. 
+		// 1. Correctly takes out the entire list when user logs out
+		// 2. When anon user add movies to list, correctly adds them in
+		// 2. And leaves them in until cookie expires.
+		// SITUATION 3. NEEDS WORK.
+		// 3. Fix situation where user adds in movies to SC, but then logins.
+		// Currently the indexing is messed up. The cookies list is out of order, will either
+		// A. Need to find a formula to fix the indexing
+		// B. When user logs in, place info in the correct slots, then add back the movies to the list.
+		
+		if(cookies != null)
+		{
+			for(int i = 0; i < cookies.length; i++)
+			{
+				System.out.println("Length of Cookies @ SC: " + cookies.length);
+				tempName = cookies[i].getName();
+				tempValue = cookies[i].getValue();
+				
+				%><p><%= tempName %></p>
+				<p><%= tempValue %></p><%
+			}
+			if(cookies[0].getName().equals("loginedUser"))
+			{
+				counter = 4;
+			}
+			else if (cookies[1].getName().equals("loginedUser"))
+			{
+				counter = 4;
+			}
+			else
+			{
+				counter = 0;	
+			}
+			for(int i = counter; i < cookies.length; i++)
+			{
+					//name = cookies[i].getName();
+					//quantity = Integer.parseInt(cookies[i].getValue());
+					%>
+					
+					<tr>
+						<td>
+							<p> <%= name %></p>
+						</td>
+						<td>
+							<p> <%= quantity %></p>
+						</td>
+						<td>
+							<p> 1</p>
+						</td>
+					</tr><% 
+			}
+		}
+			
+		
+		%>
+		
+		<tr>
+			<td>
+				<c:forEach var = "movieList" items = "${addedMovies}">
+					<a href = "shoppingCart?"selected=<c:out value = "${movieList[0]}"/>">
+						<c:out value = "${movieList[0]}"/>
+					</a>
+				</c:forEach>
+			</td>
+			<td>
+				<c:forEach var = "movieList" items = "${addedMovies}">
+					<p><c:out value = "${movieList[1]}"/><p>
+				</c:forEach>
+			</td>
+			<td>
+				<c:forEach var = "movieList" items = "${addedMovies}">
+					<input type = "text" placeholder = "1" name = quantity" required>
+				</c:forEach>
+			</td>
+		</tr>
+	
+	 */
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
