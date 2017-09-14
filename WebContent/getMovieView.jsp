@@ -15,8 +15,6 @@
 		padding: 15px 50px;
 		color: white;
 		box-shadow: 3px 6px 114px -17px rgba(0,0,0,1);
-
-		
 	}
 	.movieInfo img {
 		float: left;
@@ -134,9 +132,11 @@
 				<form method="get" action="${pageContext.request.contextPath}/shoppingCart" >
 					<button class= "likeMovie" name = "likeMovie" value = "${movieAttributes[0]}">Like Movie</button>
 				</form>
-				<form method="get" action="${pageContext.request.contextPath}/shoppingCart" >
-					<button class= "buyMovie" name = "addMovie" value = "${movieAttributes[0]}">Add To Cart</button>
-				</form>
+				<c:forEach var="movieAttributes" items="${requestedMovie}" >
+					<form method="get" action="${pageContext.request.contextPath}/shoppingCart" >
+						<button type="submit" class= "buyMovie" name = "addMovie" value = "${movieAttributes[0]}">Add To Cart</button>
+					</form>
+				</c:forEach>
 			</div>
 		</div>
 
