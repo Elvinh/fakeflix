@@ -93,15 +93,14 @@
 		  		<option>Select</option>
 		  		<option value="title">Title</option>
 		  		<option value="year">Year</option>
-		  		<option value="audi">Audi</option>
 			</select>
 			<input type="submit" value="Send">
 		</form>
 	
-		<a href="browse?browseBy=title&orderBy=title&page=1">1</a>	
-		<a href="browse?browseBy=title&orderBy=title&page=2">2</a>
-		<a href="browse?browseBy=title&orderBy=title&page=3">3</a>
-		<a href="browse?browseBy=title&orderBy=title&page=4">4</a>
+		<a href="browse?page=1">1</a>	
+		<a href="browse?page=2">2</a>
+		<a href="browse?page=3">3</a>
+		<a href="browse?page=4">4</a>
 	
 		<div class="movieGrid">
 			<c:forEach var="movie" items="${browseResult}">

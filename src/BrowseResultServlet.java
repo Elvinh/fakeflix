@@ -40,7 +40,7 @@ public class BrowseResultServlet extends HttpServlet {
 		String orderBy = request.getParameter("orderBy");
 		String page = request.getParameter("page");
 		String gName = request.getParameter("genreName");
-
+		
 		List list = new ArrayList();
 		
 		String sqlQuery = null;
@@ -50,6 +50,13 @@ public class BrowseResultServlet extends HttpServlet {
 		}
 		if(browseType == null) {
 			browseType = "title";
+		}
+		if(orderBy != null) {
+			session.setAttribute("orderType", orderBy);
+		}
+		else{
+			orderBy = (String) session.getAttribute("orderType");
+			System.out.println(orderBy);
 		}
 		
 		int lower = (Integer.parseInt(page) - 1)  * 25;
