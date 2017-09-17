@@ -32,7 +32,7 @@
 		font-family: 'Open Sans Condensed', sans-serif;
 		text-align: center;
 		margin: auto;
-		padding: 100px;
+		padding:  100px 0 0 0;
 	}
 	.randomGenres div { 		
 		background-color: #2c2d30;
@@ -49,6 +49,7 @@
 	}
 	.randomGenres p {
 		color: white;
+		margin-left: 10px;
 	}
 	.randomStars div { 		
 		background-color: #2c2d30;
@@ -65,6 +66,7 @@
 	}
 	.randomStars p {
 		color: white;
+		margin-left: 10px;
 	}
 	
 </style>
@@ -98,7 +100,7 @@
 					
 				}
 				
-			%><h3> Hello <%= userName %></h3>
+			%><h3><%= userName %></h3>
 
 		  <%}%>
 			
@@ -151,8 +153,6 @@
 		</c:forEach>
 	</div>
 	
-	
-
-
+	<jsp:include page="_footer.jsp"></jsp:include>
 <body>
 </html>
