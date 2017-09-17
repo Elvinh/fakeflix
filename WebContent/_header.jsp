@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-       <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
    
 <style>
 .page-head {
@@ -147,23 +147,39 @@ font-family: 'Cinzel', serif;
 
 .myCart a
 {
-	display: block;
+
     color: #d01717;
     text-align: center;
-    padding: 25px 25px;
+    padding: 24px 24px;
     text-decoration: none;
 }
+.myCart i{
 
-.myCart a:hover
-{
-	background-color: #d01717;
+	background-color: gray;
+	color: white;
+	position: absolute;
+				
+	top: 13px;
+	right: 17px;
+	text-align: center;
+    font-weight: bold;
+    border-radius: 12px; /* one half of ( (border * 2) + height + padding ) */
+
     color: white;
+    font: bold 15px/13px Helvetica, Verdana, Tahoma;
+    height: 16px; 
+    min-width: 14px;
+    padding: 4px 3px 0 3px;
+    text-align: center;
 }
+
+
 
 .advSearch
 {
 	font-family: 'Cinzel', serif;
   	flex-shrink: 0;
+
 }
 
 .advSearch a
@@ -215,8 +231,9 @@ font-family: 'Cinzel', serif;
 					<a href="logout">LOGOUT</a>	
 			</div>
 			
-			<div class = "My Cart">
-				<a href = "shoppingCart">MY CART</a>
+			<div class = "myCart">
+				<a href = "${pageContext.request.contextPath}/cart"><img src="images/cart-of-ecommerce.png"WIDTH="36" HEIGHT="36" BORDER="0"></a>
+				<i>1</i>
 			</div>
 		
 		
