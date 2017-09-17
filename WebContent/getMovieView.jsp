@@ -72,8 +72,8 @@
 		font-family: 'Cinzel', serif;
 	}
 	.buyInfo{
-		  width: 50%;
-  margin: 0 auto;
+		width: 50%;
+		margin: 0 auto;
 	}
 	.Buy p{
 		font-size: 36px;
