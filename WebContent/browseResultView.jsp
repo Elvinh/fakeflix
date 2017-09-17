@@ -10,54 +10,20 @@
 <head>
 	<link href="https://fonts.googleapis.com/css?family=Amatic+SC|Cinzel" rel="stylesheet">
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Insert title here</title>
+	<title>Browse Results</title>
 	<style>
 	
-		.sort {
-			display: inline-block;
-			margin-top: 100px;
-			padding-left: 40px;
+		#content {
+			margin-top: 80px;
 		}
-		form {
-			display: inline-block;
-		}
-		
-		.movieGrid {
-			display: grid;
-			grid-template-columns: auto auto auto auto auto auto;
-	  		grid-gap: 15px;
-	  		
-		}
-		.movieBanner {
-		  padding: 20px;
-		  position: relative;
-		  width: 225px;
-		  height: 350px;
-		}
-		.movieBanner a img{
-			width:100%;
-			height:100%;
-			box-shadow: 11px 13px 66px 1px rgba(8,8,8,1);
-		}
-		.movieBanner .movieTitle{
-			position: absolute;
-			width: 225px;
-			background: rgba(208, 23, 23, 1);
-			top: 270px;
-	  		left: 20px;
-	  		vertical-align:middle;
-	  		font-size: 20px;
-	  		text-align: center;
-	  		color: white;
-			box-shadow: -1px 5px 91px 9px rgba(8,8,8,1);
-	
-	
+		.pagesAndSort {
+			display: block;
 		}
 		
 		.openButton
 		{
 			font-family: 'Cinzel', serif;
-			display:inline-block;
+			float: left;
 		}
 		.myB {
 			margin-left: 20px;
@@ -73,7 +39,52 @@
 		    flex-shrink: 0;
 		    outline: none;
 		}
+		.sort {
+			color: red;
+			padding: 14px;
+			float: left;
+		}
+		.sort form {
+			display:inline
+			
+		}
+		.pages {
+			padding: 14px;
+			margin-right: 36px;
+			float: right;
+		}
 		
+		
+		.movieGrid {
+		clear: both;
+			display: grid;
+			grid-template-columns: auto auto auto auto auto auto;
+	  		grid-gap: 15px;
+
+		}
+		.movieBanner {
+		  padding: 20px;
+		  position: relative;
+		  width: 180px;
+		  height: 265px;
+		}
+		.movieBanner a img{
+			width:100%;
+			height:100%;
+			box-shadow: 11px 13px 66px 1px rgba(8,8,8,1);
+		}
+		.movieBanner .movieTitle{
+			position: absolute;
+			width: 180px;
+			background: rgba(208, 23, 23, 1);
+			top: 230px;
+	  		left: 20px;
+	  		vertical-align:middle;
+	  		font-size: 20px;
+	  		text-align: center;
+	  		color: white;
+			box-shadow: -1px 5px 91px 9px rgba(8,8,8,1);	
+		}
 	</style>
 </head>
 
@@ -86,22 +97,28 @@
 			<span onclick="openNav()"><button class = "myB">>> Categories</button></span>
 		</div>
 			
-		<p class="sort">Sort By: </p>
+		<div class="pagesAndSort">
+			<div class="sort">
+				<span>Sort By: </span>
 		
-		<form action="${pageContext.request.contextPath}/browse" method="get">
-			<select name="orderBy">
-		  		<option>Select</option>
-		  		<option value="title">Title</option>
-		  		<option value="year">Year</option>
-			</select>
-			<input type="submit" value="Send">
-		</form>
-	
-		<a href="browse?page=1">1</a>	
-		<a href="browse?page=2">2</a>
-		<a href="browse?page=3">3</a>
-		<a href="browse?page=4">4</a>
-	
+				<form action="${pageContext.request.contextPath}/browse" method="get">
+					<select name="orderBy">
+				  		<option>Select</option>
+				  		<option value="title">Title</option>
+				  		<option value="year">Year</option>
+					</select>
+					<input type="submit" value="Send">
+				</form>
+			</div>
+
+			<div class="pages">
+				<a href="browse?page=1">1</a>	
+				<a href="browse?page=2">2</a>
+				<a href="browse?page=3">3</a>
+				<a href="browse?page=4">4</a>
+			</div>
+		</div>
+		
 		<div class="movieGrid">
 			<c:forEach var="movie" items="${browseResult}">
 				<div class="movieBanner">
