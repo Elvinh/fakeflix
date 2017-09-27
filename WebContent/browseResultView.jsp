@@ -122,7 +122,14 @@
 		<div class="movieGrid">
 			<c:forEach var="movie" items="${browseResult}">
 				<div class="movieBanner">
-					<a href="getMovie?selected=<c:out value="${movie[0]}"/>"><img src="<c:out value="${movie[1]}"/>" /></a>
+					<c:choose>
+						 <c:when test="${type eq 'genre'}">
+							<a href="browse?browseBy=genreName&genreName=<c:out value="${movie[0]}"/>"><img src="<c:out value="${movie[1]}"/>" /></a>
+						</c:when>
+						<c:otherwise>
+							<a href="getMovie?selected=<c:out value="${movie[0]}"/>"><img src="<c:out value="${movie[1]}"/>" /></a>
+						</c:otherwise>
+					</c:choose>
 					<div class="movieTitle">
 						<c:out value="${movie[0]}"/>
 					</div>

@@ -151,6 +151,7 @@ public class BrowseResultServlet extends HttpServlet {
 		}
 
 		request.setAttribute("browseResult", list);
+		request.setAttribute("type", browseType);
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/browseResultView.jsp");
 		dispatcher.forward(request, response);
