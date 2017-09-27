@@ -12,59 +12,111 @@
 
 <style>
 	
+	h1
+	{
+		font-size: 30px;
+	 	color: #fff;
+	 	text-transform: uppercase;
+	  	font-weight: 300;
+	  	text-align: center;
+	  	padding-top: 10px;
+	  	margin-bottom: 15px;
+	}
+	
 	table
 	{
-		position: absolute;
-		margin: auto;
-		width: 600px;
-		top:0;
-		left:0;
-		bottom:0;
-		right: 0;
-		height: 100px;
-		padding-bottom: 200px;
+		width:100%;
+		table-layout: fixed;
+	}
+	.heading
+	{
+		background-color: rgba(255,255,255,0.3);
 	}
 	
-	th, td
+	.tbl-content
 	{
-		text-align: left;
-		padding: 8px;
-		font-family: 'Open Sans Condensed', sans-serif;
-	}
-	
-	tr
-	{
-		background-color: white;
+		height:300px;
+  		overflow-x:auto;
+ 		margin-top: 0px;
+  		border: 1px solid rgba(255,255,255,0.3);
 	}
 	
 	th
 	{
-		background-color: white;
+		padding: 20px 15px;
+  		text-align: left;
+  		font-weight: 500;
+  		font-size: 16px;
+  		color: #fff;
+  		text-transform: uppercase;
 	}
-
+	td
+	{
+		padding: 15px;
+  		text-align: left;
+  		vertical-align:middle;
+  		font-weight: 300;
+  		font-size: 12px;
+  		color: #fff;
+  		border-bottom: solid 1px rgba(255,255,255,0.1);
+	}
+	
+	@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+	body
+	{
+	  background: -webkit-linear-gradient(left, #2C3E50, #4CA1AF);
+	  background: linear-gradient(to right, #2C3E50, #4CA1AF);
+	  font-family: 'Roboto', sans-serif;
+	}
+	section
+	{
+	  margin: 50px;
+	  padding-top: 100px;
+	}
+	
+	::-webkit-scrollbar {
+    width: 6px;
+} 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+} 
+::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+}
+$(window).on("load resize ", function() {
+  var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
+  $('.tbl-header').css({'padding-right':scrollWidth});
+}).resize();
 </style>
 
 <body bgcolor="#282828">
 <jsp:include page="_header.jsp"></jsp:include>
-	<link href="https://fonts.googleapis.com/css?family=Amatic+SC|Cinzel" rel="stylesheet">
-	
-	<div class="cartTable">
-		<h2>My shopping cart</h2>
+<body>
+	<section>
+		<div class = "heading">
+			<h1> My Cart</h1>
 		<table>
-			<tr>
-				<th>Movie Title</th>
-				<th>Price</th>
-				<th>Quantity</th>
-			</tr>
-			<c:forEach var="item" items="${shoppingCart}">
-	        	<tr><td><c:out value="${item.key}"/></td>
-	        		<td><c:out value="${item.value}"/>
-	        	</tr>
-	  		</c:forEach>
-	  		
+			<thread>
+				<tr>
+					<th>Movie Title</th>
+					<th>Price</th>
+					<th>Quantity</th>
+				</tr>
+			</thread>
+		</div>
+		</div class = "tbl-content">
+			<tbody>
+				<c:forEach var="item" items="${shoppingCart}">
+		        	<tr>
+		        		<td><c:out value="${item.key}"/></td>
+		        		<td><c:out value="${item.value}"/>
+		        	</tr>
+		  		</c:forEach>
+	  		</tbody>
 	  		
 		</table>
-	</div>
+		</div>
+	</section>
 
 
 	
