@@ -22,7 +22,7 @@ import org.apache.commons.dbutils.DbUtils;
 /**
  * Servlet implementation class HomeServlet
  */
-@WebServlet("/main/*")
+@WebServlet("/home/*")
 public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
