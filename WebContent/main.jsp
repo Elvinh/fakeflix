@@ -34,7 +34,7 @@
 		margin: auto;
 		padding:  100px 0 0 0;
 	}
-	.randomGenres div { 		
+	#list { 		
 		background-color: #2c2d30;
 		width: 100%;
 		height: 310px;
@@ -44,8 +44,9 @@
 		white-space: nowrap;
 		padding: 10px;
 	}
-	.randomGenres a {
-		margin: 0 5px;		
+	#item {
+	}
+	.randomGenres a {	
 	}
 	.randomGenres p {
 		color: white;
@@ -127,7 +128,7 @@
 			<br>
 			<p>${genreNames[i]}</p>
 			<c:set var="i" value="${i + 1}" scope="page"/>
-			<div>
+			<div id="list">
 					<c:forEach items="${moviesFromAGenre}" var="movie">
 						<a href="getMovie?selected=<c:out value="${movie.title}"/>" >
 							<img src="<c:out value="${movie.banner_url}"/>"  WIDTH="200" HEIGHT="300" BORDER="0"/>
@@ -143,16 +144,17 @@
 			<br>
 			<p>${starNames[i].fullName}</p>
 			<c:set var="i" value="${i + 1}" scope="page"/>
-			<div>
+			<div id="list">
 					<c:forEach items="${moviesFromAStar}" var="movie">
-						<a href="getMovie?selected=<c:out value="${movie.title}"/>" >
-							<img src="<c:out value="${movie.banner_url}"/>"  WIDTH="200" HEIGHT="300" BORDER="0"/>
-						</a>
+						<div id="item">
+							<a href="getMovie?selected=<c:out value="${movie.title}"/>" >
+								<img src="<c:out value="${movie.banner_url}"/>"  WIDTH="200" HEIGHT="300" BORDER="0"/>
+							</a>
+						</div>
 					</c:forEach>
 			</div>
 		</c:forEach>
 	</div>
 	
-	<jsp:include page="_footer.jsp"></jsp:include>
 <body>
 </html>
