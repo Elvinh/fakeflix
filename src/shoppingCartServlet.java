@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -40,17 +41,82 @@ public class shoppingCartServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		Connection conn = null;
+		Statement st = null;
+		ResultSet rs = null;
 		response.setContentType("text/html");
 		HttpSession session = request.getSession(true);
 		ShoppingCart cart;
 		
 		cart = (ShoppingCart) session.getAttribute("cart");
 		
-		if(cart == null) {
+		if(cart == null)
+		{
 			cart = new ShoppingCart();
 			session.setAttribute("cart", cart);
 		}
+		/*
+    	Cookie[] cookies = request.getCookies();
+    	for(int i = 0; i < cookies.length; i++)
+    	{
+    		if(cookies[i].getName().equals("loginedUser"))
+    		{
+    			//pass cart along from anon user to login user
+    			cart = (ShoppingCart) session.getAttribute("cart");
+    			HashMap<String, Integer> items = cart.getCart();
+    			
+    			for(int j = 0; i < items.size(); j++)
+    			{
+    				try
+    				{
+	    				Class.forName("com.mysql.jdbc.Driver");
+				    	conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb", "root", "admin");
+						st = conn.createStatement();
+					    rs = st.executeQuery("INSERT INTO shoppingCart VALUES("+ ); 
+    				}
+    				catch(SQLException | ClassNotFoundException e) {
+    					// TODO Auto-generated catch block
+    					e.printStackTrace();
+    				} finally {
+    					DbUtils.closeQuietly(rs);
+    					DbUtils.closeQuietly(st);
+    					DbUtils.closeQuietly(conn);
+    				}
+    				
+    			}
+    			 try
+    			    {
+    			    	Class.forName("com.mysql.jdbc.Driver");
+    			    	conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb", "root", "admin");
+    					st = conn.createStatement();
+    				    rs = st.executeQuery("select name from genres"); 		
+    				    
+    				    if(rs.absolute(1))
+    				    {
+    				    	while(rs.next())
+    				    	{
+    				    		list.add(rs.getString(1));
+    				    		/*
+    				    		 * 	movies.add(rs.getString(1));
+    						movies.add(rs.getString(2));
+    						list.add(movies);
+    				    		 
+    				    	}
+    				    }
+    			    }
+    			    catch(SQLException | ClassNotFoundException e) {
+    					// TODO Auto-generated catch block
+    					e.printStackTrace();
+    				} finally {
+    					DbUtils.closeQuietly(rs);
+    					DbUtils.closeQuietly(st);
+    					DbUtils.closeQuietly(conn);
+    				}
+    				
+    			
+    		}
+    	}
+*/
 
 		String movieName = request.getParameter("addMovie");
 		System.out.println("MOVIE NAME: " + movieName);
@@ -59,8 +125,6 @@ public class shoppingCartServlet extends HttpServlet {
 		{
 			cart.addToCart(movieName, 19);
 			session.setAttribute("cart", cart);
-			//Cookie c1 = new Cookie(movieName, "1");
-			//c1.setMaxAge(60*3);
 			//response.addCookie(c1);
 		}
 	    
