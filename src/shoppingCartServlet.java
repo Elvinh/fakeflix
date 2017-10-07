@@ -123,7 +123,11 @@ public class shoppingCartServlet extends HttpServlet {
 		
 		if(movieName != null)
 		{
-			cart.addToCart(movieName, 19);
+			Movies movie = new Movies();
+			movie.setQuantity(1);
+			movie.setTitle(movieName);
+			movie.setPrice((float) 1.99);
+			cart.addToCart(movieName, movie);
 			session.setAttribute("cart", cart);
 			//response.addCookie(c1);
 		}

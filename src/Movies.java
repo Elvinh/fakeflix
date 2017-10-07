@@ -5,7 +5,24 @@ public class Movies {
 	private String director;
 	private String banner_url;
 	private String trailer_url;
-	public String getTitle() {
+	private float price;
+	private int quantity;
+	
+	public Movies()
+	{
+		this.id=0;
+		this.year = 0;
+		this.price = 0;
+		this.quantity = 0;
+		
+		this.title = "";
+		this.director ="";
+		this.banner_url = "";
+		this.trailer_url = "";
+		
+	}
+	public String getTitle()
+	{
 		return title;
 	}
 	public void setTitle(String title) {
@@ -38,4 +55,17 @@ public class Movies {
 	public int getId() {
 		return id;
 	}
+	public float getPrice() {
+		return price;
+	}
+	public void setPrice(float price) {
+		this.price = price;
+	}
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+	
 }

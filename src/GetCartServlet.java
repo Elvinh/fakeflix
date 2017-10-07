@@ -35,9 +35,11 @@ public class GetCartServlet extends HttpServlet {
 		response.setContentType("text/html");
 		HttpSession session = request.getSession(true);
 		
-		ShoppingCart cart;
+		ShoppingCart cart = new ShoppingCart();
 		cart = (ShoppingCart) session.getAttribute("cart");
-		HashMap<String, Integer> items = cart.getCart();
+		if(cart == null)
+			System.out.println("penis");
+		HashMap<String, Movies> items = cart.getCart();
 		
 		request.setAttribute("shoppingCart", items);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/shoppingCart.jsp");

@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -40,18 +41,22 @@ public class ValidateLoginServlet extends HttpServlet {
 		//CookieHandler.setDefault(new CookieManager(null, CookiePolicy.ACCEPT_ALL));
 		java.net.CookieManager cm = new java.net.CookieManager();
 		java.net.CookieHandler.setDefault(cm);
+		HashMap<String, Movies> items = new HashMap<>();
+	    ShoppingCart sc = new ShoppingCart();
 
 	    Connection conn = null;
 		Statement st = null;
 		ResultSet rs = null;
 		ResultSet rs2 = null;
+		ResultSet rs3 = null;
+
 
 		List nameList = new ArrayList();
 		String email = request.getParameter("email");
 		System.out.println(email);
 		String password = request.getParameter("password");
 		System.out.println(password);
-		
+		String userID = "";
 		try
 		{
 	    	Class.forName("com.mysql.jdbc.Driver");
@@ -63,13 +68,27 @@ public class ValidateLoginServlet extends HttpServlet {
 		    {
 		    	session = request.getSession();
 		    	
-		    	rs2 = st.executeQuery("Select first_name, last_name from customers where customers.email ='"+ email + "' and customers.password = '" + password + "'");
+		    	rs2 = st.executeQuery("Select first_name, last_name, id from customers where customers.email ='"+ email + "' and customers.password = '" + password + "'");
 			    while(rs2.next())
 			    {
 			    	nameList.add(rs2.getString(1));
 			    	nameList.add(rs2.getString(2));
+			    	userID = rs2.getString(3);
 
 			    }
+			    rs3 = st.executeQuery("select movies.title, movies.price, shoppingcart.quantity from movies inner join shoppingcart on movies.id = shoppingcart.movieID and shoppingCart.customerID = " + userID + "");
+			    while(rs3.next()) 
+			    {
+			    	Movies movie = new Movies();
+			    	movie.setTitle(rs3.getString(1));
+			    	movie.setPrice(rs3.getFloat(2));
+			    	movie.setQuantity(rs3.getInt(3));
+					sc.addToCart(movie.getTitle(), movie);
+
+				}
+			    System.out.println(sc.getCart().get("Eurotrip"));
+			    items = sc.getCart();
+
 			    Cookie currentUser = new Cookie("loginedUser", (String) "true");
 			    Cookie myCookieF = new Cookie("first_name", (String) nameList.get(0));
 			    Cookie myCookieL = new Cookie("last_name", (String) nameList.get(1));
@@ -126,7 +145,8 @@ public class ValidateLoginServlet extends HttpServlet {
 			    //For chocolate chip cookies
 			   // session = request.getSession();
 			    //session.setAttribute("loginedU", (String) nameList.get(0) + " " + nameList.get(1));
-			    
+			    session.setAttribute("cart", sc);
+
 		    	request.setAttribute("email", email);
 			    request.setAttribute("nameList", nameList);
 			    response.sendRedirect(request.getContextPath() + "/userInfo.jsp");
@@ -150,6 +170,7 @@ public class ValidateLoginServlet extends HttpServlet {
 		} finally {
 			DbUtils.closeQuietly(rs);
 			DbUtils.closeQuietly(rs2);
+			DbUtils.closeQuietly(rs3);
 			DbUtils.closeQuietly(st);
 			DbUtils.closeQuietly(conn);
 		}
