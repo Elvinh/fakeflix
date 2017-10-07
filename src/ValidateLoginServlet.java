@@ -6,6 +6,7 @@ import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -41,45 +42,67 @@ public class ValidateLoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
 		response.setContentType("text/html");
 		HttpSession session = request.getSession(true);
 		//CookieHandler.setDefault(new CookieManager(null, CookiePolicy.ACCEPT_ALL));
 		java.net.CookieManager cm = new java.net.CookieManager();
 		java.net.CookieHandler.setDefault(cm);
-	    ShoppingCart sc = new ShoppingCart();
 
 	    Connection conn = null;
-		Statement st = null;
+		PreparedStatement login = null;
+		PreparedStatement getShoppingCart = null;
 		ResultSet rs = null;
 		ResultSet rs2 = null;
-
-		List nameList = new ArrayList();
 		String email = request.getParameter("email");
-		System.out.println(email);
 		String password = request.getParameter("password");
-		System.out.println(password);
+		String firstName = "";
+		String lastName = "";
 		int userID = -1;
 		try
 		{
 	    	Class.forName("com.mysql.jdbc.Driver");
 	    	conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb", "root", "admin");
-			st = conn.createStatement();
-		    rs = st.executeQuery("Select *  from customers where customers.email = '"+ email + "' and customers.password = '" + password + "'");
-
-		    if(rs.absolute(1))
+			String sqlQuery = "Select first_name, last_name, id from customers where customers.email=? and customers.password=?";
+		    login = conn.prepareStatement(sqlQuery);
+		    login.setString(1, email);
+		    login.setString(2, password);
+		    rs = login.executeQuery();
+		    if(rs.next())
 		    {
-		    	
-		    	rs2 = st.executeQuery("Select first_name, last_name, id from customers where customers.email ='"+ email + "' and customers.password = '" + password + "'");
-			    while(rs2.next())
-			    {
-			    	nameList.add(rs2.getString(1));
-			    	nameList.add(rs2.getString(2));
-			    	userID = rs2.getInt(3);
-			    }
+			    ShoppingCart cart = new ShoppingCart();
+
+			    firstName = rs.getString(1);
+			    lastName = rs.getString(2);
+			    userID = rs.getInt(3);
 			    
-			    Cookie currentUser = new Cookie("loginedUser", (String) "true");
-			    Cookie myCookieF = new Cookie("first_name", (String) nameList.get(0));
-			    Cookie myCookieL = new Cookie("last_name", (String) nameList.get(1));
+				sqlQuery = "select movies.title, movies.price, shoppingcart.quantity from movies "
+						+ "inner join shoppingcart "
+						+ "on movies.id = shoppingcart.movieID and shoppingCart.customerID = ?";
+				getShoppingCart = conn.prepareStatement(sqlQuery);
+				getShoppingCart.setInt(1, userID);
+				rs2 = getShoppingCart.executeQuery();
+				
+				while(rs2.next()) {
+			    	Movies movie = new Movies();
+			    	movie.setTitle(rs2.getString(1));
+			    	movie.setPrice(rs2.getFloat(2));
+			    	movie.setQuantity(rs2.getInt(3));
+					cart.addToCart(movie.getTitle(), movie);
+				}
+				
+				session.setAttribute("cart", cart);
+				
+			    Cookie currentUser = new Cookie("loginedUser", "true");
+			    Cookie myCookieF = new Cookie("first_name", firstName);
+			    Cookie myCookieL = new Cookie("last_name", lastName);
 			    Cookie myCookieID = new Cookie("id", String.valueOf(userID));
 		    	
 			    myCookieF.setMaxAge(60 * 5);
@@ -87,16 +110,11 @@ public class ValidateLoginServlet extends HttpServlet {
 		    	myCookieID.setMaxAge(60 * 5);
 		    	currentUser.setMaxAge(60 * 5);
 		    	
-		    	Cookie[] cookies = request.getCookies();
-		    	
-		    	if(cookies == null)
-		    	{
-			    	response.addCookie(currentUser);
-			    	response.addCookie(myCookieF);
-			    	response.addCookie(myCookieL);
-			    	response.addCookie(myCookieID);
-		    	
-		    	}
+			    response.addCookie(currentUser);
+			    response.addCookie(myCookieF);
+			    response.addCookie(myCookieL);
+			    response.addCookie(myCookieID);
+		    	/*
 		    	else
 		    	{
 		    		//There is some movie cookie that has been added.
@@ -135,7 +153,7 @@ public class ValidateLoginServlet extends HttpServlet {
 
 		    			response.addCookie((myCurrentCookies[i]));
 		    		}
-		    	}
+		    	}*/
 		    	
 			    
 			    //For chocolate chip cookies
@@ -143,9 +161,9 @@ public class ValidateLoginServlet extends HttpServlet {
 			    //session.setAttribute("loginedU", (String) nameList.get(0) + " " + nameList.get(1));
 
 
-		    	request.setAttribute("email", email);
-			    request.setAttribute("nameList", nameList);
-			    response.sendRedirect(request.getContextPath() + "/userInfo.jsp");
+		    	//request.setAttribute("email", email);
+			    //request.setAttribute("nameList", nameList);
+			    response.sendRedirect(request.getContextPath() + "/home");
 				//RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/userInfo.jsp");
 				//dispatcher.forward(request, response);
 
@@ -166,19 +184,9 @@ public class ValidateLoginServlet extends HttpServlet {
 		} finally {
 			DbUtils.closeQuietly(rs);
 			DbUtils.closeQuietly(rs2);
-			DbUtils.closeQuietly(st);
 			DbUtils.closeQuietly(conn);
 		}
 
-	
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }
