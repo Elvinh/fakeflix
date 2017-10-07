@@ -233,7 +233,7 @@ font-family: 'Cinzel', serif;
 			
 			<div class = "myCart">
 				<a href = "${pageContext.request.contextPath}/cart"><img src="images/cart-of-ecommerce.png"WIDTH="36" HEIGHT="36" BORDER="0"></a>
-				<i>1</i>
+				<i>${sessionScope.cart.count}</i>
 			</div>
 		
 		
