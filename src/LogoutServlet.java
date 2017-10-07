@@ -33,53 +33,16 @@ public class LogoutServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
-		Cookie loginCookie1 = null;
-		Cookie loginCookie2 = null;
-		Cookie[] cookies = request.getCookies();
-		
-		
-		if(cookies != null)
-		{
-			for(Cookie cookie: cookies)
-			{
-				if(cookie.getName().equals("first_name"))
-				{
-					loginCookie1 = cookie;
-					
-				}
-				if(cookie.getName().equals("last_name"))
-				{
-					loginCookie2 = cookie;
-					break;
-				}
-			}
-			
-		}
-		
-		Cookie [] myCurrentCookies = request.getCookies();
+		Cookie [] cookies = request.getCookies();
     	
-		int orgCookieLength = myCurrentCookies.length;
-		
-		for(int i = 0; i < orgCookieLength; i++)
-		{
-			Cookie cookie = myCurrentCookies[i];
-			
-			cookie.setMaxAge(0);
-			response.addCookie(cookie);
+		if (cookies != null) {
+	        for (Cookie cookie : cookies) {
+	            cookie.setMaxAge(0);
+	            response.addCookie(cookie);
+	        }
 		}
-		
-		/*if(loginCookie1 != null && loginCookie2 != null)
-		{
-			loginCookie1.setMaxAge(0);
-			loginCookie2.setMaxAge(0);
-			response.addCookie(loginCookie1);
-			response.addCookie(loginCookie2);
-		}
-		*/
-		
 		response.sendRedirect("main.jsp");
 		
-	
 	}
 
 	/**
