@@ -32,6 +32,11 @@ import org.apache.commons.dbutils.DbUtils;
 
 public class ValidateLoginServlet extends HttpServlet {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -41,22 +46,19 @@ public class ValidateLoginServlet extends HttpServlet {
 		//CookieHandler.setDefault(new CookieManager(null, CookiePolicy.ACCEPT_ALL));
 		java.net.CookieManager cm = new java.net.CookieManager();
 		java.net.CookieHandler.setDefault(cm);
-		HashMap<String, Movies> items = new HashMap<>();
 	    ShoppingCart sc = new ShoppingCart();
 
 	    Connection conn = null;
 		Statement st = null;
 		ResultSet rs = null;
 		ResultSet rs2 = null;
-		ResultSet rs3 = null;
-
 
 		List nameList = new ArrayList();
 		String email = request.getParameter("email");
 		System.out.println(email);
 		String password = request.getParameter("password");
 		System.out.println(password);
-		String userID = "";
+		int userID = -1;
 		try
 		{
 	    	Class.forName("com.mysql.jdbc.Driver");
@@ -66,35 +68,24 @@ public class ValidateLoginServlet extends HttpServlet {
 
 		    if(rs.absolute(1))
 		    {
-		    	session = request.getSession();
 		    	
 		    	rs2 = st.executeQuery("Select first_name, last_name, id from customers where customers.email ='"+ email + "' and customers.password = '" + password + "'");
 			    while(rs2.next())
 			    {
 			    	nameList.add(rs2.getString(1));
 			    	nameList.add(rs2.getString(2));
-			    	userID = rs2.getString(3);
-
+			    	userID = rs2.getInt(3);
 			    }
-			    rs3 = st.executeQuery("select movies.title, movies.price, shoppingcart.quantity from movies inner join shoppingcart on movies.id = shoppingcart.movieID and shoppingCart.customerID = " + userID + "");
-			    while(rs3.next()) 
-			    {
-			    	Movies movie = new Movies();
-			    	movie.setTitle(rs3.getString(1));
-			    	movie.setPrice(rs3.getFloat(2));
-			    	movie.setQuantity(rs3.getInt(3));
-					sc.addToCart(movie.getTitle(), movie);
-
-				}
-			    System.out.println(sc.getCart().get("Eurotrip"));
-			    items = sc.getCart();
-
+			    
 			    Cookie currentUser = new Cookie("loginedUser", (String) "true");
 			    Cookie myCookieF = new Cookie("first_name", (String) nameList.get(0));
 			    Cookie myCookieL = new Cookie("last_name", (String) nameList.get(1));
-		    	myCookieF.setMaxAge(60 * 5);
+			    Cookie myCookieID = new Cookie("id", String.valueOf(userID));
+		    	
+			    myCookieF.setMaxAge(60 * 5);
 		    	myCookieL.setMaxAge(60 * 5);
-		    	currentUser.setMaxAge(60*5);
+		    	myCookieID.setMaxAge(60 * 5);
+		    	currentUser.setMaxAge(60 * 5);
 		    	
 		    	Cookie[] cookies = request.getCookies();
 		    	
@@ -103,6 +94,8 @@ public class ValidateLoginServlet extends HttpServlet {
 			    	response.addCookie(currentUser);
 			    	response.addCookie(myCookieF);
 			    	response.addCookie(myCookieL);
+			    	response.addCookie(myCookieID);
+		    	
 		    	}
 		    	else
 		    	{
@@ -125,10 +118,13 @@ public class ValidateLoginServlet extends HttpServlet {
 		    		myCookieF.setMaxAge(-1);
 			    	myCookieL.setMaxAge(-1);
 			    	currentUser.setMaxAge(-1);
+			    	myCookieID.setMaxAge(-1);
+
 			    	
 		    		response.addCookie(currentUser);
 		    		response.addCookie(myCookieF);
 		    		response.addCookie(myCookieL);
+			    	response.addCookie(myCookieID);
 		    		
 		    		for(int i = orgCookieLength-1; i >= 0; --i)
 		    		{
@@ -145,7 +141,7 @@ public class ValidateLoginServlet extends HttpServlet {
 			    //For chocolate chip cookies
 			   // session = request.getSession();
 			    //session.setAttribute("loginedU", (String) nameList.get(0) + " " + nameList.get(1));
-			    session.setAttribute("cart", sc);
+
 
 		    	request.setAttribute("email", email);
 			    request.setAttribute("nameList", nameList);
@@ -170,7 +166,6 @@ public class ValidateLoginServlet extends HttpServlet {
 		} finally {
 			DbUtils.closeQuietly(rs);
 			DbUtils.closeQuietly(rs2);
-			DbUtils.closeQuietly(rs3);
 			DbUtils.closeQuietly(st);
 			DbUtils.closeQuietly(conn);
 		}
