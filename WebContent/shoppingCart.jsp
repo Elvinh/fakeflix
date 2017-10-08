@@ -109,7 +109,7 @@ $(window).on("load resize ", function() {
 				<c:forEach var="item" items="${shoppingCart}">
 		        	<tr>
 		        		<td><c:out value="${item.key}"/></td>
-		        		<td><c:out value="${item.value.price}"/>
+		        		<td><c:out value="${item.value.price * item.value.quantity}"/>
 		        		<td><c:out value="${item.value.quantity}"/>
 		        		
 		        	</tr>
