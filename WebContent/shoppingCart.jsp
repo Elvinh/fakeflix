@@ -111,20 +111,17 @@ $(window).on("load resize ", function() {
 		        		<td><c:out value="${item.key}"/></td>
 		        		<td><c:out value="${item.value.price * item.value.quantity}"/></td>
 		        		<td>
-			        		<input type = "number" name = quantity" min = "1" max= "99>" value = "${item.value.quantity}">
+		        		<form method="get" action="${pageContext.request.contextPath}/shoppingCart" >
+			        			<input type="number" name="quantity" min="1" max="99" value="${item.value.quantity}">
+  								<input type="submit">
+			        		</form>
 		        		</td>
 		        		<td>
 		        			<form method="get" action="${pageContext.request.contextPath}/shoppingCart" >
 								<button type="submit"  name = "removeMovie" value = "${item.key}">Remove</button>
 							</form>
 						</td>
-		        		<td>
-			        		<form method="get" action="${pageContext.request.contextPath}/shoppingCart" >
-			        			<button type="submit"  name = "updateQuantity" value = "">Update Quantity</button></td>
-			        		</form>
-		        		</td>
 		        	</tr>
-		        	<p>Total:</p>
 		  		</c:forEach>
 		  		
 	  		</tbody>
