@@ -32,18 +32,4 @@ public class ShoppingCart
 	public int getCount() {
 		return count;
 	}
-	
-	public void remove(String item, Movies movie)
-	{
-		System.out.println("I'm going to delete this " + item);
-		items.remove(item);
-		count--;
-	}
-	public void print()
-	{
-		if(items.containsKey("The Phantom of the Opera"))
-		{
-			System.out.println("Still have phantom of the opera in here");
-		}
-	}
 }

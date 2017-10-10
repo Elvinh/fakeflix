@@ -47,15 +47,16 @@ public class shoppingCartServlet extends HttpServlet {
 		Statement st = null;
 		ResultSet rs = null;
 		ResultSet rs2 = null;
-		ResultSet rs3 = null;
 		response.setContentType("text/html");
 		HttpSession session = request.getSession(true);
 		ShoppingCart cart;
+		
 		String url = "jdbc:mysql://localhost:3306/";
 		String db = "moviedb";
 		String driver = "com.mysql.jdbc.Driver";
 		String user = "root";
 		String password = "admin";
+	
 		
 		cart = (ShoppingCart) session.getAttribute("cart");
 		
@@ -64,86 +65,25 @@ public class shoppingCartServlet extends HttpServlet {
 			cart = new ShoppingCart();
 			session.setAttribute("cart", cart);
 		}
-		String removeMovie = request.getParameter("removeMovie");
-		String movieName = request.getParameter("addMovie");
-		System.out.println("REMOVE MOVIE NAME: " + removeMovie);
 		
-		if(removeMovie != null)
+		String movieName = request.getParameter("addMovie");
+		System.out.println("MOVIE NAME: " + movieName);
+		try
 		{
-			try
-			{
-				Class.forName(driver);
-				conn = DriverManager.getConnection(url+db, user, password);
-				st = conn.createStatement();
-				
-				String sqlQuery = "select id from movies where movies.title = '" + removeMovie + "';";
-				rs = st.executeQuery(sqlQuery);
-				int movieID = 0;
-				if(rs.next())
-				{
-					System.out.println("I'm getting movieID");
-					movieID = rs.getInt(1);
-					System.out.println("I'm getting movieID here");
-				}
-				String userID = "";
-				Cookie [] cook = request.getCookies();
-
-				for(Cookie cookies : cook)
-				{
-					if(cookies.getName().equals("id"))
-					{
-						userID = cookies.getValue();
-					}
-				}
-				String sqlQuery3 = "select quantity from shoppingcart where customerid = '" + userID + "' and movieid = '" + movieID + "'";
-				rs3 = st.executeQuery(sqlQuery3);
-					
-				rs3.next();
-				int quantity = rs3.getInt(1);
-				System.out.println("Movie I want to delete ID "  + movieID);
-				System.out.println("UserID that I'm deleting from "  + userID);
-				PreparedStatement ps = (PreparedStatement) conn.prepareStatement("delete from shoppingcart where customerid = '" + userID + "' and movieid = '" +movieID +"';");
-				ps.execute();
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url+db, user, password);
+			st = conn.createStatement();
 			
+			
+			if(movieName != null)
+			{
 				Movies movie = new Movies();
-				movie.setQuantity(quantity);
-				movie.setTitle(removeMovie);
+				movie.setQuantity(1);
+				movie.setTitle(movieName);
 				movie.setPrice((float) 1.99);
-				cart.remove(removeMovie, movie);
-				cart.print();
+				cart.addToCart(movieName, movie);
 				session.setAttribute("cart", cart);
-
-			}
-			catch(SQLException e){
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
-			finally
-			{
-				DbUtils.closeQuietly(rs);
-				DbUtils.closeQuietly(rs2);
-				DbUtils.closeQuietly(rs3);
-				DbUtils.closeQuietly(st);
-				DbUtils.closeQuietly(conn);
-			}
-			
-			 request.setAttribute("removedMovie", removeMovie);
-			 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/removedFromCart.jsp");
-			 dispatcher.forward(request, response);
-		}
-		else if(movieName != null)
-		{
-			try
-			{
-				Class.forName(driver);
-				conn = DriverManager.getConnection(url+db, user, password);
-				st = conn.createStatement();
-				
-				Movies movie = new Movies();
-					
+				System.out.print("Hello");
 				String sqlQuery = "select id from movies where movies.title = '" + movieName + "';";
 				rs = st.executeQuery(sqlQuery);
 				int movieID = 0;
@@ -151,10 +91,10 @@ public class shoppingCartServlet extends HttpServlet {
 				{
 					movieID = rs.getInt(1);
 				}
-					
+				
 				String userID = "";
 				Cookie [] cook = request.getCookies();
-	
+
 				for(Cookie cookies : cook)
 				{
 					if(cookies.getName().equals("id"))
@@ -162,69 +102,110 @@ public class shoppingCartServlet extends HttpServlet {
 						userID = cookies.getValue();
 					}
 				}
-					
-				String sqlQuery2 = "select customerid, movieid from shoppingcart where customerid = '" + userID + "' and movieid = '" + movieID + "'";
-				rs2 = st.executeQuery(sqlQuery2);
 				
-				if(rs2.absolute(1))
-				{
-					System.out.println("I'm here");
-					String sqlQuery3 = "select quantity from shoppingcart where customerid = '" + userID + "' and movieid = '" + movieID + "'";
-					rs3 = st.executeQuery(sqlQuery3);
-						
-					rs3.next();
-					int quantity = rs3.getInt(1) + 1;
-					System.out.println(quantity);
-					PreparedStatement ps = (PreparedStatement) conn.prepareStatement("Update shoppingcart SET quantity =  '" + quantity + "' where customerid = '" + userID + "' and movieid = '" + movieID + "';");
-					ps.execute();
-					movie = new Movies();
-					movie.setQuantity(quantity);
-					movie.setTitle(movieName);
-					movie.setPrice((float) 1.99);
-					cart.addToCart(movieName, movie);
-					session.setAttribute("cart", cart);
-	
-				}
-				else
-				{
-					System.out.println("I'm over here");
-					PreparedStatement ps = (PreparedStatement) conn.prepareStatement("insert into shoppingcart values ( " + userID + ", " + movieID + ", " + 1 +  ")");
-					ps.execute();
-					movie = new Movies();
-					movie.setQuantity(1);
-					movie.setTitle(movieName);
-					movie.setPrice((float) 1.99);
-					cart.addToCart(movieName, movie);
-					session.setAttribute("cart", cart);
-				}	
-			}
-		catch(SQLException | ClassNotFoundException e)
-			{
+				
+				PreparedStatement ps = (PreparedStatement) conn.prepareStatement("insert into shoppingcart values ( " + userID + ", " + movieID + ", " + 1 +  ")");
+				ps.execute();
+				//PreparedStatement stmt=con.prepareStatement("insert into Emp values(?,?)"); 
+				
+				
+				
+		}
+		}
+		catch(SQLException | ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
-		finally 
-			{
+		finally {
 				DbUtils.closeQuietly(rs);
 				DbUtils.closeQuietly(rs2);
-				DbUtils.closeQuietly(rs3);
 				DbUtils.closeQuietly(st);
 				DbUtils.closeQuietly(conn);
 			}
+			
 		
 		
-		    request.setAttribute("addedItem", movieName);
-		    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/addedToCart.jsp");
-			dispatcher.forward(request, response);
-		}
+			
+			
+			//response.addCookie(c1);
+		
+	    
+	    request.setAttribute("addedItem", movieName);
+	    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/addedToCart.jsp");
+		dispatcher.forward(request, response);
 	}
+	/*
+	 * <%
+		
+		Cookie[] cookies =  request.getCookies();
+		String name = "";
+		int quantity = 0;
+		int counter = 0;
+		String tempName = "";
+		String tempValue = "";
 	
-	
+		// 1. SC works so far with user logging in and adding movies to cart. 
+		// 1. Correctly takes out the entire list when user logs out
+		// 2. When anon user add movies to list, correctly adds them in
+		// 2. And leaves them in until cookie expires.
+		// SITUATION 3. NEEDS WORK.
+		// 3. Fix situation where user adds in movies to SC, but then logins.
+		// Currently the indexing is messed up. The cookies list is out of order, will either
+		// A. Need to find a formula to fix the indexing
+		// B. When user logs in, place info in the correct slots, then add back the movies to the list.
+		
+		if(cookies != null)
+		{
+			for(int i = 0; i < cookies.length; i++)
+			{
+				System.out.println("Length of Cookies @ SC: " + cookies.length);
+				tempName = cookies[i].getName();
+				tempValue = cookies[i].getValue();
+				
+				%><p><%= tempName %></p>
+				<p><%= tempValue %></p><%
+			}
+			if(cookies[0].getName().equals("loginedUser"))
+			{
+				counter = 4;
+			}
+			else if (cookies[1].getName().equals("loginedUser"))
+			{
+				counter = 4;
+			}
+			else
+			{
+				counter = 0;	
+			}
+			for(int i = counter; i < cookies.length; i++)
+			{
+					//name = cookies[i].getName();
+					//quantity = Integer.parseInt(cookies[i].getValue());
+					%>
+					
+					<tr>
+						<td>
+							<p> <%= name %></p>
+						</td>
+						<td>
+							<p> <%= quantity %></p>
+						</td>
+						<td>
+							<p> 1</p>
+						</td>
+					</tr><% 
+			}
+		}
+			
+		
+		%>
+		
+		
+	 */
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
