@@ -47,6 +47,8 @@ public class shoppingCartServlet extends HttpServlet {
 		Statement st = null;
 		ResultSet rs = null;
 		ResultSet rs2 = null;
+		ResultSet rs3 = null;
+
 		response.setContentType("text/html");
 		HttpSession session = request.getSession(true);
 		ShoppingCart cart;
@@ -78,12 +80,12 @@ public class shoppingCartServlet extends HttpServlet {
 			if(movieName != null)
 			{
 				Movies movie = new Movies();
-				movie.setQuantity(1);
+				/*movie.setQuantity(1);
 				movie.setTitle(movieName);
 				movie.setPrice((float) 1.99);
 				cart.addToCart(movieName, movie);
 				session.setAttribute("cart", cart);
-				System.out.print("Hello");
+				*/
 				String sqlQuery = "select id from movies where movies.title = '" + movieName + "';";
 				rs = st.executeQuery(sqlQuery);
 				int movieID = 0;
@@ -103,9 +105,40 @@ public class shoppingCartServlet extends HttpServlet {
 					}
 				}
 				
-				
+				String sqlQuery2 = "select customerid, movieid from shoppingcart where customerid = '" + userID + "' and movieid = '" + movieID + "'";
+				rs2 = st.executeQuery(sqlQuery2);
+			
+				if(rs2.absolute(1))
+				{
+					System.out.println("I'm here");
+					String sqlQuery3 = "select quantity from shoppingcart where customerid = '" + userID + "' and movieid = '" + movieID + "'";
+					rs3 = st.executeQuery(sqlQuery3);
+					
+					rs3.next();
+					int quantity = rs3.getInt(1) + 1;
+					System.out.println(quantity);
+					PreparedStatement ps = (PreparedStatement) conn.prepareStatement("Update shoppingcart SET quantity =  '" + quantity + "' where customerid = '" + userID + "' and movieid = '" + movieID + "';");
+					ps.execute();
+					movie = new Movies();
+					movie.setQuantity(quantity);
+					movie.setTitle(movieName);
+					movie.setPrice((float) 1.99);
+					cart.addToCart(movieName, movie);
+					session.setAttribute("cart", cart);
+
+				}
+				else
+				{
+					System.out.println("I'm over here");
 				PreparedStatement ps = (PreparedStatement) conn.prepareStatement("insert into shoppingcart values ( " + userID + ", " + movieID + ", " + 1 +  ")");
 				ps.execute();
+				movie = new Movies();
+				movie.setQuantity(1);
+				movie.setTitle(movieName);
+				movie.setPrice((float) 1.99);
+				cart.addToCart(movieName, movie);
+				session.setAttribute("cart", cart);
+				}
 				//PreparedStatement stmt=con.prepareStatement("insert into Emp values(?,?)"); 
 				
 				
@@ -119,6 +152,7 @@ public class shoppingCartServlet extends HttpServlet {
 		finally {
 				DbUtils.closeQuietly(rs);
 				DbUtils.closeQuietly(rs2);
+				DbUtils.closeQuietly(rs3);
 				DbUtils.closeQuietly(st);
 				DbUtils.closeQuietly(conn);
 			}
