@@ -109,7 +109,6 @@ $(window).on("load resize ", function() {
 				<c:forEach var="item" items="${shoppingCart}">
 		        	<tr>
 		        		<td><c:out value="${item.key}"/></td>
-<<<<<<< HEAD
 		        		<td><c:out value="${item.value.price * item.value.quantity}"/>
 		        		<td><c:out value="${item.value.quantity}"/>
 		        		<td>
@@ -118,9 +117,7 @@ $(window).on("load resize ", function() {
 							</form>
 						</td>
 		        		<td><button type="submit"  name = "updateQuantity" value = "">Update Quantity</button></td>
-=======
-		        		<td><c:out value="${item.value}"/>
->>>>>>> 2490d3cf22945c4a17ffc907e6831faf27ce72a1
+
 		        	</tr>
 		  		</c:forEach>
 	  		</tbody>
