@@ -21,8 +21,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.dbutils.DbUtils;
 
-import com.mysql.jdbc.PreparedStatement;
-
 /**
  * Servlet implementation class shoppingCartServlet
  */
@@ -46,17 +44,9 @@ public class shoppingCartServlet extends HttpServlet {
 		Connection conn = null;
 		Statement st = null;
 		ResultSet rs = null;
-		ResultSet rs2 = null;
 		response.setContentType("text/html");
 		HttpSession session = request.getSession(true);
 		ShoppingCart cart;
-		
-		String url = "jdbc:mysql://localhost:3306/";
-		String db = "moviedb";
-		String driver = "com.mysql.jdbc.Driver";
-		String user = "root";
-		String password = "admin";
-	
 		
 		cart = (ShoppingCart) session.getAttribute("cart");
 		
@@ -65,70 +55,82 @@ public class shoppingCartServlet extends HttpServlet {
 			cart = new ShoppingCart();
 			session.setAttribute("cart", cart);
 		}
-		
+		/*
+    	Cookie[] cookies = request.getCookies();
+    	for(int i = 0; i < cookies.length; i++)
+    	{
+    		if(cookies[i].getName().equals("loginedUser"))
+    		{
+    			//pass cart along from anon user to login user
+    			cart = (ShoppingCart) session.getAttribute("cart");
+    			HashMap<String, Integer> items = cart.getCart();
+    			
+    			for(int j = 0; i < items.size(); j++)
+    			{
+    				try
+    				{
+	    				Class.forName("com.mysql.jdbc.Driver");
+				    	conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb", "root", "admin");
+						st = conn.createStatement();
+					    rs = st.executeQuery("INSERT INTO shoppingCart VALUES("+ ); 
+    				}
+    				catch(SQLException | ClassNotFoundException e) {
+    					// TODO Auto-generated catch block
+    					e.printStackTrace();
+    				} finally {
+    					DbUtils.closeQuietly(rs);
+    					DbUtils.closeQuietly(st);
+    					DbUtils.closeQuietly(conn);
+    				}
+    				
+    			}
+    			 try
+    			    {
+    			    	Class.forName("com.mysql.jdbc.Driver");
+    			    	conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb", "root", "admin");
+    					st = conn.createStatement();
+    				    rs = st.executeQuery("select name from genres"); 		
+    				    
+    				    if(rs.absolute(1))
+    				    {
+    				    	while(rs.next())
+    				    	{
+    				    		list.add(rs.getString(1));
+    				    		/*
+    				    		 * 	movies.add(rs.getString(1));
+    						movies.add(rs.getString(2));
+    						list.add(movies);
+    				    		 
+    				    	}
+    				    }
+    			    }
+    			    catch(SQLException | ClassNotFoundException e) {
+    					// TODO Auto-generated catch block
+    					e.printStackTrace();
+    				} finally {
+    					DbUtils.closeQuietly(rs);
+    					DbUtils.closeQuietly(st);
+    					DbUtils.closeQuietly(conn);
+    				}
+    				
+    			
+    		}
+    	}
+*/
+
 		String movieName = request.getParameter("addMovie");
 		System.out.println("MOVIE NAME: " + movieName);
-		try
+		
+		if(movieName != null)
 		{
-			Class.forName(driver);
-			conn = DriverManager.getConnection(url+db, user, password);
-			st = conn.createStatement();
-			
-			
-			if(movieName != null)
-			{
-				Movies movie = new Movies();
-				movie.setQuantity(1);
-				movie.setTitle(movieName);
-				movie.setPrice((float) 1.99);
-				cart.addToCart(movieName, movie);
-				session.setAttribute("cart", cart);
-				System.out.print("Hello");
-				String sqlQuery = "select id from movies where movies.title = '" + movieName + "';";
-				rs = st.executeQuery(sqlQuery);
-				int movieID = 0;
-				if(rs.next())
-				{
-					movieID = rs.getInt(1);
-				}
-				
-				String userID = "";
-				Cookie [] cook = request.getCookies();
-
-				for(Cookie cookies : cook)
-				{
-					if(cookies.getName().equals("id"))
-					{
-						userID = cookies.getValue();
-					}
-				}
-				
-				
-				PreparedStatement ps = (PreparedStatement) conn.prepareStatement("insert into shoppingcart values ( " + userID + ", " + movieID + ", " + 1 +  ")");
-				ps.execute();
-				//PreparedStatement stmt=con.prepareStatement("insert into Emp values(?,?)"); 
-				
-				
-				
-		}
-		}
-		catch(SQLException | ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
-		finally {
-				DbUtils.closeQuietly(rs);
-				DbUtils.closeQuietly(rs2);
-				DbUtils.closeQuietly(st);
-				DbUtils.closeQuietly(conn);
-			}
-			
-		
-		
-			
-			
+			Movies movie = new Movies();
+			movie.setQuantity(1);
+			movie.setTitle(movieName);
+			movie.setPrice((float) 1.99);
+			cart.addToCart(movieName, movie);
+			session.setAttribute("cart", cart);
 			//response.addCookie(c1);
-		
+		}
 	    
 	    request.setAttribute("addedItem", movieName);
 	    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/addedToCart.jsp");
@@ -200,7 +202,26 @@ public class shoppingCartServlet extends HttpServlet {
 		
 		%>
 		
-		
+		<tr>
+			<td>
+				<c:forEach var = "movieList" items = "${addedMovies}">
+					<a href = "shoppingCart?"selected=<c:out value = "${movieList[0]}"/>">
+						<c:out value = "${movieList[0]}"/>
+					</a>
+				</c:forEach>
+			</td>
+			<td>
+				<c:forEach var = "movieList" items = "${addedMovies}">
+					<p><c:out value = "${movieList[1]}"/><p>
+				</c:forEach>
+			</td>
+			<td>
+				<c:forEach var = "movieList" items = "${addedMovies}">
+					<input type = "text" placeholder = "1" name = quantity" required>
+				</c:forEach>
+			</td>
+		</tr>
+	
 	 */
 
 	/**
