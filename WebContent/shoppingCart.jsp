@@ -112,7 +112,7 @@ $(window).on("load resize ", function() {
 		        		<td><c:out value="${item.value.price * item.value.quantity}"/>
 		        		<td><c:out value="${item.value.quantity}"/>
 		        		<td>
-		        			<form method="post" action="${pageContext.request.contextPath}/shoppingCart" >
+		        			<form method="get" action="${pageContext.request.contextPath}/shoppingCart" >
 								<button type="submit"  name = "removeMovie" value = "${item.key}">Remove</button>
 							</form>
 						</td>
