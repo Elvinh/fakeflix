@@ -109,8 +109,12 @@ $(window).on("load resize ", function() {
 				<c:forEach var="item" items="${shoppingCart}">
 		        	<tr>
 		        		<td><c:out value="${item.key}"/></td>
-		        		<td><c:out value="${item.value.price * item.value.quantity}"/>
-		        		<td><c:out value="${item.value.quantity}"/>
+		        		<td><c:out value="${item.value.price * item.value.quantity}"/></td>
+		        		<td>
+		        		
+			
+			        		<input type = "number" name = quantity" min = "1" max= "99>" value = "${item.value.quantity}">
+		        		</td>
 		        		<td>
 		        			<form method="get" action="${pageContext.request.contextPath}/shoppingCart" >
 								<button type="submit"  name = "removeMovie" value = "${item.key}">Remove</button>
