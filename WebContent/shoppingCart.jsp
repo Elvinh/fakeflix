@@ -111,8 +111,9 @@ $(window).on("load resize ", function() {
 		        		<td><c:out value="${item.key}"/></td>
 		        		<td><c:out value="${item.value.price * item.value.quantity}"/></td>
 		        		<td>
-		        		<form method="get" action="${pageContext.request.contextPath}/shoppingCart?adjMovieName=item.key">
+		        		<form method="get" action="${pageContext.request.contextPath}/shoppingCart">
 			        			<input type="number" name="adjQuantity" min="1" max="99" value="${item.value.quantity}">
+			        			<input type="hidden" name="adjMovieName" value="${item.key}">
   								<button type="submit">Update</button>
 			        		</form>
 			        	<a href="getMovie?selected=<c:out value="${movie[0]}"/>"><img src="<c:out value="${movie[1]}"/>" /></a>
