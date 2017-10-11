@@ -67,9 +67,12 @@ public class shoppingCartServlet extends HttpServlet {
 			cart = new ShoppingCart();
 			session.setAttribute("cart", cart);
 		}
-
+		String name = "";
 		String removeMovie = request.getParameter("removeMovie");
 		String movieName = request.getParameter("addMovie");
+		String adjQuantity = request.getParameter("adjQuantity");
+		name = request.getParameter("adjMovieName");
+		System.out.println("Movie Name Adj " + name);
 		System.out.println("MOVIE NAME: " + movieName);
 		System.out.println("REMOVE MOVIE NAME: " + removeMovie);
 		
@@ -214,6 +217,69 @@ public class shoppingCartServlet extends HttpServlet {
 		    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/addedToCart.jsp");
 			dispatcher.forward(request, response);
 		    
+		}
+		else if(adjQuantity != null)
+		{
+			try
+			{
+				System.out.println("Quantity to be adjusted to " + adjQuantity);
+				name = request.getParameter("adjMovieName");
+				System.out.println("Movie Name Adj " + name);
+				Class.forName(driver);
+				conn = DriverManager.getConnection(url+db, user, password);
+				st = conn.createStatement();
+				
+				String sqlQuery = "select id from movies where movies.title = '" + name + "';";
+				rs = st.executeQuery(sqlQuery);
+				int movieID = 0;
+				if(rs.next())
+				{
+					System.out.println("I'm getting movieID");
+					movieID = rs.getInt(1);
+					System.out.println("I'm getting movieID here");
+				}
+				String userID = "";
+				Cookie [] cook = request.getCookies();
+
+				for(Cookie cookies : cook)
+				{
+					if(cookies.getName().equals("id"))
+					{
+						userID = cookies.getValue();
+					}
+				}
+				
+				String sqlQuery2 = "select title from movies where movies.id = '" + movieID + "';";
+				rs2 = st.executeQuery(sqlQuery2);
+				rs2.next();
+				name = rs2.getString(1);
+				
+				int q = Integer.parseInt(adjQuantity);
+				PreparedStatement ps = (PreparedStatement) conn.prepareStatement("Update shoppingcart SET quantity =  '" + q + "' where customerid = '" + userID + "' and movieid = '" + movieID + "';");
+				ps.execute();
+				Movies movie = new Movies();
+				movie.setQuantity(q);
+				movie.setTitle(name);
+				movie.setPrice((float) 1.99);
+				cart.addToCart(name, movie);
+				session.setAttribute("cart", cart);
+				
+		}
+		catch(SQLException | ClassNotFoundException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+		finally 
+			{
+				DbUtils.closeQuietly(rs);
+				DbUtils.closeQuietly(rs2);
+				DbUtils.closeQuietly(rs3);
+				DbUtils.closeQuietly(conn);
+			}
+			request.setAttribute("adjQuantity", name);
+		    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/adjQuantity.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 
