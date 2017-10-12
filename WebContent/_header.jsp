@@ -210,13 +210,14 @@ font-family: 'Cinzel', serif;
 			<div class="dropdown-content">
 				<form method="get" action="${pageContext.request.contextPath}/browse" >
 		    		<button class="link" name="browseBy" value="title">By Title</button>
-					<button class="link" name="browseBy" value="genre">By Genre</button>
+					<!--<button class="link" name="browseBy" value="genre">By Genre</button>-->
 				</form>
 			</div>
 		</div>
 		
-			<form class="searchBar" method="get" action="${pageContext.request.contextPath}/getMovie">
-				<input type="text" name="selected" placeholder="Search for movie titles...">
+			<form class="searchBar" method="get" action="${pageContext.request.contextPath}/browse">
+				<input type="hidden" name="browseBy" value="advSearch">
+				<input type="text" name="advTitle" placeholder="Search for movie titles...">
 			</form>
 			
 			
