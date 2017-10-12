@@ -103,6 +103,11 @@ public class shoppingCartServlet extends HttpServlet {
 						userID = cookies.getValue();
 					}
 				}
+				
+				if(userID == "")
+				{
+					userID = "1";
+				}
 				String sqlQuery3 = "select quantity from shoppingcart where customerid = '" + userID + "' and movieid = '" + movieID + "'";
 				rs3 = st.executeQuery(sqlQuery3);
 					
@@ -169,6 +174,10 @@ public class shoppingCartServlet extends HttpServlet {
 					}
 				}
 					
+				if(userID == "")
+				{
+					userID = "1";
+				}
 				String sqlQuery2 = "select customerid, movieid from shoppingcart where customerid = '" + userID + "' and movieid = '" + movieID + "'";
 				rs2 = st.executeQuery(sqlQuery2);
 					
@@ -248,7 +257,10 @@ public class shoppingCartServlet extends HttpServlet {
 						userID = cookies.getValue();
 					}
 				}
-				
+				if(userID == "")
+				{
+					userID = "1";
+				}
 				String sqlQuery2 = "select title from movies where movies.id = '" + movieID + "';";
 				rs2 = st.executeQuery(sqlQuery2);
 				rs2.next();

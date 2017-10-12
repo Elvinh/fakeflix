@@ -64,4 +64,9 @@ public class ShoppingCart
 		this.total = total;
 		System.out.println(total);
 	}
+	
+	public boolean isEmpty()
+	{
+		return items.isEmpty();
+	}
 }

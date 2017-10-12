@@ -55,12 +55,19 @@ public class ValidateLoginServlet extends HttpServlet {
 		//CookieHandler.setDefault(new CookieManager(null, CookiePolicy.ACCEPT_ALL));
 		java.net.CookieManager cm = new java.net.CookieManager();
 		java.net.CookieHandler.setDefault(cm);
-
+		String url = "jdbc:mysql://localhost:3306/";
+		String db = "moviedb";
+		String driver = "com.mysql.jdbc.Driver";
+		String user = "root";
+		String passwordsql = "admin";
+		
 	    Connection conn = null;
+	    Connection connect = null;
 		PreparedStatement login = null;
 		PreparedStatement getShoppingCart = null;
 		ResultSet rs = null;
 		ResultSet rs2 = null;
+		ResultSet rs3 = null;
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String firstName = "";
@@ -75,9 +82,23 @@ public class ValidateLoginServlet extends HttpServlet {
 		    login.setString(1, email);
 		    login.setString(2, password);
 		    rs = login.executeQuery();
+		    connect = DriverManager.getConnection(url+db, user, passwordsql);
+			Statement st = null;
+
+			st = connect.createStatement();
+		    
 		    if(rs.next())
 		    {
-			    ShoppingCart cart = new ShoppingCart();
+		    	ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
+		    	if(!cart.isEmpty())
+		    	{
+		    		String sqlQuery2 = "select movies.title, movies.price, shoppingcart.quantity from movies "
+							+ "inner join shoppingcart "
+							+ "on movies.id = shoppingcart.movieID and shoppingCart.customerID = '1'";
+		    		rs3 = st.executeQuery(sqlQuery2);
+		    	
+		    	}
+			    cart = new ShoppingCart();
 
 			    firstName = rs.getString(1);
 			    lastName = rs.getString(2);
@@ -98,6 +119,17 @@ public class ValidateLoginServlet extends HttpServlet {
 					cart.addToCart(movie.getTitle(), movie);
 				}
 				
+				while(rs3.next())
+				{
+					Movies movie = new Movies();
+					movie.setTitle(rs3.getString(1));
+					movie.setPrice(rs3.getFloat(2));
+					movie.setQuantity(rs3.getInt(3));
+					cart.addToCart(movie.getTitle(), movie);
+				}
+				PreparedStatement ps = (PreparedStatement) conn.prepareStatement("Update shoppingcart SET customerid =  '" + userID + "' where customerid = '1';");
+				ps.execute();
+				
 				session.setAttribute("cart", cart);
 				
 			    Cookie currentUser = new Cookie("loginedUser", "true");
@@ -114,59 +146,9 @@ public class ValidateLoginServlet extends HttpServlet {
 			    response.addCookie(myCookieF);
 			    response.addCookie(myCookieL);
 			    response.addCookie(myCookieID);
-		    	/*
-		    	else
-		    	{
-		    		//There is some movie cookie that has been added.
-		    		//Need to shift every cookie over.
-		    		//***working on this part***
-		    		Cookie [] myCurrentCookies = request.getCookies();
 		    	
-		    		int orgCookieLength = myCurrentCookies.length;
-		    		
-		    		for(int i = 0; i < orgCookieLength; i++)
-		    		{
-		    			Cookie cookie = myCurrentCookies[i];
-		    			
-		    			cookie.setMaxAge(0);
-		    			response.addCookie(cookie);
-		    			
-		    		}
-		    		
-		    		myCookieF.setMaxAge(-1);
-			    	myCookieL.setMaxAge(-1);
-			    	currentUser.setMaxAge(-1);
-			    	myCookieID.setMaxAge(-1);
-
-			    	
-		    		response.addCookie(currentUser);
-		    		response.addCookie(myCookieF);
-		    		response.addCookie(myCookieL);
-			    	response.addCookie(myCookieID);
-		    		
-		    		for(int i = orgCookieLength-1; i >= 0; --i)
-		    		{
-		    			System.out.println(myCurrentCookies.length);
-		    			System.out.println("I'M HERE");
-		    			System.out.println(myCurrentCookies[i].getName());
-		    			System.out.println(myCurrentCookies[i].getValue());
-
-		    			response.addCookie((myCurrentCookies[i]));
-		    		}
-		    	}*/
-		    	
-			    
-			    //For chocolate chip cookies
-			   // session = request.getSession();
-			    //session.setAttribute("loginedU", (String) nameList.get(0) + " " + nameList.get(1));
-
-
-		    	//request.setAttribute("email", email);
-			    //request.setAttribute("nameList", nameList);
 			    response.sendRedirect(request.getContextPath() + "/home");
-				//RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/userInfo.jsp");
-				//dispatcher.forward(request, response);
-
+				
 		    }
 		    else
 		    {
@@ -184,7 +166,9 @@ public class ValidateLoginServlet extends HttpServlet {
 		} finally {
 			DbUtils.closeQuietly(rs);
 			DbUtils.closeQuietly(rs2);
+			DbUtils.closeQuietly(rs3);
 			DbUtils.closeQuietly(conn);
+			DbUtils.closeQuietly(connect);
 		}
 
 	}

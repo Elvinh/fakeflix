@@ -116,7 +116,6 @@ $(window).on("load resize ", function() {
 			        			<input type="hidden" name="adjMovieName" value="${item.key}">
   								<button type="submit">Update</button>
 			        		</form>
-			        	<a href="getMovie?selected=<c:out value="${movie[0]}"/>"><img src="<c:out value="${movie[1]}"/>" /></a>
 			        		
 		        		</td>
 		        		<td>
