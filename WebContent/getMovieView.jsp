@@ -40,7 +40,7 @@
 		color: #4cbbf7;
 		text-decoration:none;  	
 	}
-	.movieDesc button{
+	.movieDesc .watch{
 	    text-align: center;
 	    background-color: #666666;
 	    color: white;
@@ -109,10 +109,8 @@
 					<img src="<c:out value="${movieAttributes[3]}" />"/>
 					<div class="movieDesc">
 						<p>Released on: <c:out value="${movieAttributes[1]}"/></p>
-						<form action="<c:out value="${movieAttributes[4]}"/>">
-							<button>Watch Trailer</button>
-						</form>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas nec eleifend augue. Quisque luctus ultricies urna sit amet ultrices. Nullam iaculis tincidunt dui, quis ornare mi semper vel. Pellentesque malesuada felis vel consectetur pharetra. Etiam eleifend risus nec sem iaculis, non varius sapien aliquet. Nulla sit amet elit id dui sollicitudin finibus. Pellentesque id diam libero. Nulla mi leo, euismod non mi at, mollis ultricies ligula. In quis magna vel nisl cursus lobortis. Curabitur scelerisque ultrices magna eu varius. Duis vitae dolor purus. Cras nec metus accumsan, venenatis lorem ac, semper eros.
+						<a class="watch" href="${movieAttributes[4]}">Watch Trailer</a>
+						<p>${movieAttributes[4]}Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas nec eleifend augue. Quisque luctus ultricies urna sit amet ultrices. Nullam iaculis tincidunt dui, quis ornare mi semper vel. Pellentesque malesuada felis vel consectetur pharetra. Etiam eleifend risus nec sem iaculis, non varius sapien aliquet. Nulla sit amet elit id dui sollicitudin finibus. Pellentesque id diam libero. Nulla mi leo, euismod non mi at, mollis ultricies ligula. In quis magna vel nisl cursus lobortis. Curabitur scelerisque ultrices magna eu varius. Duis vitae dolor purus. Cras nec metus accumsan, venenatis lorem ac, semper eros.
 						Curabitur quis dui est. Nulla facilisi. Maecenas venenatis libero lacus. Nullam sapien elit, scelerisque ac quam gravida, facilisis mattis ex.</p>
 						<p style="display:inline">Directed by: </p>
 						<a href="browse?browseBy=advSearch&advDirector=<c:out value="${movieAttributes[2]}"/>" ><c:out value="${movieAttributes[2]}"/></a>
@@ -129,9 +127,8 @@
 		<div class="Buy">
 			<div class="buyInfo">
 				<p>$19.99</p>
-				<form method="get" action="${pageContext.request.contextPath}/shoppingCart" >
 					<button class= "likeMovie" name = "likeMovie" value = "${movieAttributes[0]}">Like Movie</button>
-				</form>
+
 				<c:forEach var="movieAttributes" items="${requestedMovie}" >
 					<form method="get" action="${pageContext.request.contextPath}/shoppingCart" >
 						<button type="submit" class= "buyMovie" name = "addMovie" value = "${movieAttributes[0]}">Add To Cart</button>
