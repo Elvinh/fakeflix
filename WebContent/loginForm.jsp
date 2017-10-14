@@ -86,7 +86,7 @@ label
 	<jsp:include page="_header.jsp"></jsp:include>
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
 	<div class="loginBox">
-		<form method = "post" action = "${pageContext.request.contextPath}/user">
+		<form method = "post" action = "${pageContext.request.contextPath}/auth">
 		<div class = "container">
 			<label>Email</label>
 				<input type = "text" placeholder = "Enter Email" name = "email" required>
