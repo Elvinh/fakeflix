@@ -90,14 +90,17 @@ public class ValidateLoginServlet extends HttpServlet {
 		    if(rs.next())
 		    {
 		    	ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
-		    	if(!cart.isEmpty())
+		    	if(cart != null)
 		    	{
-		    		String sqlQuery2 = "select movies.title, movies.price, shoppingcart.quantity from movies "
-							+ "inner join shoppingcart "
-							+ "on movies.id = shoppingcart.movieID and shoppingCart.customerID = '1'";
-		    		rs3 = st.executeQuery(sqlQuery2);
-		    	
+			    	if(!cart.isEmpty())
+			    	{
+			    		String sqlQuery2 = "select movies.title, movies.price, shoppingcart.quantity from movies "
+								+ "inner join shoppingcart "
+								+ "on movies.id = shoppingcart.movieID and shoppingCart.customerID = '1'";
+			    		rs3 = st.executeQuery(sqlQuery2);
+			    	}
 		    	}
+
 			    cart = new ShoppingCart();
 
 			    firstName = rs.getString(1);
@@ -119,13 +122,15 @@ public class ValidateLoginServlet extends HttpServlet {
 					cart.addToCart(movie.getTitle(), movie);
 				}
 				
-				while(rs3.next())
-				{
-					Movies movie = new Movies();
-					movie.setTitle(rs3.getString(1));
-					movie.setPrice(rs3.getFloat(2));
-					movie.setQuantity(rs3.getInt(3));
-					cart.addToCart(movie.getTitle(), movie);
+				if(rs3 != null) {
+					while(rs3.next())
+					{
+						Movies movie = new Movies();
+						movie.setTitle(rs3.getString(1));
+						movie.setPrice(rs3.getFloat(2));
+						movie.setQuantity(rs3.getInt(3));
+						cart.addToCart(movie.getTitle(), movie);
+					}
 				}
 				PreparedStatement ps = (PreparedStatement) conn.prepareStatement("Update shoppingcart SET customerid =  '" + userID + "' where customerid = '1';");
 				ps.execute();
