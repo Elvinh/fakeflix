@@ -130,7 +130,7 @@
 				<button class= "likeMovie" name = "likeMovie" value = "${movieAttributes[0]}">Like Movie</button>
 
 				<c:forEach var="movieAttributes" items="${requestedMovie}" >
-					<form method="get" action="${pageContext.request.contextPath}/shoppingCart" >
+					<form method="get" action="${pageContext.request.contextPath}/addToCart" >
 						<button type="submit" class= "buyMovie" name = "addMovie" value = "${movieAttributes[0]}">Add To Cart</button>
 					</form>
 				</c:forEach>

@@ -43,11 +43,8 @@ public class shoppingCartServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Connection conn = null;
-		Statement st = null;
-		ResultSet rs = null;
-		ResultSet rs2 = null;
-		ResultSet rs3 = null;
+
+		
 		response.setContentType("text/html");
 		HttpSession session = request.getSession(true);
 		ShoppingCart cart;
@@ -57,183 +54,23 @@ public class shoppingCartServlet extends HttpServlet {
 		String driver = "com.mysql.jdbc.Driver";
 		String user = "root";
 		String password = "admin";
-	
-		response.setContentType("text/html");
+		
+		Connection conn = null;
+		Statement st = null;
+		ResultSet rs = null;
+		ResultSet rs2 = null;
+		ResultSet rs3 = null;
 		
 		cart = (ShoppingCart) session.getAttribute("cart");
 		
-		if(cart == null)
-		{
-			cart = new ShoppingCart();
-			session.setAttribute("cart", cart);
-		}
-		String name = "";
-		String removeMovie = request.getParameter("removeMovie");
-		String movieName = request.getParameter("addMovie");
 		String adjQuantity = request.getParameter("adjQuantity");
-		name = request.getParameter("adjMovieName");
-		System.out.println("Movie Name Adj " + name);
-		System.out.println("MOVIE NAME: " + movieName);
-		System.out.println("REMOVE MOVIE NAME: " + removeMovie);
+		String name = request.getParameter("adjMovieName");
 		
-		if(removeMovie != null)
+		if(adjQuantity != null)
 		{
 			try
 			{
-				Class.forName(driver);
-				conn = DriverManager.getConnection(url+db, user, password);
-				st = conn.createStatement();
-				
-				String sqlQuery = "select id from movies where movies.title = '" + removeMovie + "';";
-				rs = st.executeQuery(sqlQuery);
-				int movieID = 0;
-				if(rs.next())
-				{
-					System.out.println("I'm getting movieID");
-					movieID = rs.getInt(1);
-					System.out.println("I'm getting movieID here");
-				}
-				String userID = "";
-				Cookie [] cook = request.getCookies();
-
-				for(Cookie cookies : cook)
-				{
-					if(cookies.getName().equals("id"))
-					{
-						userID = cookies.getValue();
-					}
-				}
-				
-				if(userID == "")
-				{
-					userID = "1";
-				}
-				String sqlQuery3 = "select quantity from shoppingcart where customerid = '" + userID + "' and movieid = '" + movieID + "'";
-				rs3 = st.executeQuery(sqlQuery3);
-					
-				rs3.next();
-				int quantity = rs3.getInt(1);
-				System.out.println("Movie I want to delete ID "  + movieID);
-				System.out.println("UserID that I'm deleting from "  + userID);
-				PreparedStatement ps = (PreparedStatement) conn.prepareStatement("delete from shoppingcart where customerid = '" + userID + "' and movieid = '" +movieID +"';");
-				ps.execute();
-			
-				Movies movie = new Movies();
-				movie.setQuantity(quantity);
-				movie.setTitle(removeMovie);
-				movie.setPrice((float) 1.99);
-				cart.removeFromCart(removeMovie, movie);
-				session.setAttribute("cart", cart);
-			
-			}
-			catch(SQLException e){
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
-			finally
-			{
-				DbUtils.closeQuietly(rs);
-				DbUtils.closeQuietly(rs2);
-				DbUtils.closeQuietly(rs3);
-				DbUtils.closeQuietly(st);
-				DbUtils.closeQuietly(conn);
-			}
-			
-			 request.setAttribute("removedMovie", removeMovie);
-			 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/removedFromCart.jsp");
-			 dispatcher.forward(request, response);
-		}
-		else if(movieName != null)
-		{
-			try
-			{
-				Class.forName(driver);
-				conn = DriverManager.getConnection(url+db, user, password);
-				st = conn.createStatement();
-				
-				Movies movie = new Movies();
-						
-				String sqlQuery = "select id from movies where movies.title = '" + movieName + "';";
-				rs = st.executeQuery(sqlQuery);
-				int movieID = 0;
-					
-				rs.next();
-				movieID = rs.getInt(1);
-					
-				String userID = "";
-				Cookie [] cook = request.getCookies();
-		
-				for(Cookie cookies : cook)
-				{
-					if(cookies.getName().equals("id"))
-					{
-						userID = cookies.getValue();
-					}
-				}
-					
-				if(userID == "")
-				{
-					userID = "1";
-				}
-				String sqlQuery2 = "select customerid, movieid from shoppingcart where customerid = '" + userID + "' and movieid = '" + movieID + "'";
-				rs2 = st.executeQuery(sqlQuery2);
-					
-				if(rs2.absolute(1))
-				{
-					System.out.println("I'm here");
-					String sqlQuery3 = "select quantity from shoppingcart where customerid = '" + userID + "' and movieid = '" + movieID + "'";
-					rs3 = st.executeQuery(sqlQuery3);
-					rs3.next();
-					int quantity = rs3.getInt(1) + 1;
-					movie = new Movies();
-					movie.setTitle(movieName);
-					movie.setQuantity(quantity);
-					movie.setPrice((float) 1.99);
-					PreparedStatement ps = (PreparedStatement) conn.prepareStatement("Update shoppingcart SET quantity =  '" + quantity + "' where customerid = '" + userID + "' and movieid = '" + movieID + "';");
-					ps.execute();
-					cart.addToCart(movieName, movie);
-					session.setAttribute("cart", cart);
-				}
-				else
-				{
-					movie = new Movies();
-					movie.setQuantity(1);
-					movie.setTitle(movieName);
-					movie.setPrice((float) 1.99);
-					cart.addToCart(movieName, movie);
-					PreparedStatement ps = (PreparedStatement) conn.prepareStatement("insert into shoppingcart values ( " + userID + ", " + movieID + ", " + 1 +  ")");
-					ps.execute();
-					session.setAttribute("cart", cart);
-				}				
-			}
-			catch(SQLException | ClassNotFoundException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} 
-			finally 
-				{
-					DbUtils.closeQuietly(rs);
-					DbUtils.closeQuietly(rs2);
-					DbUtils.closeQuietly(rs3);
-					DbUtils.closeQuietly(conn);
-				}
-	    
-		    request.setAttribute("addedItem", movieName);
-		    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/addedToCart.jsp");
-			dispatcher.forward(request, response);
-		    
-		}
-		else if(adjQuantity != null)
-		{
-			try
-			{
-				System.out.println("Quantity to be adjusted to " + adjQuantity);
 				name = request.getParameter("adjMovieName");
-				System.out.println("Movie Name Adj " + name);
 				Class.forName(driver);
 				conn = DriverManager.getConnection(url+db, user, password);
 				st = conn.createStatement();
@@ -241,12 +78,12 @@ public class shoppingCartServlet extends HttpServlet {
 				String sqlQuery = "select id from movies where movies.title = '" + name + "';";
 				rs = st.executeQuery(sqlQuery);
 				int movieID = 0;
+				
 				if(rs.next())
 				{
-					System.out.println("I'm getting movieID");
 					movieID = rs.getInt(1);
-					System.out.println("I'm getting movieID here");
 				}
+				
 				String userID = "";
 				Cookie [] cook = request.getCookies();
 
@@ -290,7 +127,7 @@ public class shoppingCartServlet extends HttpServlet {
 				DbUtils.closeQuietly(conn);
 			}
 			request.setAttribute("adjQuantity", name);
-		    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/adjQuantity.jsp");
+		    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cart");
 			dispatcher.forward(request, response);
 		}
 	}

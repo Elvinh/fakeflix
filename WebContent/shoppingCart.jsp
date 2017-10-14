@@ -119,7 +119,7 @@ $(window).on("load resize ", function() {
 			        		
 		        		</td>
 		        		<td>
-		        			<form method="get" action="${pageContext.request.contextPath}/shoppingCart">
+		        			<form method="get" action="${pageContext.request.contextPath}/removeFromCart">
 								<button type="submit"  name = "removeMovie" value = "${item.key}">Remove</button>
 							</form>
 						</td>
