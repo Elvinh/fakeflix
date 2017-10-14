@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -67,7 +67,9 @@ public class ValidateLoginServlet extends HttpServlet {
 		String lastName = "";
 		int userID = -1;
 		
+		ShoppingCart cart = null;
 		boolean loginSuccess = true;
+		
 		try
 		{
 	    	Class.forName(driver);
@@ -106,24 +108,22 @@ public class ValidateLoginServlet extends HttpServlet {
 			    response.addCookie(myCookieID);
 			    /* ****************** */
 			    
-		    	ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
+		    	cart = (ShoppingCart) session.getAttribute("cart");
 		    	if(cart != null)
 		    	{
 			    	if(!cart.isEmpty())
 			    	{
-			    		String sqlQuery2 = "select movies.title, movies.price, shoppingcart.quantity from movies "
+			    		sqlQuery = "select movies.title, movies.price, shoppingcart.quantity from movies "
 								+ "inner join shoppingcart "
-								+ "on movies.id = shoppingcart.movieID and shoppingCart.customerID = '1'";
-			    		rs3 = st.executeQuery(sqlQuery2);
+								+ "on movies.id = shoppingcart.movieID and shoppingcart.customerID = '1'";
+			    		rs3 = st.executeQuery(sqlQuery);
 			    	}
 		    	}
 		    	
 
 			    cart = new ShoppingCart();
 
-				sqlQuery = "select movies.title, movies.price, shoppingcart.quantity from movies "
-						+ "inner join shoppingcart "
-						+ "on movies.id = shoppingcart.movieID and shoppingCart.customerID = ?";
+				sqlQuery = "Select movies.title, movies.price, shoppingcart.quantity from movies inner join shoppingcart on movies.id = shoppingcart.movieID and shoppingcart.customerID = ?";
 				getShoppingCart = conn.prepareStatement(sqlQuery);
 				getShoppingCart.setInt(1, userID);
 				rs2 = getShoppingCart.executeQuery();
@@ -164,14 +164,19 @@ public class ValidateLoginServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 		} finally {
+
 			DbUtils.closeQuietly(rs);
 			DbUtils.closeQuietly(rs2);
 			DbUtils.closeQuietly(rs3);
+			DbUtils.closeQuietly(st);
+			DbUtils.closeQuietly(login);
+			DbUtils.closeQuietly(getShoppingCart);
 			DbUtils.closeQuietly(conn);
 		}
 		
-		if(loginSuccess) 
+		if(loginSuccess) {
 			response.sendRedirect(request.getContextPath() + "/home");
+		}
 		else
 			response.sendRedirect(request.getContextPath() + "/loginForm.jsp");
 	    
