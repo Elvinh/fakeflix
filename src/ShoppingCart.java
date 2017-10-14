@@ -29,6 +29,10 @@ public class ShoppingCart
 	public void addToCart(String item, Movies movie) 
 	{
 		int quantity = movie.getQuantity();
+		if(items.containsKey(item)) {
+			quantity = movie.getQuantity() - items.get(item).getQuantity();
+		}
+
 		items.put(item,  movie);
 		count = count + quantity;
 	}
