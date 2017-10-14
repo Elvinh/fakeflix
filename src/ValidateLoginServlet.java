@@ -29,7 +29,7 @@ import org.apache.commons.dbutils.DbUtils;
 /**
  * Servlet implementation class ValidateLoginServlet
  */
-@WebServlet("/user/*")
+@WebServlet("/auth/*")
 
 public class ValidateLoginServlet extends HttpServlet {
 	/**
@@ -62,7 +62,6 @@ public class ValidateLoginServlet extends HttpServlet {
 		String passwordsql = "admin";
 		
 	    Connection conn = null;
-	    Connection connect = null;
 		PreparedStatement login = null;
 		PreparedStatement getShoppingCart = null;
 		ResultSet rs = null;
@@ -76,16 +75,15 @@ public class ValidateLoginServlet extends HttpServlet {
 		try
 		{
 	    	Class.forName("com.mysql.jdbc.Driver");
-	    	conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb", "root", "admin");
+	    	conn = DriverManager.getConnection(url+db, user, passwordsql);
 			String sqlQuery = "Select first_name, last_name, id from customers where customers.email=? and customers.password=?";
 		    login = conn.prepareStatement(sqlQuery);
 		    login.setString(1, email);
 		    login.setString(2, password);
 		    rs = login.executeQuery();
-		    connect = DriverManager.getConnection(url+db, user, passwordsql);
 			Statement st = null;
 
-			st = connect.createStatement();
+			st = conn.createStatement();
 		    
 		    if(rs.next())
 		    {
@@ -100,6 +98,8 @@ public class ValidateLoginServlet extends HttpServlet {
 			    		rs3 = st.executeQuery(sqlQuery2);
 			    	}
 		    	}
+		    	
+		    	System.out.println("yo");
 
 			    cart = new ShoppingCart();
 
@@ -173,7 +173,6 @@ public class ValidateLoginServlet extends HttpServlet {
 			DbUtils.closeQuietly(rs2);
 			DbUtils.closeQuietly(rs3);
 			DbUtils.closeQuietly(conn);
-			DbUtils.closeQuietly(connect);
 		}
 
 	}
