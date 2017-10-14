@@ -224,13 +224,20 @@ font-family: 'Cinzel', serif;
 			<div class = "advSearch">
 				<a href = "advSearch">Advanced Search</a>
 			</div>
+			
+			<c:set var="id" scope="session" value="${user}"/>
+			<c:if test="${empty id}">
 			<div class="login">
 					<a href="login">LOGIN</a>
 			</div>
+			</c:if>
 			
-			<div class="logout">
-					<a href="logout">LOGOUT</a>	
-			</div>
+			<c:set var="id" scope="session" value="${user}"/>
+			<c:if test="${not empty id}">
+				<div class="logout">
+						<a href="logout">LOGOUT</a>	
+				</div>
+			</c:if>
 			
 			<div class = "myCart">
 				<a href = "${pageContext.request.contextPath}/cart"><img src="images/cart-of-ecommerce.png"WIDTH="36" HEIGHT="36" BORDER="0"></a>

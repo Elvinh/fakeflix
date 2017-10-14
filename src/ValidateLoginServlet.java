@@ -92,6 +92,8 @@ public class ValidateLoginServlet extends HttpServlet {
 			    lastName = rs.getString(2);
 			    userID = rs.getInt(3);
 			    
+			    session.setAttribute("user", userID);
+			    
 			    Cookie currentUser = new Cookie("loginedUser", "true");
 			    Cookie myCookieF = new Cookie("first_name", firstName);
 			    Cookie myCookieL = new Cookie("last_name", lastName);
