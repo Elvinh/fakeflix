@@ -1,4 +1,4 @@
-# fakeflix
+Disclaimer: Fakeflix is project made for fun and education. You can't actually buy the movies. It was created to learn web development.
 
 # Fakeflix Dynamic Web Application –
 http://ec2-13-59-175-142.us-east-2.compute.amazonaws.com:8080/fakeflix/
