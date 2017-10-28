@@ -110,8 +110,9 @@ public class GetMovieServlet extends HttpServlet {
 			Cookie[] cookies = request.getCookies();
 			for(Cookie cook : cookies) {
 				if(cook.getName().equals("id")) {
+					System.out.println( cook.getValue());
 					test = cook;
-					sqlQuery = "SELECT * FROM Likes WHERE customer_id = '" + cook.getValue() + "' AND movie_id = '" + movieId + "'";
+					sqlQuery = "SELECT * FROM likes WHERE customer_id = '" + cook.getValue() + "' AND movie_id = '" + movieId + "'";
 					rs = st.executeQuery(sqlQuery);
 					if(rs.absolute(1)) {
 						isLiked = "true";

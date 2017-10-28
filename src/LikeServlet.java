@@ -56,7 +56,7 @@ public class LikeServlet extends HttpServlet {
 		Cookie[] cookies = request.getCookies();
 		for(Cookie cook : cookies) {
 			if(cook.getName().equals("id")) {
-				String sqlQuery = "INSERT INTO Likes VALUES (" + cook.getValue() + ", " + movieId + ")";
+				String sqlQuery = "INSERT INTO likes VALUES (" + cook.getValue() + ", " + movieId + ")";
 				try {
 					Class.forName(driver);
 					conn = DriverManager.getConnection(url+db, user, password);
