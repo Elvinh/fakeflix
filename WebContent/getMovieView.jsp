@@ -127,7 +127,7 @@
 			<div class="starList">
 				<p>Staring: </p>
 				<c:forEach var="star" items="${stars}">
-					<a href="getStar?selected=<c:out value="${star[1]}"/>"><c:out value="${star[0]}"/></a>
+					<a href="getStar?selected=<c:out value="${star[1]}"/>">[ <c:out value="${star[0]}"/> ] </a>
 				</c:forEach>
 			</div>
 		</div>
