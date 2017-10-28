@@ -80,8 +80,15 @@
 		margin: 100px 0 0 0;
 		color: #d01717;
 	}
-	.Buy .likeMovie {
-		margin-bottom: 10px;
+	.Buy .alreadyLiked {
+		text-align: center;
+	    background-color: #89919e;
+	    color: white;
+	    padding: 16px;
+	    font-size: 16px;
+	    border: none;
+	    cursor: pointer;
+	    outline: none;
 	}
 	.Buy button {
     	text-align: center;
@@ -92,7 +99,9 @@
 	    border: none;
 	    cursor: pointer;
 	    outline: none;
+	    margin-bottom: 10px;
 	}
+
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
@@ -125,9 +134,16 @@
 		<div class="Buy">
 			<div class="buyInfo">
 				<p>$19.99</p>
-				<form method="get" action="${pageContext.request.contextPath}/like" >
-					<button  type="submit" class= "likeMovie" name = "likeMovie" value = "${requestedMovie.id}"><c:out value="${isLiked eq 'false' ? 'Like': 'Unlike'}"/></button>
-				</form>
+				<c:choose>
+			  		<c:when test="${isLiked eq 'false'}">
+			  			<form method="get" action="${pageContext.request.contextPath}/like" >
+			    			<button  type="submit" class= "likeMovie" name = "likeMovie" value = "${requestedMovie.id}">Like Movie</button>
+			    		</form>
+			  		</c:when>
+				 	<c:otherwise>
+   						<button class="alreadyLiked">Like Movie</button>
+			 		</c:otherwise>
+				</c:choose>
 				
 				<form method="get" action="${pageContext.request.contextPath}/addToCart" >
 					<button type="submit" class= "buyMovie" name = "addMovie" value = "${requestedMovie.title}">Add To Cart</button>
