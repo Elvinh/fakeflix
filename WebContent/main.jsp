@@ -6,8 +6,11 @@
 
 <head>
 <style>
-
-	.trendingMovies { 		
+	.trending p {
+		color: white;
+		margin-left: 10px;
+	}
+	.ed { 		
 		background-color: #2c2d30;
 		width: 100%;
 		height: 30%;
@@ -119,7 +122,13 @@
 
 
 	<div class="trending">
-
+		<br>
+		<p>Most Liked</p>
+		<c:forEach items="${mostLiked}" var="movie">
+		<a href="getMovie?selected=<c:out value="${movie.title}"/>&id=<c:out value="${movie.id}"/>" >
+			<img src="<c:out value="${movie.banner_url}"/>"  WIDTH="200" HEIGHT="300" BORDER="0"/>
+		</a>
+		</c:forEach>
 	</div>
 	
 	<div class="randomGenres">
@@ -130,7 +139,7 @@
 			<c:set var="i" value="${i + 1}" scope="page"/>
 			<div id="list">
 					<c:forEach items="${moviesFromAGenre}" var="movie">
-						<a href="getMovie?selected=<c:out value="${movie.title}"/>" >
+						<a href="getMovie?selected=<c:out value="${movie.title}"/>&id=<c:out value="${movie.id}"/>" >
 							<img src="<c:out value="${movie.banner_url}"/>"  WIDTH="200" HEIGHT="300" BORDER="0"/>
 						</a>
 					</c:forEach>
@@ -147,7 +156,7 @@
 			<div id="list">
 					<c:forEach items="${moviesFromAStar}" var="movie">
 						<div id="item">
-							<a href="getMovie?selected=<c:out value="${movie.title}"/>" >
+							<a href="getMovie?selected=<c:out value="${movie.title}"/>&id=<c:out value="${movie.id}"/>"/>" >
 								<img src="<c:out value="${movie.banner_url}"/>"  WIDTH="200" HEIGHT="300" BORDER="0"/>
 							</a>
 						</div>
