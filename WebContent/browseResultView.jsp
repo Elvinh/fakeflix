@@ -124,14 +124,14 @@
 				<div class="movieBanner">
 					<c:choose>
 						 <c:when test="${type eq 'genre'}">
-							<a href="browse?browseBy=genreName&genreName=<c:out value="${movie[0]}"/>"><img src="<c:out value="${movie[1]}"/>" /></a>
+							<a href="browse?browseBy=genreName&genreName=<c:out value="${movie.title}"/>"><img src="<c:out value="${movie.banner_url}"/>" /></a>
 						</c:when>
 						<c:otherwise>
-							<a href="getMovie?selected=<c:out value="${movie[0]}"/>"><img src="<c:out value="${movie[1]}"/>" /></a>
+							<a href="getMovie?selected=<c:out value="${movie.title}"/>&id=<c:out value="${movie.id}"/>"><img src="<c:out value="${movie.banner_url}"/>" /></a>
 						</c:otherwise>
 					</c:choose>
 					<div class="movieTitle">
-						<c:out value="${movie[0]}"/>
+						<c:out value="${movie.title}"/>
 					</div>
 				</div>
 			</c:forEach>
