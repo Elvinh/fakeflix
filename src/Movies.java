@@ -21,6 +21,18 @@ public class Movies {
 		this.trailer_url = "";
 		
 	}
+	
+	public Movies(int id, String title, int year, String director, String banner_url, String trailer_url, float price) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.year = year;
+		this.director = director;
+		this.banner_url = banner_url;
+		this.trailer_url = trailer_url;
+		this.price = price;
+	}
+
 	public String getTitle()
 	{
 		return title;
