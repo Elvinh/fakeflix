@@ -12,6 +12,7 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -105,14 +106,20 @@ public class GetMovieServlet extends HttpServlet {
 				type = "genre";
 				rs2.close();
 			}
-			String userId = String.valueOf(session.getAttribute("user"));
-			if(userId != null) {
-				sqlQuery = "SELECT * FROM Likes WHERE customer_id = '" + userId + "' AND movie_id = '" + movieId + "'";
-				rs = st.executeQuery(sqlQuery);
-				if(rs.absolute(1)) {
-					isLiked = "true";
+			Cookie test = null;
+			Cookie[] cookies = request.getCookies();
+			for(Cookie cook : cookies) {
+				if(cook.getName().equals("id")) {
+					test = cook;
+					sqlQuery = "SELECT * FROM Likes WHERE customer_id = '" + cook.getValue() + "' AND movie_id = '" + movieId + "'";
+					rs = st.executeQuery(sqlQuery);
+					if(rs.absolute(1)) {
+						isLiked = "true";
+					}
 				}
 			}
+			if(test == null)
+				isLiked = "true";
 
 					
 		} catch (SQLException | ClassNotFoundException e) {
