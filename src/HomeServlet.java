@@ -52,11 +52,13 @@ public class HomeServlet extends HttpServlet {
 		List stars = new ArrayList();
 		List<List<Movies>> genreMovies = new ArrayList<List<Movies>>();
 		List<List<Movies>> starMovies = new ArrayList<List<Movies>>();
+		List<Movies> mostLikedMovies = new ArrayList<>();
 		
 		// Get x random genres
 		String sqlQuery = "SELECT name FROM genres ORDER by RAND() LIMIT 4";
 		String sqlQuery2 = "SELECT id, first_name, last_name FROM stars ORDER by RAND() LIMIT 2";
-				
+		String sqlQuery3 = "select * from movies inner join (select movie_id from likes group by movie_id order by count(*) desc limit 7) as most_liked on movies.id = most_liked.movie_id";
+		
 		try {
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url+db, user, password);
@@ -72,17 +74,20 @@ public class HomeServlet extends HttpServlet {
 				List<Movies> moviesFromAGenre = new ArrayList<Movies>();
 				
 				// Get movies from a certain genre
-				sqlQuery = "SELECT title, banner_url FROM movies WHERE movies.id in "
+				sqlQuery = "SELECT * FROM movies WHERE movies.id in "
 						+ "(SELECT movie_id FROM genres_in_movies WHERE genres_in_movies.genre_id in "
 						+ "(SELECT id FROM genres WHERE genres.name = \"" + genres.get(i) + "\")) "
 						+ "limit 10";
 				
 				rs = st.executeQuery(sqlQuery);
 				while(rs.next()) {
-					Movies movie = new Movies();
-					
-					movie.setTitle(rs.getString(1));
-					movie.setBanner_url(rs.getString(2));
+					Movies movie = new Movies( rs.getInt(1),
+							  rs.getString(2),
+							  rs.getInt(3),
+							  rs.getString(4),
+							  rs.getString(5),
+							  rs.getString(6),
+							  rs.getFloat(7));
 					
 					moviesFromAGenre.add(movie);
 				}
@@ -105,21 +110,30 @@ public class HomeServlet extends HttpServlet {
 				List<Movies> moviesFromAStar = new ArrayList<Movies>();
 				
 				// Get movies from a certain genre
-				sqlQuery = "SELECT title, banner_url FROM movies WHERE movies.id IN "
+				sqlQuery = "SELECT * FROM movies WHERE movies.id IN "
 						+ "(SELECT movie_id FROM stars_in_movies "
 						+ "WHERE stars_in_movies.star_id = " + ((Stars) stars.get(i)).getId() + ") "
 								+ "limit 10";
 						
 				rs = st.executeQuery(sqlQuery);
 				while(rs.next()) {
-					Movies movie = new Movies();
-					
-					movie.setTitle(rs.getString(1));
-					movie.setBanner_url(rs.getString(2));
-					
+					Movies movie = new Movies( rs.getInt(1),
+							  rs.getString(2),
+							  rs.getInt(3),
+							  rs.getString(4),
+							  rs.getString(5),
+							  rs.getString(6),
+							  rs.getFloat(7));
 					moviesFromAStar.add(movie);
 				}
 				starMovies.add(moviesFromAStar);
+			}
+			
+			rs = st.executeQuery(sqlQuery3);
+			
+			while(rs.next()) {
+				Movies movie = new Movies(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getFloat(7));
+				mostLikedMovies.add(movie);
 			}
 			
 
@@ -139,7 +153,7 @@ public class HomeServlet extends HttpServlet {
 		request.setAttribute("starNames", stars);
 		request.setAttribute("moviesFromRandomStars", starMovies);
 		
-		
+		request.setAttribute("mostLiked", mostLikedMovies);
 		
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/main.jsp");
 		dispatcher.forward(request, response);
