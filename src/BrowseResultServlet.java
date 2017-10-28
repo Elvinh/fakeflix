@@ -41,7 +41,7 @@ public class BrowseResultServlet extends HttpServlet {
 		String page = request.getParameter("page");
 		String gName = request.getParameter("genreName");
 		
-		List list = new ArrayList();
+		List<Movies> movies = new ArrayList<>();
 		
 		String sqlQuery = null;
 
@@ -66,13 +66,13 @@ public class BrowseResultServlet extends HttpServlet {
 		//String sqlQuery = null;
 
 		if(browseType.equals("title")) {
-			sqlQuery = "SELECT title, banner_url  FROM movies ORDER BY " + orderBy + " LIMIT " + range;
+			sqlQuery = "SELECT * FROM movies ORDER BY " + orderBy + " LIMIT " + range;
 		}
 		else if(browseType.equals("genre"))
-			sqlQuery = "SELECT name, id  FROM genres";
+			sqlQuery = "SELECT name, id FROM genres";
 		else if(browseType.equals("genreName"))
 		{
-			sqlQuery = "SELECT title, banner_url FROM movies WHERE movies.id in (SELECT movie_id FROM genres_in_movies WHERE genres_in_movies.genre_id in (SELECT id FROM genres WHERE genres.name = \"" + gName + "\")) ORDER BY " + orderBy;
+			sqlQuery = "SELECT * FROM movies WHERE movies.id in (SELECT movie_id FROM genres_in_movies WHERE genres_in_movies.genre_id in (SELECT id FROM genres WHERE genres.name = \"" + gName + "\")) ORDER BY " + orderBy;
 		}
 		else if(browseType.equals("advSearch"))
 		{
@@ -116,7 +116,7 @@ public class BrowseResultServlet extends HttpServlet {
 				lstar = "";
 			}
 
-			sqlQuery = "SELECT title, banner_url FROM movies "
+			sqlQuery = "SELECT * FROM movies "
 					+ "WHERE movies.id in "
 					+ "(SELECT movie_id FROM genres_in_movies WHERE genres_in_movies.genre_id in "
 					+ "(SELECT id FROM genres WHERE genres.name LIKE '%" + aGenre + "%'))"
@@ -136,10 +136,14 @@ public class BrowseResultServlet extends HttpServlet {
 			st = conn.createStatement();
 			rs = st.executeQuery(sqlQuery);
 			while(rs.next()) {
-				List movies = new ArrayList();
-				movies.add(rs.getString(1));
-				movies.add(rs.getString(2));
-				list.add(movies);
+				Movies movie = new Movies( rs.getInt(1),
+						  rs.getString(2),
+						  rs.getInt(3),
+						  rs.getString(4),
+						  rs.getString(5),
+						  rs.getString(6),
+						  rs.getFloat(7));
+				movies.add(movie);
 			}
 		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -150,7 +154,7 @@ public class BrowseResultServlet extends HttpServlet {
 			DbUtils.closeQuietly(conn);
 		}
 
-		request.setAttribute("browseResult", list);
+		request.setAttribute("browseResult", movies);
 		request.setAttribute("type", browseType);
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/browseResultView.jsp");
