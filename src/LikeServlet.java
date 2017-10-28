@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -49,6 +50,7 @@ public class LikeServlet extends HttpServlet {
 		String password = "admin";
 		
 		String movieId = (String) request.getParameter("likeMovie");
+		String movieTitle = (String) request.getParameter("title");
 		System.out.println(movieId);
 		
 		Cookie[] cookies = request.getCookies();
@@ -69,6 +71,7 @@ public class LikeServlet extends HttpServlet {
 				}
 			}
 		}
+		response.sendRedirect("getMovie?selected=" + movieTitle + "&id=" + movieId);
 	}
 
 	/**
