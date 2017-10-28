@@ -138,6 +138,7 @@
 			  		<c:when test="${isLiked eq 'false'}">
 			  			<form method="get" action="${pageContext.request.contextPath}/like" >
 			    			<button  type="submit" class= "likeMovie" name = "likeMovie" value = "${requestedMovie.id}">Like Movie</button>
+			    			<input type="hidden" name="title" value="${requestedMovie.title}">
 			    		</form>
 			  		</c:when>
 				 	<c:otherwise>
