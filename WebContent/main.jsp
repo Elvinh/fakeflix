@@ -115,9 +115,6 @@
 			}
 		
 			%>
-		
-		
-	</div>
 	
 
 
@@ -156,7 +153,7 @@
 			<div id="list">
 					<c:forEach items="${moviesFromAStar}" var="movie">
 						<div id="item">
-							<a href="getMovie?selected=<c:out value="${movie.title}"/>&id=<c:out value="${movie.id}"/>"/>" >
+							<a href="getMovie?selected=<c:out value="${movie.title}"/>&id=<c:out value="${movie.id}"/>" >
 								<img src="<c:out value="${movie.banner_url}"/>"  WIDTH="200" HEIGHT="300" BORDER="0"/>
 							</a>
 						</div>
