@@ -40,7 +40,7 @@ public class BrowseResultServlet extends HttpServlet {
 		String orderBy = request.getParameter("orderBy");
 		String page = request.getParameter("page");
 		String gName = request.getParameter("genreName");
-		
+		String orderType = request.getParameter("orderType");
 		List<Movies> movies = new ArrayList<>();
 		
 		String sqlQuery = null;
@@ -51,22 +51,19 @@ public class BrowseResultServlet extends HttpServlet {
 		if(browseType == null) {
 			browseType = "title";
 		}
-		if(orderBy != null) {
-			session.setAttribute("orderType", orderBy);
+		if(orderType == null) {
+			orderType = "";
 		}
-		else{
-			orderBy = (String) session.getAttribute("orderType");
-			System.out.println(orderBy);
+		if(orderBy == null) {
+			orderBy = "year";
 		}
 		
-		int lower = (Integer.parseInt(page) - 1)  * 25;
-		int higher = Integer.parseInt(page) * 25;
-		String range = String.valueOf(lower) + ", "  + String.valueOf(higher);
-
-		//String sqlQuery = null;
+		int lower = (Integer.parseInt(page) - 1)  * 18;
+		int amnt = 18;
+		String range = String.valueOf(lower) + ", "  + String.valueOf(amnt);
 
 		if(browseType.equals("title")) {
-			sqlQuery = "SELECT * FROM movies ORDER BY " + orderBy + " LIMIT " + range;
+			sqlQuery = "SELECT * FROM movies ORDER BY " + orderBy + " " + orderType + " LIMIT " + range;
 		}
 		else if(browseType.equals("genre"))
 			sqlQuery = "SELECT name, id FROM genres";
@@ -156,7 +153,9 @@ public class BrowseResultServlet extends HttpServlet {
 
 		request.setAttribute("browseResult", movies);
 		request.setAttribute("type", browseType);
-		
+		request.setAttribute("page", page);
+		request.setAttribute("orderType", orderType);
+		request.setAttribute("orderBy", orderBy);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/browseResultView.jsp");
 		dispatcher.forward(request, response);
 	}
