@@ -210,6 +210,7 @@ font-family: 'Cinzel', serif;
 			<div class="dropdown-content">
 				<form method="get" action="${pageContext.request.contextPath}/browse" >
 		    		<button class="link" name="browseBy" value="title">By Title</button>
+		    		<input type="hidden" name="orderType" value="DESC">
 					<!--<button class="link" name="browseBy" value="genre">By Genre</button>-->
 				</form>
 			</div>
